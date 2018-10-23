@@ -5,4 +5,5 @@ public class FacultyStaff {
 	public FacultyStaff() {
 		
 	}
+	//constructor
 }
