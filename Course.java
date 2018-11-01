@@ -4,6 +4,7 @@ public class Course {
 	private String courseName;
 	private FacultyStaff coordinator;
 	private int maxEnrollment;
+	private StudentGrade[] studentGradeList;
 	
 
 	/**This method returns the courseCode as a String
