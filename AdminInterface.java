@@ -237,7 +237,7 @@ public class AdminInterface {
 				System.out.println("Enter Component name: ");
 				String title = sc.nextLine();
 	
-				System.out.println("Enter Component weightage for : " + title);
+				System.out.println("Enter Component weightage (%) for " + title + ": ");
 				int weightage = getChoice();
 				
 				assessment.add(new Component(title, weightage));
@@ -245,7 +245,13 @@ public class AdminInterface {
 				System.out.println("Add more components? (yes: 1/no: 0): ");
 				more = getChoice();
 			}
-		
+			if (!addsUp(assessment)) {
+				System.out.println("Component weightage does not add up to 100%. Please re-enter Course Assessment");
+				more = 1;
+				assessment.clear();
+			}
+			else 
+				break;
 		}
 		return assessment;
 	}
@@ -257,6 +263,7 @@ public class AdminInterface {
 			int total = 0;
 			for (Component item: assessment) {
 				total += item.getWeightage();
+				System.out.println(total);
 			}
 			if (total == 100)
 				return true;

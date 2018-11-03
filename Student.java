@@ -5,7 +5,7 @@ public class Student {
 	
 	private String studentName;
 	private String matricNo;
-	private HashMap<Semester, ArrayList<String>> candidature;
+	private HashMap<Semester, ArrayList<String>> candidature = new HashMap<>();
 	
 	public Student(String name, String matric) {
 		studentName = name;

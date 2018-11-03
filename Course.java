@@ -38,7 +38,7 @@ public class Course {
 			tutorialGroups = null;
 		else {
 			for (int i=0; i<tutorialCount; i++) 
-				tutorialGroups.add("Group " + i);
+				tutorialGroups.add("Group " + (i+1));
 		}
 	}
 	
