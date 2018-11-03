@@ -19,13 +19,13 @@ public class Course {
 	 * @param group
 	 * @param Type
 	 */
-	public Course (String Code, String Name, String coordinator_staff, ArrayList<String> group, LessonType Type) {
-		courseCode = Code;
-		courseName = Name;
-		coordinator = coordinator_staff;
-		tutorialGroup = group;
-		lessonType = Type;
-		maxEnrollment = 0;
+	public Course (String courseCode, String courseName, String coordinator, LessonType Type) {
+		this.courseCode = courseCode;
+		this.courseName = courseName;
+		this.coordinator = coordinator;
+//		this.tutorialGroup = group; TODO: add method to name tutorial groups if applicable
+		this.lessonType = Type;
+		this.maxEnrollment = 0;
 		
 	}
 	/**This method returns the courseCode as a String

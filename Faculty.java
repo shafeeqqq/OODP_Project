@@ -4,8 +4,25 @@ import java.util.HashMap;
 public class Faculty {	//need interface w university to add student and course
 	private ArrayList<Student> studentList;
 	private ArrayList<FacultyStaff> staffList;
+	public ArrayList<Student> getStudentList() {
+		return studentList;
+	}
+	
+	public ArrayList<String> getStaffNameList() {
+		ArrayList<String> staffNameList  = new ArrayList<>();
+		for (FacultyStaff staff : staffList) {
+			staffNameList.add(staff.getStaffName());
+		}
+		return staffNameList;
+	}
+	
+	public HashMap<Semester, ArrayList<Course>> getCourseListBySem() {
+		return courseListBySem;
+	}
+
 	private String facultyName;
 	private HashMap<Semester, ArrayList<Course>> courseListBySem;
+	
 	public Faculty(String name /*ArrayList<Student> studentList*/) {
 		facultyName = name;
 	}

@@ -49,6 +49,10 @@ public class AdminInterface {
 				break;
 				
 			case 3:
+				addFacultyStaff();
+				break;
+				
+			case 4:
 				addStudent();
 				break;
 			
@@ -58,53 +62,95 @@ public class AdminInterface {
 		}
 	}
 	
+	private void addFacultyStaff() {
+		String confirm = "y";	// add confirmation later
+		
+		ArrayList<String> facultyNameList = university.getFacultyNameList();
+		
+		System.out.println("Enter Staff Name:");
+		String staffName = sc.nextLine();
+		
+		System.out.println("Choose faculty:");
+		printArray(facultyNameList);
+		String facultyName = facultyNameList.get(sc.nextInt() - 1);
+		
+		university.addStaffToFaculty(facultyName, staffName);;
+		
+	}
+
 	private void addStudent() {
 		String confirm = "y";	// add confirmation later
 	
 		ArrayList<String> facultyNameList = university.getFacultyNameList();
-		printArray(facultyNameList);
 		
-		String facultyName = facultyNameList.get(sc.nextInt() - 1);
+		System.out.println("Enter Student Name:");
 		String studentName = sc.nextLine();
+		
+		System.out.println("Choose faculty:");
+		printArray(facultyNameList);
+		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
 	
 		university.addStudentToFaculty(facultyName, studentName);
 		
 	}
 
-	private void printFacultyNameList() {
-		
-		
-	}
 
 	private void addCourse() {
-		// TODO Auto-generated method stub
+		
+		ArrayList<String> facultyNameList = university.getFacultyNameList();
+		
+		
+		System.out.println("Choose faculty:");
+		printArray(facultyNameList);
+		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
+		
+		ArrayList<String> staffNameList = university.getFacultyByName(facultyName).getStaffNameList();
+		
+		System.out.println("Enter Course Code:");
+		String courseCode = sc.nextLine();
+		
+		System.out.println("Enter Course Name:");
+		String courseName = sc.nextLine();
+		
+		System.out.println("Choose Course Coordinator:");
+		printArray(staffNameList);
+		String staffName = staffNameList.get(sc.nextInt() - 1);	
+		
+		
+		university.addCourseToFaculty(facultyName, courseCode, courseName, staffName, group, lessontype);
 		
 	}
 
 	private void addFaculty() {
 		System.out.println("Enter new faculty name: ");
 		String facultyName = sc.nextLine();
-		
+
 		Faculty newFaculty = new Faculty (facultyName);
-		
 		university.addFaculty(newFaculty);
 		
+		System.out.println("New Faculty " + facultyName + " successfully added.");
+		
+		System.out.println("--- Faculty List ---");
+		printArray(university.getFacultyNameList());
+		System.out.println("-----------\n");
 	}
 
 
 
 	private void printArray(ArrayList<String> list) {
 		for (int i=0; i<list.size(); i++) 
-			System.out.println(i + ") " + list.get(i));
+			System.out.println(i+1 + ") " + list.get(i));
 		
 	}
 
 	private void printMenu() {
 		System.out.print(
-				  "1) Add Faculty\n"
+				  "--- ADMIN MENU ---\n"
+				+ "1) Add Faculty\n"
 				+ "2) Add Course\n"
-				+ "3) Add Student\n"
-				+ "4) Print Course Statistics\n"); 
+				+ "3) Add Faculty Staff\n"
+				+ "4) Add Student\n"
+				+ "5) Print Course Statistics\n"); 
 		
 	}
 	
@@ -117,6 +163,7 @@ public class AdminInterface {
 	
 	private int getChoice() {
 		int choice = sc.nextInt();
+		sc.nextLine();
 		return choice;
 	}
 	

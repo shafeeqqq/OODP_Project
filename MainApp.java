@@ -34,10 +34,8 @@ public class MainApp {
 			else {
 				StudentInterface si = new StudentInterface(currentFaculty, matricNo, university);
 				si.run();
-			}
-			
+			}	
 		}
-		
 		else {
 			AdminInterface ai = new AdminInterface(university);
 			ai.run();

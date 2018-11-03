@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class University {
 	private String name;
-	private ArrayList<Faculty> facultyList;
-	private ArrayList<Semester> semesterList;
+	private ArrayList<Faculty> facultyList = new ArrayList<>();
+	private ArrayList<Semester> semesterList = new ArrayList<>();
 	
-	private ArrayList<String> matricNoList;
-	private ArrayList<String> staffIDList;
+	private ArrayList<String> matricNoList = new ArrayList<>();
+	private ArrayList<String> staffIDList = new ArrayList<>();
 	
 	University(String universityName) {
 		this.name = universityName;
@@ -46,8 +46,13 @@ public class University {
 		faculty.addStudent(studentName, generateMatricNo());
 	}
 	
+	public void addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator_staff, ArrayList<String> group, LessonType lessontype) {
+		Faculty faculty = getFacultyByName(facultyName);
+//		faculty.addCourse(courseCode, courseName, coordinator, tutorialGroup, lessonType, sem);
+	}
 	
-	private Faculty getFacultyByName(String facultyName) {
+	
+	public Faculty getFacultyByName(String facultyName) {
 		for (Faculty faculty: facultyList) {
 			if (faculty.getFacultyName().equals(facultyName))
 				return faculty;
