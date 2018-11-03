@@ -56,7 +56,11 @@ public class AdminInterface {
 				addStudent();
 				break;
 			case 5:
-				return;
+				break;
+				
+			case 6:
+				run = 2;
+				break;
 			
 			default:
 				System.out.println("Invalid input");
@@ -173,7 +177,8 @@ public class AdminInterface {
 				+ "2) Add Course\n"
 				+ "3) Add Faculty Staff\n"
 				+ "4) Add Student\n"
-				+ "5) Print Course Statistics\n"); 
+				+ "5) Print Course Statistics\n"
+				+ "6) Exit interface."); 
 		
 	}
 	

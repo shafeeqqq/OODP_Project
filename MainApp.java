@@ -20,7 +20,9 @@ public class MainApp {
 			case 2:
 				launchInterface("student");
 				break;
-			}			
+			}
+			printMainMenu();
+			choice = getChoice();
 		}
 
 	}
