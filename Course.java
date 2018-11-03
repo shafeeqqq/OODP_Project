@@ -2,11 +2,14 @@
 public class Course {
 	private String courseCode;
 	private String courseName;
-	private FacultyStaff coordinator;
+	private String coordinator;
 	private int maxEnrollment;
-	private StudentGrade[] studentGradeList;
+	private StudentInfo[] studentInfoList;
+	private 
 	
-
+	public Course (String Code, String Name, String coordinator, String[] tutorialGroup, LessonType lessonType) {
+		
+	}
 	/**This method returns the courseCode as a String
 	 * @return courseCode
 	 */

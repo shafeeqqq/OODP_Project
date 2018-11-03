@@ -24,8 +24,8 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param tutorialGroup
 	 * @param LessonType
 	 */
-	public void addCourse(String courseCode, String courseName, FacultyStaff coordinator, String[] tutorialGroup, int LessonType) {
-		Course newCourse = new Course()
+	public void addCourse(String courseCode, String courseName, String coordinator, String[] tutorialGroup, LessonType lessonType) {
+		Course newCourse = new Course(courseCode, courseName, coordinator, tutorialGroup, lessonType);
 	}
 	
 	public void addStaff(String staffName,String staffID) {
