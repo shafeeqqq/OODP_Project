@@ -17,11 +17,11 @@ public class Student {
 	public String getStudentName() {
 		return studentName;	
 	}
-
 	public HashMap<Semester, ArrayList<String>> getCandidature() {
 		return candidature;
 	}
 
-	
-	
+	public void setCandidature(Semester sem, ArrayList<String> stringArr) {
+		this.candidature.put(sem, stringArr);
+	}
 }
