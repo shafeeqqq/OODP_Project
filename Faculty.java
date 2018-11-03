@@ -4,5 +4,4 @@ public class Faculty {
 	private FacultyStaff[] staffList;
 	private String facultyName;
 	private Course[] courseList;
-	private Workload workLoadBySemester;
 }
