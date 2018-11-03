@@ -18,11 +18,12 @@ public class MainApp {
 			
 		case 2:
 			launchInterface("student");
+			break;
 		}
 	}
 
 	private static void launchInterface(String type) {
-		if (type.equals("admin")) {
+		if (type.equals("student")) {
 			String matricNo = getMatricNo();
 			Faculty currentFaculty = university.getFacultyOfStudent(matricNo);
 			
@@ -31,8 +32,14 @@ public class MainApp {
 			
 			else {
 				StudentInterface si = new StudentInterface(currentFaculty, matricNo, university);
+				si.run();
 			}
 			
+		}
+		
+		else {
+			AdminInterface ai = new AdminInterface(university);
+			ai.run();
 		}
 		
 	}
@@ -48,14 +55,15 @@ public class MainApp {
 	}
 
 	private static int getChoice() {
+		System.out.println("Enter choice: ");
 		int choice = sc.nextInt();
 		return choice;
 	}
 
 	private static void printMainMenu() {
 		System.out.print(
-				  "1) admin"
-				+ "2) student"); 
+				  "1) admin\n"
+				+ "2) student\n"); 
 		
 	}
 
