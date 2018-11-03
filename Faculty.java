@@ -95,9 +95,22 @@ public class Faculty {	//need interface w university to add student and course
 			return studentList.get(index);
 	}
 	
-	
-	
-	
-	
-	
+	public String getTranscript(Student student) {
+		String temp = "Student Name: " + student.getStudentName() + 
+				"\nMatriculation Number: "+ student.getMatricNo() + "\n";
+		HashMap<Semester, ArrayList<String>> candidature = student.getCandidature();
+		for (Semester semester : candidature.keySet()) {
+			temp += semester.toString()+ "\n";
+			for (int i = 0; i< courseListBySem.get(semester).size();i++) {
+				Course currentCourse= courseListBySem.get(semester).get(i);
+				temp+= currentCourse.getCourseCode() + "\t"
+						+ currentCourse.getCourseName() + "\t"
+						+ currentCourse.getComponents()+ "\t"
+						;
+			}
+		}
+
+		return temp;
+		//print course, grade, weigtage and mark for each component
+	}	
 }

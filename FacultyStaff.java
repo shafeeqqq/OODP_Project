@@ -54,4 +54,5 @@ public class FacultyStaff {
 	public String getFacultyName() {
 		return facultyName;
 	}
+
 }

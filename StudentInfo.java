@@ -9,15 +9,15 @@ public class StudentInfo {
 	
 	
 	StudentInfo(String matricNo, String tutorialGroup) {
-		
+		this.matricNo = matricNo;
+		this.tutorialGroup = tutorialGroup;
 	}
-	
-	
+
 	public String getMatricNo() {
 		return matricNo;
 	}
-	public HashMap<String, Double> getMarks() {
-		return marks;
+	public Double getMarks(String title) {
+		return marks.get(title);
 	}
 	public String getTutorialGroup() {
 		return tutorialGroup;

@@ -17,13 +17,11 @@ public class Student {
 	public String getStudentName() {
 		return studentName;
 	}
-	public HashMap<Semester,ArrayList<String>> candidature(){
+
+	public HashMap<Semester, ArrayList<String>> getCandidature() {
 		return candidature;
 	}
-	public String getTranscript() {
-//		String transcript;
-		return ("transcript");
-	}
+
 	
 	
 }

@@ -6,7 +6,7 @@ public class Course {
 	private String courseName;
 	private String coordinator;
 	private int maxEnrollment;
-	private StudentInfo[] studentInfoList;
+	private ArrayList<StudentInfo> studentInfoList;
 	private ArrayList<String> tutorialGroup;
 	private ArrayList<Component> assessment;
 	private LessonType lessonType;
@@ -92,24 +92,41 @@ public class Course {
 	public void setAssessment(ArrayList<Component> assessment) {
 		this.assessment = assessment;
 	}
-	
+	/**
+	 * this method returns the remaining spaces available
+	 * @return
+	 */
 	public int getVacancy() {
 		int count = studentInfoList.length;
 		return (maxEnrollment - count);
 	}
-	
+	/**
+	 * @return lessonType
+	 */
 	public LessonType getLessonType() {
 		return lessonType;
 	}
+	/**
+	 * this method set the type of lesson
+	 * @param lessonType
+	 */
 	public void setLessonType(LessonType lessonType) {
 		this.lessonType = lessonType;
 	}
-	
+
 	public ArrayList<Component> getAssessment() {
 		return assessment;
 	}
 
 	public void setCoordinator(String coordinator) {
 		this.coordinator = coordinator;
+	}
+	
+	public String getComponents() {
+		String result="";
+		for(int i =0; i<assessment.size(); i++) {
+			result += assessment.get(i).getTitle() + "\t"+ assessment.get(i).getWeightage();
+		}
+		return result;
 	}
 }
