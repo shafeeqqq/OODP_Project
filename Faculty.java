@@ -42,6 +42,14 @@ public class Faculty {	//need interface w university to add student and course
 		FacultyStaff newStaff = new FacultyStaff(staffName, staffID);
 	}
 	
+	public ArrayList<Course> getCourseList(Semester semester) {
+		return courseListBySem.get(semester);
+	}
+	
+	public Course getCourse(Semester semester, String courseID) {
+		return courseList
+	}
+	
 	
 	
 	

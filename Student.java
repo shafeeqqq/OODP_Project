@@ -21,7 +21,8 @@ public class Student {
 		return candidature;
 	}
 	public String getTranscript() {
-		
+//		String transcript;
+		return ("transcript");
 	}
 	
 	
