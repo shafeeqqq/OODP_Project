@@ -11,16 +11,18 @@ public class MainApp {
 		
 		printMainMenu();
 		int choice = getChoice();
-		
-		switch(choice) {
-		case 1:
-			launchInterface("admin");
-			break;
-			
-		case 2:
-			launchInterface("student");
-			break;
+		while(choice != 6) {
+			switch(choice) {
+			case 1:
+				launchInterface("admin");
+				break;
+				
+			case 2:
+				launchInterface("student");
+				break;
+			}			
 		}
+
 	}
 
 	private static void launchInterface(String type) {
@@ -56,6 +58,7 @@ public class MainApp {
 	private static int getChoice() {
 		System.out.println("Enter choice: ");
 		int choice = sc.nextInt();
+		sc.nextLine();
 		return choice;
 	}
 

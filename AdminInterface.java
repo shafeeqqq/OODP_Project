@@ -55,6 +55,8 @@ public class AdminInterface {
 			case 4:
 				addStudent();
 				break;
+			case 5:
+				return;
 			
 			default:
 				System.out.println("Invalid input");
