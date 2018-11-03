@@ -24,12 +24,13 @@ public class MainApp {
 	private static void launchInterface(String type) {
 		if (type.equals("admin")) {
 			String matricNo = getMatricNo();
-			Student currentStudent = university.getStudent(matricNo);
+			Faculty currentFaculty = university.getFacultyOfStudent(matricNo);
 			
-			if (currentStudent == null) 
+			if (currentFaculty == null) 
 				System.out.println("Student not found");
+			
 			else {
-				
+				StudentInterface si = new StudentInterface(currentFaculty, matricNo, university);
 			}
 			
 		}

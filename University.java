@@ -37,23 +37,23 @@ public class University {
 	
 	
 	public void addStaffToFaculty(String facultyName, String staffName) {
-//		Faculty faculty = getFacultyByName(facultyName);
-//		faculty.addStaff(staffName, generateStaffID());
+		Faculty faculty = getFacultyByName(facultyName);
+		faculty.addStaff(staffName, generateStaffID());
 	}
 	
 	public void addStudentToFaculty(String facultyName, String studentName) {
-//		Faculty faculty = getFacultyByName(facultyName);
-//		faculty.addStudent(studentName, generateMatricNo());
+		Faculty faculty = getFacultyByName(facultyName);
+		faculty.addStudent(studentName, generateMatricNo());
 	}
 	
 	
-//	private Faculty getFacultyByName(String facultyName) {
-//		for (Faculty faculty: facultyList) {
-//			if (faculty.getFacultyName().equals(facultyName))
-//				return faculty;
-//		}
-//			return null;
-//	}
+	private Faculty getFacultyByName(String facultyName) {
+		for (Faculty faculty: facultyList) {
+			if (faculty.getFacultyName().equals(facultyName))
+				return faculty;
+		}
+			return null;
+	}
 
 
 	public String generateMatricNo() {
@@ -120,6 +120,15 @@ public class University {
 		
 		else 
 			return false;
+	}
+	
+
+
+	public Semester getCurrentSemester() {
+		if (semesterList.size() != 0)
+			return semesterList.get(semesterList.size()-1);
+		else 
+			return null;
 	}
 
 	

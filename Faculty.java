@@ -113,7 +113,8 @@ public class Faculty {	//need interface w university to add student and course
 		return temp;
 		//print course, grade, weigtage and mark for each component
 	}	
-	public ArrayList<String> getCourseNameList(Semester sem){
+	
+	public ArrayList<String> getCourseNameList(Semester sem) {
 		ArrayList<String> result = new ArrayList<>();
 		for(Course course: courseListBySem.get(sem)) {
 			result.add(course.getCourseName());
