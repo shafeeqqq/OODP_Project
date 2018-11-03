@@ -80,6 +80,16 @@ public class Faculty {	//need interface w university to add student and course
 		return courseListBySem.get(semester).get(index);
 	}
 	
+	public Student getStudent(String matricNo) {
+		int index=0;
+		for (int i = 0; i<studentList.size(); i++) {
+			if (studentList.get(i).getMatricNo() == matricNo) {
+				index = i;
+			}
+		}
+		return studentList.get(index);
+	}
+	
 	
 	
 	

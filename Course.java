@@ -34,73 +34,66 @@ public class Course {
 	public String getCourseCode() {
 		return courseCode;
 	}
-	
-	public String getCourseName() {
-		return courseName;
-	}
-	public StudentInfo[] getStudentInfoList() {
-		return studentInfoList;
-	}
-	/**This method returns the courseCode as a String
+	/**
+	 * 
 	 * @param code
 	 */
 	public void setCourseCode(String code) {
 		courseCode = code;
 	}
 	
-	/**
-	 * @return
-	 */
+	public String getCourseName() {
+		return courseName;
+	}
+	
 	public String getcourseName() {
 		return courseName;
 	}
 	
-	/**
-	 * @param name
-	 */
 	public void setCourseName(String name) {
 		courseName = name;
 	}
 	
-	/**
-	 * @return
-	 */
 	public int getMaxEnrollment() {
 		return maxEnrollment;
 	}
 	
-	/**
-	 * @param max
-	 */
 	public void setMaxEnrollment(int max) {
 		maxEnrollment = max;
 	}
 	
-	/**
-	 * @return
-	 */
+	public StudentInfo[] getStudentInfoList() {
+		return studentInfoList;
+	}
+
 	public String getCoordinator() {
 		return coordinator;
 	}
 	
-	/**
-	 * @param staff
-	 */
 	public void setCoordinator(FacultyStaff staff) {
 		coordinator=staff.getStaffID();
 	}
-	public ArrayList<Component> getAssessment() {
-		return assessment;
-	}
+	
 	public void setAssessment(ArrayList<Component> assessment) {
 		this.assessment = assessment;
 	}
+	
+	public int getVacancy() {
+		int count = studentInfoList.length;
+		return (maxEnrollment - count);
+	}
+	
 	public LessonType getLessonType() {
 		return lessonType;
 	}
 	public void setLessonType(LessonType lessonType) {
 		this.lessonType = lessonType;
 	}
+	
+	public ArrayList<Component> getAssessment() {
+		return assessment;
+	}
+
 	public void setCoordinator(String coordinator) {
 		this.coordinator = coordinator;
 	}
