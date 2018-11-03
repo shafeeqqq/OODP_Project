@@ -68,7 +68,7 @@ public class Course {
 		maxEnrollment = max;
 	}
 	
-	public StudentInfo[] getStudentInfoList() {
+	public ArrayList<StudentInfo> getStudentInfoList() {
 		return studentInfoList;
 	}
 	/**
@@ -97,7 +97,7 @@ public class Course {
 	 * @return
 	 */
 	public int getVacancy() {
-		int count = studentInfoList.length;
+		int count = studentInfoList.size();
 		return (maxEnrollment - count);
 	}
 	/**
@@ -122,10 +122,19 @@ public class Course {
 		this.coordinator = coordinator;
 	}
 	
-	public String getComponents() {
+	public String getComponentsWeightage(String matricNo) {
 		String result="";
-		for(int i =0; i<assessment.size(); i++) {
-			result += assessment.get(i).getTitle() + "\t"+ assessment.get(i).getWeightage();
+		String titleOfComponent;
+		for (int i =0 ;i < studentInfoList.size();i++) {
+			for(int j =0; j<assessment.size(); j++) {
+				titleOfComponent = assessment.get(j).getTitle();
+				result +=  titleOfComponent + "\t"+ 
+				assessment.get(j).getWeightage()+"\t"+ 
+				studentInfoList.get(i).getMarks(titleOfComponent)
+				+"\t Grade: ";
+				
+			}
+			result += "\n";
 		}
 		return result;
 	}

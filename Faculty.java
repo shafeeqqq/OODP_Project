@@ -105,12 +105,19 @@ public class Faculty {	//need interface w university to add student and course
 				Course currentCourse= courseListBySem.get(semester).get(i);
 				temp+= currentCourse.getCourseCode() + "\t"
 						+ currentCourse.getCourseName() + "\t"
-						+ currentCourse.getComponents()+ "\t"
-						;
+						+ currentCourse.getComponentsWeightage(student.getMatricNo())
+						+"\n";
 			}
 		}
 
 		return temp;
 		//print course, grade, weigtage and mark for each component
 	}	
+	public ArrayList<String> getCourseNameList(Semester sem){
+		ArrayList<String> result = new ArrayList<>();
+		for(Course course: courseListBySem.get(sem)) {
+			result.add(course.getCourseName());
+		}
+		return result;
+	}
 }
