@@ -96,11 +96,9 @@ public class University {
 		
 		if (staffIDList.isEmpty()) {
 			num = base;
-			System.out.println("enter 3" );
 		}
 		else {
 			num = getLast(1);	// type=1 for staff
-			System.out.println("enter 2" );
 		}
 		
 		String newStaffID = "F" + num;
@@ -125,7 +123,9 @@ public class University {
 		else if (type ==1) {
 			System.out.println("enter" );
 			int lastIndex = staffIDList.size()-1;
-			num = Integer.parseInt(staffIDList.get(lastIndex).substring(1, lastIndex ));	
+			System.out.println("last index " + lastIndex );
+			String ID = staffIDList.get(lastIndex);
+			num = Integer.parseInt(ID.substring(1, ID.length()));	
 		}
 		return num + 1;
 	}

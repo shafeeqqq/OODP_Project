@@ -55,6 +55,7 @@ public class AdminInterface {
 			case 4:
 				addStudent();
 				break;
+				
 			case 5:
 				break;
 				
@@ -126,13 +127,20 @@ public class AdminInterface {
 		
 		System.out.println("Choose Course Coordinator:");
 		printArray(staffNameList);
-		String staffName = staffNameList.get(getChoice() - 1);	
+		String staffID = getStaffID(staffNameList.get(getChoice() - 1));	// coordinator
 		
 		System.out.println("Choose Lesson Type:");
 		LessonType.printLessonTypes();
 		LessonType lessonType = getLessonType();
 		
-		university.addCourseToFaculty(facultyName, courseCode, courseName, staffName, lessonType, university.getCurrentSemester());
+		university.addCourseToFaculty(facultyName, courseCode, courseName, staffID, lessonType, university.getCurrentSemester());
+		
+	}
+
+	private String getStaffID(String string) {
+		int index = string.indexOf('\t');
+		String res = string.substring(0, index);
+		return string.substring(0, index);
 		
 	}
 
@@ -184,7 +192,7 @@ public class AdminInterface {
 				+ "3) Add Faculty Staff\n"
 				+ "4) Add Student\n"
 				+ "5) Print Course Statistics\n"
-				+ "6) Exit interface."); 
+				+ "6) Exit interface.\n"); 
 		
 	}
 	
