@@ -79,7 +79,7 @@ public class Course {
 	/**
 	 * @return
 	 */
-	public FacultyStaff getCoordinator() {
+	public String getCoordinator() {
 		return coordinator;
 	}
 	
@@ -87,6 +87,21 @@ public class Course {
 	 * @param staff
 	 */
 	public void setCoordinator(FacultyStaff staff) {
-		coordinator = staff;
+		coordinator=staff.getStaffID();
+	}
+	public ArrayList<Component> getAssessment() {
+		return assessment;
+	}
+	public void setAssessment(ArrayList<Component> assessment) {
+		this.assessment = assessment;
+	}
+	public LessonType getLessonType() {
+		return lessonType;
+	}
+	public void setLessonType(LessonType lessonType) {
+		this.lessonType = lessonType;
+	}
+	public void setCoordinator(String coordinator) {
+		this.coordinator = coordinator;
 	}
 }
