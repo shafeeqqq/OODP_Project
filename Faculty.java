@@ -14,10 +14,10 @@ public class Faculty {	//need interface w university to add student and course
 	}
 
 
-
 	public ArrayList<Student> getStudentList() {
 		return studentList;
 	}
+	
 	
 	public ArrayList<String> getStaffNameList() {
 		ArrayList<String> staffNameList  = new ArrayList<>();
@@ -26,6 +26,7 @@ public class Faculty {	//need interface w university to add student and course
 		}
 		return staffNameList;
 	}
+	
 	
 	public HashMap<Semester, ArrayList<Course>> getCourseListBySem() {
 		return courseListBySem;
@@ -43,6 +44,8 @@ public class Faculty {	//need interface w university to add student and course
 		studentList.add(newStudent);
 		return newStudent;
 	}
+	
+	
 	/**
 	 * this method adds a course to the faculty, starting with all the parameters as passed and
 	 * the rest is instantiated to default values
@@ -52,8 +55,8 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param tutorialGroup
 	 * @param LessonType
 	 */
-	public Course addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType, Semester sem) {
-		Course newCourse = new Course(courseCode, courseName, coordinator, lessonType);
+	public Course addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType, Semester sem, ArrayList<Component> assessment) {
+		Course newCourse = new Course(courseCode, courseName, coordinator, lessonType, assessment);
 		courseListBySem.get(sem).add(newCourse);
 		return newCourse;
 	}
@@ -137,7 +140,7 @@ public class Faculty {	//need interface w university to add student and course
 		}
 
 		return temp;
-		//print course, grade, weigtage and mark for each component
+		//print course, grade, weightage and mark for each component
 	}	
 	
 	public ArrayList<String> getCourseNameList(Semester sem) {
