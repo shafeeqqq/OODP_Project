@@ -89,8 +89,11 @@ public class University {
 		
 		String newMatricNo = "S" + num;
 		
-		if (!matricNoList.contains(newMatricNo))
-			return newMatricNo;
+		if (!matricNoList.contains(newMatricNo)) {
+			matricNoList.add(newMatricNo);
+			return newMatricNo;			
+		}
+
 		else
 			return "Error generating Matric No";
 	}
@@ -147,8 +150,10 @@ public class University {
 	}
 	
 	public boolean isValidMatricNo(String matricNo) {
-		if (matricNoList.contains(matricNo))
+		if (matricNoList.contains(matricNo)) {
 			return true;
+		}
+
 		
 		else 
 			return false;

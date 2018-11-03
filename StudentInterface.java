@@ -85,7 +85,7 @@ public class StudentInterface {
 			
 			printArray(courseNameList);
 			courseChoice = getChoice();
-			unregisterForCourse(courseNameList.get(courseChoice));	
+			unregisterForCourse(courseNameList.get(courseChoice-1));	
 		}
 		
 	}
@@ -135,7 +135,7 @@ public class StudentInterface {
 	 */
 	private void printArray(ArrayList<String> list) {
 		for (int i=0; i<list.size(); i++) 
-			System.out.println(i + ") " + list.get(i));
+			System.out.println((i+1) + ") " + list.get(i));
 		
 	}
 	/**
@@ -144,7 +144,7 @@ public class StudentInterface {
 	private void printMenu() {
 		System.out.print(
 				  "1) Course registration/deregistration\n"
-				+ "2) Print Transcript"); 
+				+ "2) Print Transcript\n"); 
 		
 	}
 	/**
@@ -154,7 +154,7 @@ public class StudentInterface {
 		System.out.print(
 				  "1) Courses from my Faculty\n"
 				+ "2) Courses from other Faculty\n"
-				+ "3) Unregister from a course."); 
+				+ "3) Unregister from a course\n"); 
 	}
 	/**
 	 * this method prints the transcript of the current logged in student
@@ -169,6 +169,7 @@ public class StudentInterface {
 	 */
 	private int getChoice() {
 		int choice = sc.nextInt();
+		sc.nextLine();
 		return choice;
 	}
 }

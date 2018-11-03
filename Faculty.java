@@ -112,18 +112,13 @@ public class Faculty {	//need interface w university to add student and course
 	}
 	
 	public Student getStudent(String matricNo) {
-		int index=0;
-		for (int i = 0; i<studentList.size(); i++) {
-			if (studentList.get(i).getMatricNo() == matricNo) {
-				index = i;
+		for (Student student: studentList) {
+			if (student.getMatricNo().equals(matricNo)) {
+				System.out.println("found student");
+				return student;
 			}
 		}
-		
-		if(index ==0) {
-			return null;
-		}
-		else
-			return studentList.get(index);
+		return null;
 	}
 	
 	public String getTranscript(Student student) {
