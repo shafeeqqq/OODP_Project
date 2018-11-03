@@ -80,7 +80,13 @@ public class AdminInterface {
 		printArray(facultyNameList);
 		String facultyName = facultyNameList.get(sc.nextInt() - 1);
 		
-		university.addStaffToFaculty(facultyName, staffName);;
+		university.addStaffToFaculty(facultyName, staffName);
+		
+		// success message
+		System.out.println("New Faculty Staff " + staffName + " successfully added.");
+		System.out.println("--- Faculty Staff List ---");
+		printArray(university.getFacultyByName(facultyName).getStaffNameList());
+		System.out.println("-----------\n");
 		
 	}
 

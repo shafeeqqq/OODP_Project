@@ -35,6 +35,7 @@ public enum LessonType {
 			System.out.println("Lectures: " + type.getLectureCount());
 			System.out.println("Tutorials: " + type.getTutorialCount());
 			System.out.println("Labs: " + type.getLabCount());
+			System.out.println();
 		}
 	}
 

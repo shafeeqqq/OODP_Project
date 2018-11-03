@@ -22,7 +22,7 @@ public class Faculty {	//need interface w university to add student and course
 	public ArrayList<String> getStaffNameList() {
 		ArrayList<String> staffNameList  = new ArrayList<>();
 		for (FacultyStaff staff : staffList) {
-			staffNameList.add(staff.getStaffName());
+			staffNameList.add(staff.getStaffID() + "\t" + staff.getStaffName());
 		}
 		return staffNameList;
 	}
@@ -73,7 +73,7 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param staffName
 	 * @param staffID
 	 */
-	public void addStaff(String staffName,String staffID) {
+	public void addStaff(String staffName, String staffID) {
 		FacultyStaff newStaff = new FacultyStaff(staffName, staffID);
 		staffList.add(newStaff);
 	}
