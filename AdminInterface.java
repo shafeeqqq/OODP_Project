@@ -148,8 +148,10 @@ public class AdminInterface {
 		LessonType.printLessonTypes();
 		LessonType lessonType = getLessonType();
 		
+		ArrayList<Component> assessment = getAssessmentInput();
+		
 		Course newCourse = university.addCourseToFaculty(facultyName, courseCode, courseName, 
-				staffID, lessonType, university.getCurrentSemester());
+				staffID, lessonType, assessment, university.getCurrentSemester());
 		
 		System.out.println("New Course successfully added.");
 		System.out.println("--- Details of newly added course:---");
@@ -224,12 +226,40 @@ public class AdminInterface {
 		return choice;
 	}
 	
-	private void initialiseAssessment() {
+	private ArrayList<Component> getAssessmentInput() {
+		ArrayList<Component> assessment = new ArrayList<>();
 		int more = 1;
-		while (more == 1) {
-			
-		}
+		System.out.println("Enter Course Assessment: ");
 		
+		while (!addsUp(assessment)) {
+			while (more == 1) {
+				System.out.println("Enter Component name: ");
+				String title = sc.nextLine();
+	
+				System.out.println("Enter Component weightage for : " + title);
+				int weightage = getChoice();
+				
+				assessment.add(new Component(title, weightage));
+				
+				System.out.println("Add more components? (yes: 1/no: 0): ");
+				more = getChoice();
+			}
+		
+		}
+		return assessment;
+	}
+
+	private boolean addsUp(ArrayList<Component> assessment) {
+		if (assessment.isEmpty())
+			return false;
+		else {
+			int total = 0;
+			for (Component item: assessment) {
+				total += item.getWeightage();
+			}
+			if (total == 100)
+				return true;
+		}
 	}
 	
 }
