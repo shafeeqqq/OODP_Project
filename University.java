@@ -103,6 +103,24 @@ public class University {
 		}
 		return num + 1;
 	}
+	
+	public Faculty getFacultyOfStudent(String matricNo) {
+		Student currentStudent;
+		for (Faculty faculty: facultyList) {
+			currentStudent = faculty.getStudent(matricNo);
+			if ( currentStudent != null)
+				return faculty;
+		}
+		return null;
+	}
+	
+	public boolean isValidMatricNo(String matricNo) {
+		if (matricNoList.contains(matricNo))
+			return true;
+		
+		else 
+			return false;
+	}
 
 	
 	
