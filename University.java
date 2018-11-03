@@ -19,6 +19,7 @@ public class University {
 	}
 	
 	public ArrayList<String> getFacultyNameList() {
+		
 	}
 	
 	

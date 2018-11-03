@@ -26,7 +26,7 @@ public class Faculty {	//need interface w university to add student and course
 	 */
 	public void addCourse(String courseCode, String courseName, String coordinator, ArrayList<String> tutorialGroup, LessonType lessonType,Semester sem) {
 		Course newCourse = new Course(courseCode, courseName, coordinator, tutorialGroup, lessonType);
-		courseListBySem.
+		courseListBySem.get(sem).add(newCourse);
 	}
 	
 	public void setFacultyName(String facultyName) {
