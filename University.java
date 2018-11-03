@@ -73,13 +73,13 @@ public class University {
 
 
 	public String generateMatricNo() {
-		int base = 100000;
+		int base = 100001;
 		int num;
 		
 		if (matricNoList.isEmpty())
 			num = base;
 		else 
-			num = getLast(0);	// type=0 for student
+			num = getLast(0) + 1;	// type=0 for student
 		
 		String newMatricNo = "S" + num;
 		
@@ -91,22 +91,31 @@ public class University {
 	
 
 	public String generateStaffID() {
-		int base = 100000;
+		int base = 100001;
 		int num;
 		
-		if (staffIDList.isEmpty())
+		if (staffIDList.isEmpty()) {
 			num = base;
-		else 
+			System.out.println("enter 3" );
+		}
+		else {
 			num = getLast(1);	// type=1 for staff
+			System.out.println("enter 2" );
+		}
 		
 		String newStaffID = "F" + num;
-		if (!staffIDList.contains(newStaffID))
+		if (!staffIDList.contains(newStaffID)){
+			staffIDList.add(newStaffID);
+			System.out.println("jlkasfjd" + staffIDList.size());
 			return newStaffID;
+			
+		}
 		else
 			return "Error generating staffID";
 	}
 	
 	private int getLast(int type) {
+		System.out.println("enter 2" );
 		int num = -100;
 		if (type == 0) {
 			int lastIndex = matricNoList.size()-1;
@@ -114,8 +123,9 @@ public class University {
 		}
 		
 		else if (type ==1) {
+			System.out.println("enter" );
 			int lastIndex = staffIDList.size()-1;
-			num = Integer.parseInt(staffIDList.get(lastIndex).substring(1, lastIndex +1));	
+			num = Integer.parseInt(staffIDList.get(lastIndex).substring(1, lastIndex ));	
 		}
 		return num + 1;
 	}

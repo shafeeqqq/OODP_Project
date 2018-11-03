@@ -15,9 +15,9 @@ public class FacultyStaff {
 	 * @param id, name
 	 * Instantiate staffID and staffName
 	 */
-	public FacultyStaff(String id, String name) {
-		staffID = id;
-		staffName = name;
+	public FacultyStaff(String staffName, String staffID) {
+		this.staffName = staffName;
+		this.staffID = staffID;
 	}
 	/**This method sets the coordinator status for current staff for the course with code passed as parameter
 	 * 
@@ -32,10 +32,6 @@ public class FacultyStaff {
 	 */
 	public void addCourse(String courseCode) {
 		courseList.add(courseCode);
-	}
-	
-	public void addStudent(String courseCode, Student stud) {
-		
 	}
 	
 	/**
