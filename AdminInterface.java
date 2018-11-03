@@ -259,6 +259,8 @@ public class AdminInterface {
 			}
 			if (total == 100)
 				return true;
+			else 
+				return false;
 		}
 	}
 	
