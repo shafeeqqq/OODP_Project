@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Faculty {	//need interface w university to add student and course
-	private ArrayList<Student> studentList;
-	private ArrayList<FacultyStaff> staffList;
+	private ArrayList<Student> studentList = new ArrayList<>();
+	private ArrayList<FacultyStaff> staffList = new ArrayList<>();
 	private String facultyName;
-	private HashMap<Semester, ArrayList<Course>> courseListBySem;
+	private HashMap<Semester, ArrayList<Course>> courseListBySem = new HashMap<>();
 	
 
 	public Faculty(String facultyName, Semester semester) { /*ArrayList<Student> studentList*/
