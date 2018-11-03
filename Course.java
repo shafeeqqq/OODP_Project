@@ -35,29 +35,35 @@ public class Course {
 		return courseCode;
 	}
 	/**
-	 * 
+	 * This method sets the course code to the parameter given
 	 * @param code
 	 */
 	public void setCourseCode(String code) {
 		courseCode = code;
 	}
-	
+	/**
+	 * @return courseName
+	 */
 	public String getCourseName() {
 		return courseName;
 	}
-	
-	public String getcourseName() {
-		return courseName;
-	}
-	
+	/**
+	 * this method set the courseName according to the parameters
+	 * @param name
+	 */
 	public void setCourseName(String name) {
 		courseName = name;
 	}
-	
+	/**
+	 * @return maxEnrollment
+	 */
 	public int getMaxEnrollment() {
 		return maxEnrollment;
 	}
-	
+	/**
+	 * this method sets the max enrollment to the parameter given
+	 * @param max
+	 */
 	public void setMaxEnrollment(int max) {
 		maxEnrollment = max;
 	}
@@ -65,15 +71,24 @@ public class Course {
 	public StudentInfo[] getStudentInfoList() {
 		return studentInfoList;
 	}
-
+	/**
+	 * this method returns the coordinator
+	 * @return
+	 */
 	public String getCoordinator() {
 		return coordinator;
 	}
-	
+	/**
+	 * this method set the coordinator to the parameter
+	 * @param staff
+	 */
 	public void setCoordinator(FacultyStaff staff) {
 		coordinator=staff.getStaffID();
 	}
-	
+	/**
+	 * this method set the type of assessment
+	 * @param assessment
+	 */
 	public void setAssessment(ArrayList<Component> assessment) {
 		this.assessment = assessment;
 	}
