@@ -102,7 +102,7 @@ public class AdminInterface {
 		
 		System.out.println("Choose faculty:");
 		printArray(facultyNameList);
-		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
+		String facultyName = facultyNameList.get(getChoice() - 1);	
 		
 		ArrayList<String> staffNameList = university.getFacultyByName(facultyName).getStaffNameList();
 		
@@ -114,14 +114,34 @@ public class AdminInterface {
 		
 		System.out.println("Choose Course Coordinator:");
 		printArray(staffNameList);
-		String staffName = staffNameList.get(sc.nextInt() - 1);	
+		String staffName = staffNameList.get(getChoice() - 1);	
 		
 		System.out.println("Choose Lesson Type:");
-		printArray(staffNameList);
-		LessonType lessontype = LessonType.TYPE_A;	
+		LessonType.printLessonTypes();
+		LessonType lessonType = getLessonType();
 		
-		university.addCourseToFaculty(facultyName, courseCode, courseName, staffName, lessontype);
+		university.addCourseToFaculty(facultyName, courseCode, courseName, staffName, lessonType, university.getCurrentSemester());
 		
+	}
+
+	private LessonType getLessonType() {
+		System.out.println("Enter Lesson Type (e.g. 'A'): ");
+		char type = sc.nextLine().charAt(0);
+		
+		switch(type) {
+		case 'A':
+			return LessonType.TYPE_A;
+			
+		case 'B':
+			return LessonType.TYPE_B;
+			
+		case 'C':
+			return LessonType.TYPE_C;
+			
+		default:
+			return LessonType.TYPE_A;
+			
+		}
 	}
 
 	private void addFaculty() {

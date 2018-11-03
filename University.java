@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class University {
 	private String name;
@@ -16,7 +17,8 @@ public class University {
 	
 	
 	private void initialiseSemesterList() {
-		Semester sem = new Semester(Calendar.YEAR, 1);
+		int year =  Calendar.getInstance().get(Calendar.YEAR);
+		Semester sem = new Semester(year, 1);
 		semesterList.add(sem);
 	}
 
@@ -54,10 +56,10 @@ public class University {
 		faculty.addStudent(studentName, generateMatricNo());
 	}
 	
-	public void addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator, LessonType lessontype) {
+	public void addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator, LessonType lessonType, Semester semester) {
 		Faculty faculty = getFacultyByName(facultyName);
 		
-		faculty.addCourse(courseCode, courseName, coordinator, lessonType, sem);
+		faculty.addCourse(courseCode, courseName, coordinator, lessonType, semester);
 	}
 	
 	

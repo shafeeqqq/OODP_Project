@@ -25,6 +25,18 @@ public enum LessonType {
 	public int getLabCount() {
 		return labCount;
 	}
-	
+
+	public static void printLessonTypes() {
+		// TODO Auto-generated method stub
+
+		int i = 1;
+		for (LessonType type: LessonType.values()) {
+			System.out.println(i++ + ") " + type.toString());
+			System.out.println("Lectures: " + type.getLectureCount());
+			System.out.println("Tutorials: " + type.getTutorialCount());
+			System.out.println("Labs: " + type.getLabCount());
+		}
+	}
+
 
 }
