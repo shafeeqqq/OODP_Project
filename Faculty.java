@@ -45,17 +45,29 @@ public class Faculty {	//need interface w university to add student and course
 	public String getFacultyName() {
 		return facultyName;
 	}
-	public void setCourseListBySem(HashMap<Semester, ArrayList<Course>> courseListBySem) {
-		this.courseListBySem = courseListBySem;
-	}
+	/**
+	 * This method adds a staff object to the list of staff object by intializing one with the given parameters
+	 * @param staffName
+	 * @param staffID
+	 */
 	public void addStaff(String staffName,String staffID) {
 		FacultyStaff newStaff = new FacultyStaff(staffName, staffID);
+		staffList.add(newStaff);
 	}
-	
+	/**
+	 * This method returns the course list by semester
+	 * @param semester
+	 * @return
+	 */
 	public ArrayList<Course> getCourseList(Semester semester) {
 		return courseListBySem.get(semester);
 	}
-	
+	/**
+	 * This method returns the specific course object by semester and course ID
+	 * @param semester
+	 * @param courseID
+	 * @return
+	 */
 	public Course getCourse(Semester semester, String courseID) {
 		ArrayList<Course> copy =  courseListBySem.get(semester);
 		int index=0;
@@ -66,6 +78,21 @@ public class Faculty {	//need interface w university to add student and course
 			}
 		}
 		return courseListBySem.get(semester).get(index);
+	}
+	
+	public Student getStudent(String matricNo) {
+		int index=0;
+		for (int i = 0; i<studentList.size(); i++) {
+			if (studentList.get(i).getMatricNo() == matricNo) {
+				index = i;
+			}
+		}
+		
+		if(index ==0) {
+			return null;
+		}
+		else
+			return studentList.get(index);
 	}
 	
 	
