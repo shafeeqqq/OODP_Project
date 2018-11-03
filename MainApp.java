@@ -24,7 +24,13 @@ public class MainApp {
 	private static void launchInterface(String type) {
 		if (type.equals("admin")) {
 			String matricNo = getMatricNo();
+			Student currentStudent = university.getStudent(matricNo);
 			
+			if (currentStudent == null) 
+				System.out.println("Student not found");
+			else {
+				
+			}
 			
 		}
 		
@@ -32,10 +38,12 @@ public class MainApp {
 
 	private static String getMatricNo() {
 		System.out.println("Enter matric No: ");
-		
 		String matricNo = sc.nextLine();
-		while (university.)
-		return null;
+		while(!university.isValidMatricNo(matricNo)) {
+			System.out.println("Please enter a valid matric No: ");
+			matricNo = sc.nextLine();
+		}
+		return matricNo;
 	}
 
 	private static int getChoice() {
