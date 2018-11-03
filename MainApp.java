@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class MainApp {
 
+	
 	public static University university;
 	static Scanner sc = new Scanner(System.in);
 	

@@ -15,7 +15,7 @@ public class Student {
 	}
 	
 	public String getStudentName() {
-		return studentName;
+		return studentName;	
 	}
 
 	public HashMap<Semester, ArrayList<String>> getCandidature() {
