@@ -7,7 +7,8 @@ public class StudentInfo {
 	private HashMap<String, Double> marks;	// component title : marks
 	private String tutorialGroup;
 	
-	
+	StudentInfo(){
+	}
 	StudentInfo(String matricNo, String tutorialGroup) {
 		this.matricNo = matricNo;
 		this.tutorialGroup = tutorialGroup;

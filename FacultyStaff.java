@@ -34,6 +34,10 @@ public class FacultyStaff {
 		courseList.add(courseCode);
 	}
 	
+	public void addStudent(String courseCode, Student stud) {
+		
+	}
+	
 	/**
 	 * @return staffID
 	 */
