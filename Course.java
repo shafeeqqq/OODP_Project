@@ -153,4 +153,12 @@ public class Course {
 		}
 		return result;
 	}
+	public void printDetails() {
+		System.out.print(
+				"Course Code: " + courseCode + "\n"
+			  + "Course Name: " + courseName + "\n"
+			  + "Coordinator: " + coordinator + "\n"
+			  + "Lesson Type: " + lessonType.toString() + "\n"
+			  + "Assessment: " + "TODO" + "\n");
+	}
 }

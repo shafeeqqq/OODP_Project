@@ -21,6 +21,12 @@ public class Student {
 	public HashMap<Semester, ArrayList<String>> getCandidature() {
 		return candidature;
 	}
+	
+	public void printDetails() {
+		System.out.print(
+				"Name: " + studentName + "\n"
+			  + "Matriculation No.: " + matricNo + "\n");
+	}
 
 	
 	

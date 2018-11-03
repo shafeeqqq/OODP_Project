@@ -89,6 +89,7 @@ public class AdminInterface {
 		printArray(university.getFacultyByName(facultyName).getStaffNameList());
 		System.out.println("-----------\n");
 		
+		
 	}
 
 	private void addStudent() {
@@ -103,7 +104,14 @@ public class AdminInterface {
 		printArray(facultyNameList);
 		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
 	
-		university.addStudentToFaculty(facultyName, studentName);
+		Student newStudent = university.addStudentToFaculty(facultyName, studentName);
+		
+		System.out.println("New student successfully added.");
+		System.out.println("--- Details of new student:---");
+		newStudent.printDetails();
+		System.out.println("-----------\n");
+		
+
 		
 	}
 
@@ -133,7 +141,14 @@ public class AdminInterface {
 		LessonType.printLessonTypes();
 		LessonType lessonType = getLessonType();
 		
-		university.addCourseToFaculty(facultyName, courseCode, courseName, staffID, lessonType, university.getCurrentSemester());
+		Course newCourse = university.addCourseToFaculty(facultyName, courseCode, courseName, 
+				staffID, lessonType, university.getCurrentSemester());
+		
+		System.out.println("New Course successfully added.");
+		System.out.println("--- Details of newly added course:---");
+		newCourse.printDetails();
+		System.out.println("-----------\n");
+		
 		
 	}
 
@@ -192,16 +207,9 @@ public class AdminInterface {
 				+ "3) Add Faculty Staff\n"
 				+ "4) Add Student\n"
 				+ "5) Print Course Statistics\n"
-				+ "6) Exit interface.\n"); 
+				+ "6) Exit interface\n"); 
 		
 	}
-	
-	private void printCourseRegMenu() {
-		System.out.print(
-				  "1) Courses from my Faculty\n"
-				+ "2) Courses from other Faculty" ); 
-	}
-
 	
 	private int getChoice() {
 		int choice = sc.nextInt();

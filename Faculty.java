@@ -36,10 +36,12 @@ public class Faculty {	//need interface w university to add student and course
 	 * this method adds a new student to the student list inside the Faculty object
 	 * @param studentname
 	 * @param matricNo
+	 * @return 
 	 */
-	public void addStudent(String studentname,String matricNo) {
+	public Student addStudent(String studentname,String matricNo) {
 		Student newStudent = new Student(studentname, matricNo);
 		studentList.add(newStudent);
+		return newStudent;
 	}
 	/**
 	 * this method adds a course to the faculty, starting with all the parameters as passed and
@@ -50,9 +52,10 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param tutorialGroup
 	 * @param LessonType
 	 */
-	public void addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType, Semester sem) {
+	public Course addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType, Semester sem) {
 		Course newCourse = new Course(courseCode, courseName, coordinator, lessonType);
 		courseListBySem.get(sem).add(newCourse);
+		return newCourse;
 	}
 	/**
 	 * This method changes the name of the current faculty to the parameter passed

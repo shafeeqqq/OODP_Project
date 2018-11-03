@@ -51,15 +51,18 @@ public class University {
 		faculty.addStaff(staffName, generateStaffID());
 	}
 	
-	public void addStudentToFaculty(String facultyName, String studentName) {
+	public Student addStudentToFaculty(String facultyName, String studentName) {
 		Faculty faculty = getFacultyByName(facultyName);
-		faculty.addStudent(studentName, generateMatricNo());
+		Student newStudent = faculty.addStudent(studentName, generateMatricNo());
+		return newStudent;
 	}
 	
-	public void addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator, LessonType lessonType, Semester semester) {
+	public Course addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator, LessonType lessonType, Semester semester) {
 		Faculty faculty = getFacultyByName(facultyName);
 		
-		faculty.addCourse(courseCode, courseName, coordinator, lessonType, semester);
+		Course newCourse = faculty.addCourse(courseCode, courseName, coordinator, lessonType, semester);
+		
+		return newCourse;
 	}
 	
 	
