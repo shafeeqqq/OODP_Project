@@ -125,15 +125,28 @@ public class Course {
 	public String getComponentsWeightage(String matricNo) {
 		String result="";
 		String titleOfComponent;
+		char grade;
+		Double overallMarks=0.0;
 		for (int i =0 ;i < studentInfoList.size();i++) {
+			overallMarks=0.0;
 			for(int j =0; j<assessment.size(); j++) {
 				titleOfComponent = assessment.get(j).getTitle();
 				result +=  titleOfComponent + "\t"+ 
 				assessment.get(j).getWeightage()+"\t"+ 
 				studentInfoList.get(i).getMarks(titleOfComponent)
 				+"\t Grade: ";
-				
+				overallMarks += assessment.get(j).getWeightage()*
+						studentInfoList.get(i).getMarks(titleOfComponent)/100;
 			}
+			if(overallMarks >= 70) 
+				grade = 'A';
+			else if (overallMarks >= 60)
+				grade = 'B';
+			else if (overallMarks >= 50)
+				grade = 'C';
+			else
+				grade = 'F';
+			result += "Grade: "+ grade;
 			result += "\n";
 		}
 		return result;
