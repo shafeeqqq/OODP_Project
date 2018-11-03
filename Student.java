@@ -20,6 +20,12 @@ public class Student {
 	public HashMap<Semester, ArrayList<String>> getCandidature() {
 		return candidature;
 	}
+	public void printCandidature() {
+		for (Semester sem : candidature.keySet()) {
+			System.out.println(sem.getYear() + " "+ );
+			System.out.println(candidature.get(sem));
+		}
+	}
 
 	public void setCandidature(Semester sem, ArrayList<String> stringArr) {
 		this.candidature.put(sem, stringArr);
