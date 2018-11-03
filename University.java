@@ -57,11 +57,11 @@ public class University {
 		return newStudent;
 	}
 	
-	public Course addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator, LessonType lessonType, Semester semester) {
+	public Course addCourseToFaculty(String facultyName, String courseCode, String courseName,
+			String coordinator, LessonType lessonType, ArrayList<Component> assessment, Semester semester) {
+		
 		Faculty faculty = getFacultyByName(facultyName);
-		
-		Course newCourse = faculty.addCourse(courseCode, courseName, coordinator, lessonType, semester);
-		
+		Course newCourse = faculty.addCourse(courseCode, courseName, coordinator, lessonType, assessment, semester);
 		return newCourse;
 	}
 	

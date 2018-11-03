@@ -55,7 +55,9 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param tutorialGroup
 	 * @param LessonType
 	 */
-	public Course addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType, Semester sem, ArrayList<Component> assessment) {
+	public Course addCourse(String courseCode, String courseName, String coordinator,
+			LessonType lessonType, ArrayList<Component> assessment, Semester sem) {
+		
 		Course newCourse = new Course(courseCode, courseName, coordinator, lessonType, assessment);
 		courseListBySem.get(sem).add(newCourse);
 		return newCourse;
