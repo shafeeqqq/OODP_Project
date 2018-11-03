@@ -4,6 +4,17 @@ import java.util.HashMap;
 public class Faculty {	//need interface w university to add student and course
 	private ArrayList<Student> studentList;
 	private ArrayList<FacultyStaff> staffList;
+	private String facultyName;
+	private HashMap<Semester, ArrayList<Course>> courseListBySem;
+	
+
+	public Faculty(String facultyName, Semester semester) { /*ArrayList<Student> studentList*/
+		this.facultyName = facultyName;
+		courseListBySem.put(semester, new ArrayList<Course>());
+	}
+
+
+
 	public ArrayList<Student> getStudentList() {
 		return studentList;
 	}
@@ -19,13 +30,8 @@ public class Faculty {	//need interface w university to add student and course
 	public HashMap<Semester, ArrayList<Course>> getCourseListBySem() {
 		return courseListBySem;
 	}
-
-	private String facultyName;
-	private HashMap<Semester, ArrayList<Course>> courseListBySem;
 	
-	public Faculty(String name /*ArrayList<Student> studentList*/) {
-		facultyName = name;
-	}
+	
 	/**
 	 * this method adds a new student to the student list inside the Faculty object
 	 * @param studentname
@@ -44,8 +50,8 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param tutorialGroup
 	 * @param LessonType
 	 */
-	public void addCourse(String courseCode, String courseName, String coordinator, ArrayList<String> tutorialGroup, LessonType lessonType,Semester sem) {
-		Course newCourse = new Course(courseCode, courseName, coordinator, tutorialGroup, lessonType);
+	public void addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType, Semester sem) {
+		Course newCourse = new Course(courseCode, courseName, coordinator, lessonType);
 		courseListBySem.get(sem).add(newCourse);
 	}
 	/**
