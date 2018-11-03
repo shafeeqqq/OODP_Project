@@ -14,4 +14,10 @@
 /Workload.class
 /StudentGrade.class
 /LessonType.class
+<<<<<<< HEAD
 /StudentInfo.class
+=======
+/School.class
+/University.class
+/MainApp.class
+>>>>>>> branch 'master' of https://github.com/shafeeqqq/OODP_Project.git
