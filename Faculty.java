@@ -87,7 +87,12 @@ public class Faculty {	//need interface w university to add student and course
 				index = i;
 			}
 		}
-		return studentList.get(index);
+		
+		if(index ==0) {
+			return null;
+		}
+		else
+			return studentList.get(index);
 	}
 	
 	
