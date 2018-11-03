@@ -62,6 +62,7 @@ public class AdminInterface {
 				
 			case 6:
 				run = 2;
+				System.out.println("You are logged out of the system!\n");
 				break;
 			
 			default:
