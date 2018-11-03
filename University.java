@@ -3,6 +3,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class University {
+	
 	private String name;
 	private ArrayList<Faculty> facultyList = new ArrayList<>();
 	private ArrayList<Semester> semesterList = new ArrayList<>();
@@ -15,7 +16,9 @@ public class University {
 		initialiseSemesterList();
 	}
 	
-	
+	/**
+	 * initialise the semesterList with Semester (current year, 1)
+	 */
 	private void initialiseSemesterList() {
 		int year =  Calendar.getInstance().get(Calendar.YEAR);
 		Semester sem = new Semester(year, 1);
