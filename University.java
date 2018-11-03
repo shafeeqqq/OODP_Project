@@ -1,17 +1,21 @@
 import java.util.ArrayList;
 
 public class University {
+	private String name;
 	private ArrayList<Faculty> facultyList;
 	private ArrayList<Semester> semesterList;
 	
 	private ArrayList<String> matricNoList;
 	private ArrayList<String> staffIDList;
 	
-	University() {}
+	University(String universityName) {
+		this.name = universityName;
+	}
 	
 	
-	public void addFaculty() {
-		//TODO: add faculty
+	public void addFaculty(Faculty faculty) {
+		
+		facultyList.add(faculty);
 	}
 	
 	public ArrayList<Faculty> getFacultyList() {
@@ -19,7 +23,11 @@ public class University {
 	}
 	
 	public ArrayList<String> getFacultyNameList() {
+		ArrayList<String> facultyNameList = new ArrayList<>();
 		
+		for (Faculty faculty: facultyList) 
+			facultyNameList.add(faculty.getFacultyName());
+		return facultyNameList;
 	}
 	
 	
@@ -28,15 +36,26 @@ public class University {
 	}
 	
 	
-	public void addStaffToFaculty() {
-		
-		
+	public void addStaffToFaculty(String facultyName, String staffName) {
+//		Faculty faculty = getFacultyByName(facultyName);
+//		faculty.addStaff(staffName, generateStaffID());
 	}
 	
-	public void addStudentToFaculty(Faculty faculty, String studentName) {
-		
+	public void addStudentToFaculty(String facultyName, String studentName) {
+//		Faculty faculty = getFacultyByName(facultyName);
+//		faculty.addStudent(studentName, generateMatricNo());
 	}
 	
+	
+//	private Faculty getFacultyByName(String facultyName) {
+//		for (Faculty faculty: facultyList) {
+//			if (faculty.getFacultyName().equals(facultyName))
+//				return faculty;
+//		}
+//			return null;
+//	}
+
+
 	public String generateMatricNo() {
 		int base = 100000;
 		int num;
@@ -54,22 +73,8 @@ public class University {
 			return "Error generating Matric No";
 	}
 	
-	private int getLast(int type) {
-		int num = -100;
-		if (type == 0) {
-			int lastIndex = matricNoList.size()-1;
-			num = Integer.parseInt(matricNoList.get(lastIndex).substring(1, lastIndex +1));	
-		}
-		
-		else if (type ==1) {
-			int lastIndex = staffIDList.size()-1;
-			num = Integer.parseInt(staffIDList.get(lastIndex).substring(1, lastIndex +1));	
-		}
-		return num + 1;
-	}
 
-
-	public String generateStaffNo() {
+	public String generateStaffID() {
 		int base = 100000;
 		int num;
 		
@@ -84,6 +89,21 @@ public class University {
 		else
 			return "Error generating staffID";
 	}
+	
+	private int getLast(int type) {
+		int num = -100;
+		if (type == 0) {
+			int lastIndex = matricNoList.size()-1;
+			num = Integer.parseInt(matricNoList.get(lastIndex).substring(1, lastIndex +1));	
+		}
+		
+		else if (type ==1) {
+			int lastIndex = staffIDList.size()-1;
+			num = Integer.parseInt(staffIDList.get(lastIndex).substring(1, lastIndex +1));	
+		}
+		return num + 1;
+	}
+
 	
 	
 }
