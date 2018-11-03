@@ -24,13 +24,24 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param tutorialGroup
 	 * @param LessonType
 	 */
-	public void addCourse(String courseCode, String courseName, String coordinator, String[] tutorialGroup, LessonType lessonType) {
+	public void addCourse(String courseCode, String courseName, String coordinator, ArrayList<String> tutorialGroup, LessonType lessonType,Semester sem) {
 		Course newCourse = new Course(courseCode, courseName, coordinator, tutorialGroup, lessonType);
+		courseListBySem.
 	}
 	
+	public void setFacultyName(String facultyName) {
+		this.facultyName = facultyName;
+	}
+	public String getFacultyName() {
+		return facultyName;
+	}
+	public void setCourseListBySem(HashMap<Semester, ArrayList<Course>> courseListBySem) {
+		this.courseListBySem = courseListBySem;
+	}
 	public void addStaff(String staffName,String staffID) {
 		FacultyStaff newStaff = new FacultyStaff(staffName, staffID);
 	}
+	
 	
 	
 	

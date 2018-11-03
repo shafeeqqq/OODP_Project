@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Course {
 	private String courseCode;
@@ -5,9 +7,25 @@ public class Course {
 	private String coordinator;
 	private int maxEnrollment;
 	private StudentInfo[] studentInfoList;
-	private 
+	private ArrayList<String> tutorialGroup;
+	private ArrayList<Component> assessment;
+	private LessonType lessonType;
 	
-	public Course (String Code, String Name, String coordinator, String[] tutorialGroup, LessonType lessonType) {
+	/**
+	 * this method construct a course object with the given parameters, anything else is initially 0 or NULL
+	 * @param Code
+	 * @param Name
+	 * @param coordinator_staff
+	 * @param group
+	 * @param Type
+	 */
+	public Course (String Code, String Name, String coordinator_staff, ArrayList<String> group, LessonType Type) {
+		courseCode = Code;
+		courseName = Name;
+		coordinator = coordinator_staff;
+		tutorialGroup = group;
+		lessonType = Type;
+		maxEnrollment = 0;
 		
 	}
 	/**This method returns the courseCode as a String
@@ -17,6 +35,12 @@ public class Course {
 		return courseCode;
 	}
 	
+	public String getCourseName() {
+		return courseName;
+	}
+	public StudentInfo[] getStudentInfoList() {
+		return studentInfoList;
+	}
 	/**This method returns the courseCode as a String
 	 * @param code
 	 */
