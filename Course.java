@@ -23,7 +23,9 @@ public class Course {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.coordinator = coordinator;
+		
 //		this.tutorialGroup = group; TODO: add method to name tutorial groups if applicable
+		
 		this.lessonType = Type;
 		this.maxEnrollment = 0;
 		

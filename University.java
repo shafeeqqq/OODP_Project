@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class University {
 	private String name;
@@ -10,12 +11,19 @@ public class University {
 	
 	University(String universityName) {
 		this.name = universityName;
+		initialiseSemesterList();
 	}
 	
 	
-	public void addFaculty(Faculty faculty) {
-		
-		facultyList.add(faculty);
+	private void initialiseSemesterList() {
+		Semester sem = new Semester(Calendar.YEAR, 1);
+		semesterList.add(sem);
+	}
+
+
+	public void addFaculty(String facultyName) {
+		Faculty newFaculty = new Faculty(facultyName, getCurrentSemester());
+		facultyList.add(newFaculty);
 	}
 	
 	public ArrayList<Faculty> getFacultyList() {
@@ -46,9 +54,10 @@ public class University {
 		faculty.addStudent(studentName, generateMatricNo());
 	}
 	
-	public void addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator_staff, ArrayList<String> group, LessonType lessontype) {
+	public void addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator, LessonType lessontype) {
 		Faculty faculty = getFacultyByName(facultyName);
-//		faculty.addCourse(courseCode, courseName, coordinator, tutorialGroup, lessonType, sem);
+		
+		faculty.addCourse(courseCode, courseName, coordinator, lessonType, sem);
 	}
 	
 	

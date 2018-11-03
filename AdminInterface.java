@@ -116,8 +116,11 @@ public class AdminInterface {
 		printArray(staffNameList);
 		String staffName = staffNameList.get(sc.nextInt() - 1);	
 		
+		System.out.println("Choose Lesson Type:");
+		printArray(staffNameList);
+		LessonType lessontype = LessonType.TYPE_A;	
 		
-		university.addCourseToFaculty(facultyName, courseCode, courseName, staffName, group, lessontype);
+		university.addCourseToFaculty(facultyName, courseCode, courseName, staffName, lessontype);
 		
 	}
 
@@ -125,11 +128,9 @@ public class AdminInterface {
 		System.out.println("Enter new faculty name: ");
 		String facultyName = sc.nextLine();
 
-		Faculty newFaculty = new Faculty (facultyName);
-		university.addFaculty(newFaculty);
-		
+		university.addFaculty(facultyName);
 		System.out.println("New Faculty " + facultyName + " successfully added.");
-		
+	
 		System.out.println("--- Faculty List ---");
 		printArray(university.getFacultyNameList());
 		System.out.println("-----------\n");
