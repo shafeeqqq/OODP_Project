@@ -57,6 +57,7 @@ public class AdminInterface {
 				break;
 				
 			case 5:
+				printCourseStats();
 				break;
 				
 			case 6:
@@ -68,6 +69,12 @@ public class AdminInterface {
 			}
 		}
 	}
+	
+	
+	private void printCourseStats() {
+		// TODO
+	}
+	
 	
 	private void addFacultyStaff() {
 		String confirm = "y";	// add confirmation later
@@ -215,6 +222,14 @@ public class AdminInterface {
 		int choice = sc.nextInt();
 		sc.nextLine();
 		return choice;
+	}
+	
+	private void initialiseAssessment() {
+		int more = 1;
+		while (more == 1) {
+			
+		}
+		
 	}
 	
 }
