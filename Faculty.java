@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Faculty {	//need interface w university to add student and course
 	private ArrayList<Student> studentList = new ArrayList<>();
@@ -62,6 +63,30 @@ public class Faculty {	//need interface w university to add student and course
 		courseListBySem.get(sem).add(newCourse);
 		return newCourse;
 	}
+	
+	
+	/**
+	 * this method register the current student for the course of the code given
+	 * @param courseCode
+	 */
+	public void registerForCourse(String courseCode, Semester currentSem, Student student) {
+		System.out.println("processing...");
+		
+		Course course = getCourse(currentSem, courseCode);
+		
+		if (course.getVacancy() > 0) {
+			student.addCourse(currentSem, courseCode);
+				
+			course.getStudentInfoList().add(new StudentInfo(student.getMatricNo(), course.getTutorialGroup(), course.getAssessmentTitles()));
+			
+			System.out.println("Registration Successful");
+			student.printDetails();
+		
+		} else 
+			System.out.println("There is no more vacancy in the course.");
+	}
+	
+	
 	/**
 	 * This method changes the name of the current faculty to the parameter passed
 	 * @param facultyName
@@ -69,6 +94,8 @@ public class Faculty {	//need interface w university to add student and course
 	public void setFacultyName(String facultyName) {
 		this.facultyName = facultyName;
 	}
+	
+	
 	/**
 	 * This method return the faculty name
 	 * @return
@@ -76,6 +103,8 @@ public class Faculty {	//need interface w university to add student and course
 	public String getFacultyName() {
 		return facultyName;
 	}
+	
+	
 	/**
 	 * This method adds a staff object to the list of staff object by intializing one with the given parameters
 	 * @param staffName
@@ -85,6 +114,8 @@ public class Faculty {	//need interface w university to add student and course
 		FacultyStaff newStaff = new FacultyStaff(staffName, staffID);
 		staffList.add(newStaff);
 	}
+	
+	
 	/**
 	 * This method returns the course list by semester
 	 * @param semester
@@ -93,6 +124,8 @@ public class Faculty {	//need interface w university to add student and course
 	public ArrayList<Course> getCourseList(Semester semester) {
 		return courseListBySem.get(semester);
 	}
+	
+	
 	/**
 	 * This method returns the specific course object by semester and course ID
 	 * @param semester
@@ -111,15 +144,17 @@ public class Faculty {	//need interface w university to add student and course
 		return courseListBySem.get(semester).get(index);
 	}
 	
+	
 	public Student getStudent(String matricNo) {
 		for (Student student: studentList) {
 			if (student.getMatricNo().equals(matricNo)) {
-				System.out.println("found student");
+				System.out.println("found student 1");
 				return student;
 			}
 		}
 		return null;
 	}
+	
 	
 	public String getTranscript(Student student) {
 		String temp = "Student Name: " + student.getStudentName() + 
@@ -147,4 +182,5 @@ public class Faculty {	//need interface w university to add student and course
 		}
 		return result;
 	}
+	
 }

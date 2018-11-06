@@ -9,6 +9,25 @@ public class MainApp {
 	public static void main(String[] args) {
 		university = new University("NTU");
 		
+		// dummy data -- faculty
+		university.addFaculty("SCSE");
+		university.addFaculty("NBS");
+		
+		// dummy data -- faculty staff
+		university.addStaffToFaculty("SCSE", "Alice");
+		university.addStaffToFaculty("NBS", "Bob");
+		
+		// dummy data -- student
+		university.addStudentToFaculty("SCSE", "Cat", university.getCurrentSemester());
+		university.addStudentToFaculty("NBS", "Darwin", university.getCurrentSemester());
+		
+		// dummy data -- course
+		 university.addCourseToFaculty("SCSE", "CS100", "algorithms", 
+					"F100001 ", LessonType.TYPE_A , null , university.getCurrentSemester());
+		 university.addCourseToFaculty("NBS", "B100", "business", 
+					"F100002 ", LessonType.TYPE_B , null , university.getCurrentSemester());
+		 
+		
 		printMainMenu();
 		int choice = getChoice();
 		while(choice != 6) {
@@ -27,8 +46,8 @@ public class MainApp {
 
 	}
 
-	private static void launchInterface(String type) {
-		if (type.equals("student")) {
+	private static void launchInterface(String mode) {
+		if (mode.equals("student")) {
 			String matricNo = getMatricNo();
 			Faculty currentFaculty = university.getFacultyOfStudent(matricNo);
 			
@@ -47,16 +66,19 @@ public class MainApp {
 		
 	}
 
+	
 	private static String getMatricNo() {
 		System.out.println("Enter matric No: ");
 		String matricNo = sc.nextLine();
-		while(!university.isValidMatricNo(matricNo)) {
-			System.out.println("Please enter a valid matric No: ");
-			matricNo = sc.nextLine();
-		}
+		
+//		while(!university.isValidMatricNo(matricNo)) {
+//			System.out.println("Please enter a valid matric No: ");
+//			matricNo = sc.nextLine();
+//		}
 		return matricNo;
 	}
 
+	
 	private static int getChoice() {
 		System.out.println("Enter choice: ");
 		int choice = sc.nextInt();
@@ -64,6 +86,7 @@ public class MainApp {
 		return choice;
 	}
 
+	
 	private static void printMainMenu() {
 		System.out.print(
 				  "### Main Menu ###\n"

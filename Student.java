@@ -11,6 +11,7 @@ public class Student {
 		studentName = name;
 		matricNo = matric;
 		candidature.put(semester, new ArrayList<String>());
+		printDetails();
 	}
 	
 	public String getMatricNo() {
@@ -31,7 +32,7 @@ public class Student {
 		System.out.print(
 				"Name: " + studentName + "\n"
 			  + "Matriculation No.: " + matricNo + "\n"
-			  + "Candidature: " + getCandidatureString());
+			  + "Candidature: \n" + getCandidatureString() + "\n");
 	}
 	
 	
@@ -41,19 +42,15 @@ public class Student {
 			result += item.toString() + ": \n";
 			result += candidature.get(item).toString();
 		}
-		return null;
+		return result;
 	}
 
-	public void printCandidature() {
-		for (Semester sem : candidature.keySet()) {
-			System.out.println(sem.getYear() + " "+ sem.getNumber());
-			for (String course: candidature.get(sem)) {
-				System.out.print(course+ " ");
-			}
-			System.out.println();		}
-	}
 
 	public void setCandidature(Semester sem, ArrayList<String> stringArr) {
 		this.candidature.put(sem, stringArr);
+	}
+
+	public void addCourse(Semester sem, String courseCode) {
+		candidature.get(sem).add(courseCode);
 	}
 }

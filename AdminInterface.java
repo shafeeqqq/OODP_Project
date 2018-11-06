@@ -30,24 +30,7 @@ public class AdminInterface {
 	
 	public AdminInterface(University university) {
 		this.university = university;
-		
-		// dummy data -- faculty
-		university.addFaculty("SCSE");
-		university.addFaculty("NBS");
-		
-		// dummy data -- faculty staff
-		university.addStaffToFaculty("SCSE", "Alice");
-		university.addStaffToFaculty("NBS", "Bob");
-		
-		// dummy data -- student
-		university.addStudentToFaculty("SCSE", "Cat", university.getCurrentSemester());
-		university.addStudentToFaculty("NBS", "Darwin", university.getCurrentSemester());
-		
-		// dummy data -- course
-		 university.addCourseToFaculty("SCSE", "CS100", "algorithms", 
-					"F100001 ", LessonType.TYPE_A , null , university.getCurrentSemester());
-		 university.addCourseToFaculty("NBS", "B100", "business", 
-					"F100002 ", LessonType.TYPE_B , null , university.getCurrentSemester());
+	
 	}
 
 	public void run() {
@@ -237,7 +220,7 @@ public class AdminInterface {
 				+ " 3. Add Faculty Staff\n"
 				+ " 4. Add Student\n"
 				+ " 5. Print Course Statistics\n"
-				+ " 6. Exit interface\n"
+				+ " 6. Quit\n"
 				+ "~~~~~~~~~~~~~~~~~~\n"); 
 		
 	}

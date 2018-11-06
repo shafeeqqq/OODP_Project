@@ -8,9 +8,10 @@ public class Course {
 	private String coordinator;
 	private int maxEnrollment;
 	private ArrayList<StudentInfo> studentInfoList  = new ArrayList<>();
-	private ArrayList<String> tutorialGroups = new ArrayList<>(2);
+	private HashMap<String, Integer> tutorialGroups = new HashMap<>();
 	private ArrayList<Component> assessment  = new ArrayList<>();
 	private LessonType lessonType;
+	
 	
 	/**
 	 * this method construct a course object with the given parameters, anything else is initially 0 or NULL
@@ -25,21 +26,35 @@ public class Course {
 		this.courseName = courseName;
 		this.coordinator = coordinator;
 		this.lessonType = Type;
-		this.maxEnrollment = 10;
 		this.assessment = assessment;
 		initialiseTutorialGroups();
+		this.maxEnrollment = initialiseMaxEnrollment();
 	}
 	
 	
+
+	private int initialiseMaxEnrollment() {
+		int num = 0;
+		if (tutorialGroups == null)
+			return 10;
+		
+		else {
+			for (String key: tutorialGroups.keySet())
+				num += tutorialGroups.get(key);
+		}
+		return num;
+	}
+
 
 	private void initialiseTutorialGroups() {
 		int tutorialCount = lessonType.getTutorialCount();
 		
 		if (tutorialCount == 0)
 			tutorialGroups = null;
+		
 		else {
 			for (int i=0; i<tutorialCount; i++) 
-				tutorialGroups.add("Group " + (i+1));
+				tutorialGroups.put("Group " + (i+1), 10);
 		}
 	}
 	
@@ -96,7 +111,19 @@ public class Course {
 			result += item.toString();
 		return result;
 	}
-
+	
+	
+	public String getTutorialGroup() {
+		String group = "";
+		
+		if (tutorialGroups == null)
+			return "N.A.";
+		
+		else {
+			ArrayList<String> keys = new ArrayList<String>(tutorialGroups.keySet());
+			return keys.get(0);	// TODO make it random
+		}
+	}
 
 
 	/**This method returns the courseCode as a String
@@ -165,15 +192,6 @@ public class Course {
 	
 	
 	/**
-	 * this method set the coordinator to the parameter
-	 * @param staff
-	 */
-	public void setCoordinator(FacultyStaff staff) {
-		coordinator=staff.getStaffID();
-	}
-	
-	
-	/**
 	 * this method set the type of assessment
 	 * @param assessment
 	 */
@@ -213,9 +231,14 @@ public class Course {
 		return assessment;
 	}
 
-	
-	public void setCoordinator(String coordinator) {
-		this.coordinator = coordinator;
+
+
+	public ArrayList<String> getAssessmentTitles() {
+		ArrayList<String> result = new ArrayList<>();
+		for (Component item: assessment)
+			result.add(item.getTitle());
+		
+		return result;
 	}
 	
 }
