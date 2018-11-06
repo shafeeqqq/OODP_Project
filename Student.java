@@ -7,11 +7,11 @@ public class Student {
 	private String matricNo;
 	private HashMap<Semester, ArrayList<String>> candidature = new HashMap<>();
 	
-	public Student(String name, String matric) {
+	public Student(String name, String matric, Semester semester) {
 		studentName = name;
-		matricNo = matric;		
+		matricNo = matric;
+		candidature.put(semester, new ArrayList<String>());
 	}
-	
 	
 	public String getMatricNo() {
 		return matricNo;
@@ -30,10 +30,20 @@ public class Student {
 	public void printDetails() {
 		System.out.print(
 				"Name: " + studentName + "\n"
-			  + "Matriculation No.: " + matricNo + "\n");
+			  + "Matriculation No.: " + matricNo + "\n"
+			  + "Candidature: " + getCandidatureString());
 	}
 	
 	
+	private String getCandidatureString() {
+		String result = "";
+		for (Semester item: candidature.keySet()) {
+			result += item.toString() + ": \n";
+			result += candidature.get(item).toString();
+		}
+		return null;
+	}
+
 	public void printCandidature() {
 		for (Semester sem : candidature.keySet()) {
 			System.out.println(sem.getYear() + " "+ sem.getNumber());

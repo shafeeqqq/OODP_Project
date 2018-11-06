@@ -66,8 +66,10 @@ public class MainApp {
 
 	private static void printMainMenu() {
 		System.out.print(
-				  "1) admin\n"
-				+ "2) student\n"); 
+				  "### Main Menu ###\n"
+				+ " 1. admin\n"
+				+ " 2. student\n"
+				+ "~~~~~~~~~~~~~~~~~\n"); 
 		
 	}
 

@@ -70,8 +70,7 @@ public class StudentInterface {
 				System.out.println("Error getting courselist");
 			
 			printArray(courseNameList);	// TODO: print vacancy too
-			courseChoice = getChoice();
-			registerForCourse(courseNameList.get(courseChoice));
+			registerForCourse(courseNameList.get(getChoice() -1));
 			break;
 			
 		case 2:
@@ -129,6 +128,8 @@ public class StudentInterface {
 		else 
 			System.out.println("You are not in the course. Please check again!");
 	}
+	
+	
 	/**
 	 * this method prints all the available course of the student
 	 * @param list
@@ -138,24 +139,33 @@ public class StudentInterface {
 			System.out.println((i+1) + ") " + list.get(i));
 		
 	}
+	
+	
 	/**
 	 * this method print the menu for the student interface
 	 */
 	private void printMenu() {
 		System.out.print(
-				  "1) Course registration/deregistration\n"
-				+ "2) Print Transcript\n"); 
+				  "### Student Menu ###\n"
+				  + " 1. Course registration/deregistration\n"
+				  + " 2. Print Transcript\n"); 
 		
 	}
+	
+	
 	/**
 	 * this method print the menu for the available course registration and unregistration
 	 */
 	private void printCourseRegMenu() {
 		System.out.print(
-				  "1) Courses from my Faculty\n"
-				+ "2) Courses from other Faculty\n"
-				+ "3) Unregister from a course\n"); 
+				
+				  "### Course Registration ###\n"
+				+ " 1. Courses from my Faculty\n"
+				+ " 2. Courses from other Faculty\n"
+				+ " 3. Unregister from a course\n"); 
 	}
+	
+	
 	/**
 	 * this method prints the transcript of the current logged in student
 	 */
@@ -163,6 +173,8 @@ public class StudentInterface {
 		String transcript = currentFaculty.getTranscript(currentStudent);
 		System.out.print(transcript);
 	}
+	
+	
 	/**
 	 * this method get the user input
 	 * @return

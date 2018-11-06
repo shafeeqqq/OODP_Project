@@ -39,8 +39,8 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param matricNo
 	 * @return 
 	 */
-	public Student addStudent(String studentname,String matricNo) {
-		Student newStudent = new Student(studentname, matricNo);
+	public Student addStudent(String studentname, String matricNo, Semester semester) {
+		Student newStudent = new Student(studentname, matricNo, semester);
 		studentList.add(newStudent);
 		return newStudent;
 	}

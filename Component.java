@@ -29,4 +29,9 @@ public class Component {
 	public void setWeightage(int componentWeightage) {
 		weightage=componentWeightage;
 	}
+	
+
+	public String toString() {
+		return title + ": " + weightage + "%\n";
+	}
 }

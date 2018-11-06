@@ -14,6 +14,8 @@ public class University {
 	University(String universityName) {
 		this.name = universityName;
 		initialiseSemesterList();
+		
+
 	}
 	
 	/**
@@ -31,9 +33,11 @@ public class University {
 		facultyList.add(newFaculty);
 	}
 	
+	
 	public ArrayList<Faculty> getFacultyList() {
 		return facultyList;
 	}
+	
 	
 	public ArrayList<String> getFacultyNameList() {
 		ArrayList<String> facultyNameList = new ArrayList<>();
@@ -54,11 +58,13 @@ public class University {
 		faculty.addStaff(staffName, generateStaffID());
 	}
 	
-	public Student addStudentToFaculty(String facultyName, String studentName) {
+	
+	public Student addStudentToFaculty(String facultyName, String studentName, Semester semester) {
 		Faculty faculty = getFacultyByName(facultyName);
-		Student newStudent = faculty.addStudent(studentName, generateMatricNo());
+		Student newStudent = faculty.addStudent(studentName, generateMatricNo(), semester);
 		return newStudent;
 	}
+	
 	
 	public Course addCourseToFaculty(String facultyName, String courseCode, String courseName,
 			String coordinator, LessonType lessonType, ArrayList<Component> assessment, Semester semester) {
@@ -113,7 +119,6 @@ public class University {
 		String newStaffID = "F" + num;
 		if (!staffIDList.contains(newStaffID)){
 			staffIDList.add(newStaffID);
-			System.out.println("jlkasfjd" + staffIDList.size());
 			return newStaffID;
 			
 		}
@@ -121,23 +126,23 @@ public class University {
 			return "Error generating staffID";
 	}
 	
+	
 	private int getLast(int type) {
-		System.out.println("enter 2" );
 		int num = -100;
-		if (type == 0) {
-			int lastIndex = matricNoList.size()-1;
-			num = Integer.parseInt(matricNoList.get(lastIndex).substring(1, lastIndex +1));	
-		}
+		int lastIndex = 0;
 		
-		else if (type ==1) {
-			System.out.println("enter" );
-			int lastIndex = staffIDList.size()-1;
-			System.out.println("last index " + lastIndex );
-			String ID = staffIDList.get(lastIndex);
-			num = Integer.parseInt(ID.substring(1, ID.length()));	
-		}
+		if (type == 0) {
+			lastIndex = matricNoList.size()-1;
+			
+		} else if (type ==1) 
+			lastIndex = staffIDList.size()-1;
+		
+		String ID = staffIDList.get(lastIndex);
+		num = Integer.parseInt(ID.substring(1, ID.length()));	
+		
 		return num + 1;
 	}
+	
 	
 	public Faculty getFacultyOfStudent(String matricNo) {
 		Student currentStudent;
@@ -149,6 +154,7 @@ public class University {
 		return null;
 	}
 	
+	
 	public boolean isValidMatricNo(String matricNo) {
 		if (matricNoList.contains(matricNo)) {
 			return true;
@@ -159,7 +165,6 @@ public class University {
 			return false;
 	}
 	
-
 
 	public Semester getCurrentSemester() {
 		if (semesterList.size() != 0)

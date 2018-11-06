@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Course {
+	
 	private String courseCode;
 	private String courseName;
 	private String coordinator;
@@ -24,7 +25,7 @@ public class Course {
 		this.courseName = courseName;
 		this.coordinator = coordinator;
 		this.lessonType = Type;
-		this.maxEnrollment = 0;
+		this.maxEnrollment = 10;
 		this.assessment = assessment;
 		initialiseTutorialGroups();
 	}
@@ -79,7 +80,7 @@ public class Course {
 			  + "Course Name: " + courseName + "\n"
 			  + "Coordinator: " + coordinator + "\n"
 			  + "Lesson Type: " + lessonType.toString() + "\n"
-			  + "Assessment: " + "TODO" + "\n");
+			  + "Assessment: \n"  + getAssessmentString());
 		
 		if (tutorialGroups == null)
 			System.out.println("Tutorial Groups: Not Applicable");
@@ -89,6 +90,15 @@ public class Course {
 	}
 	
 	
+	private String getAssessmentString() {
+		String result = "";
+		for (Component item: assessment)
+			result += item.toString();
+		return result;
+	}
+
+
+
 	/**This method returns the courseCode as a String
 	 * @return courseCode
 	 */

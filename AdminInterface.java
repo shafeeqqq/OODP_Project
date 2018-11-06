@@ -30,7 +30,24 @@ public class AdminInterface {
 	
 	public AdminInterface(University university) {
 		this.university = university;
-
+		
+		// dummy data -- faculty
+		university.addFaculty("SCSE");
+		university.addFaculty("NBS");
+		
+		// dummy data -- faculty staff
+		university.addStaffToFaculty("SCSE", "Alice");
+		university.addStaffToFaculty("NBS", "Bob");
+		
+		// dummy data -- student
+		university.addStudentToFaculty("SCSE", "Cat", university.getCurrentSemester());
+		university.addStudentToFaculty("NBS", "Darwin", university.getCurrentSemester());
+		
+		// dummy data -- course
+		 university.addCourseToFaculty("SCSE", "CS100", "algorithms", 
+					"F100001 ", LessonType.TYPE_A , null , university.getCurrentSemester());
+		 university.addCourseToFaculty("NBS", "B100", "business", 
+					"F100002 ", LessonType.TYPE_B , null , university.getCurrentSemester());
 	}
 
 	public void run() {
@@ -112,7 +129,7 @@ public class AdminInterface {
 		printArray(facultyNameList);
 		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
 	
-		Student newStudent = university.addStudentToFaculty(facultyName, studentName);
+		Student newStudent = university.addStudentToFaculty(facultyName, studentName, university.getCurrentSemester());
 		
 		System.out.println("New student successfully added.");
 		System.out.println("--- Details of new student:---");
@@ -174,12 +191,15 @@ public class AdminInterface {
 		char type = sc.nextLine().charAt(0);
 		
 		switch(type) {
+		case 'a':
 		case 'A':
 			return LessonType.TYPE_A;
-			
+		
+		case 'b':
 		case 'B':
 			return LessonType.TYPE_B;
 			
+		case 'c':
 		case 'C':
 			return LessonType.TYPE_C;
 			
@@ -205,19 +225,20 @@ public class AdminInterface {
 
 	private void printArray(ArrayList<String> list) {
 		for (int i=0; i<list.size(); i++) 
-			System.out.println(i+1 + ") " + list.get(i));
+			System.out.println(i+1 + ". " + list.get(i));
 		
 	}
 
 	private void printMenu() {
 		System.out.print(
-				  "--- ADMIN MENU ---\n"
-				+ "1) Add Faculty\n"
-				+ "2) Add Course\n"
-				+ "3) Add Faculty Staff\n"
-				+ "4) Add Student\n"
-				+ "5) Print Course Statistics\n"
-				+ "6) Exit interface\n"); 
+				  "### ADMIN MENU ###\n"
+				+ " 1. Add Faculty\n"
+				+ " 2. Add Course\n"
+				+ " 3. Add Faculty Staff\n"
+				+ " 4. Add Student\n"
+				+ " 5. Print Course Statistics\n"
+				+ " 6. Exit interface\n"
+				+ "~~~~~~~~~~~~~~~~~~\n"); 
 		
 	}
 	
