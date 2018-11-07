@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class University {
 	
@@ -11,12 +10,14 @@ public class University {
 	private ArrayList<String> matricNoList = new ArrayList<>();
 	private ArrayList<String> staffIDList = new ArrayList<>();
 	
+	
 	University(String universityName) {
 		this.name = universityName;
 		initialiseSemesterList();
 		
 
 	}
+	
 	
 	/**
 	 * initialise the semesterList with Semester (current year, 1)

@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public class Faculty {	//need interface w university to add student and course
 	private ArrayList<Student> studentList = new ArrayList<>();
@@ -74,13 +73,17 @@ public class Faculty {	//need interface w university to add student and course
 		
 		Course course = getCourse(currentSem, courseCode);
 		
+		
 		if (course.getVacancy() > 0) {
 			student.addCourse(currentSem, courseCode);
-				
+
+			System.out.println(course.getAssessmentString());
 			course.getStudentInfoList().add(new StudentInfo(student.getMatricNo(), course.getTutorialGroup(), course.getAssessmentTitles()));
 			
 			System.out.println("Registration Successful");
 			student.printDetails();
+			course.printStudentInfoOfStudent(student.getMatricNo());
+
 		
 		} else 
 			System.out.println("There is no more vacancy in the course.");
@@ -178,7 +181,7 @@ public class Faculty {	//need interface w university to add student and course
 	public ArrayList<String> getCourseNameList(Semester sem) {
 		ArrayList<String> result = new ArrayList<>();
 		for(Course course: courseListBySem.get(sem)) {
-			result.add(course.getCourseName());
+			result.add(course.getCourseCode() + "\t" + course.getCourseName());
 		}
 		return result;
 	}

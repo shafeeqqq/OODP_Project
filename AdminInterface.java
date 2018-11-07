@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class AdminInterface {
@@ -6,8 +7,8 @@ public class AdminInterface {
 	
 	/*
 	 * TODO:
-	 * add student
-	 * add course
+	 * add student -- 
+	 * add course -- 
 	 * check vacancy in course
 	 * print student list by tutorial group; lec - everyone
 	 * enter course assessment weightage
@@ -61,6 +62,10 @@ public class AdminInterface {
 				break;
 				
 			case 6:
+				setMarks();
+				break;
+				
+			case 7:
 				run = 2;
 				System.out.println("You are logged out of the system!\n");
 				break;
@@ -76,10 +81,81 @@ public class AdminInterface {
 		// TODO
 	}
 	
-	
-	private void addFacultyStaff() {
-		String confirm = "y";	// add confirmation later
+	private void setMarks() {
+		Semester sem = university.getCurrentSemester();
+		ArrayList<String> facultyNameList = university.getFacultyNameList();
 		
+		System.out.println("Choose faculty:");
+		printArray(facultyNameList);
+		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
+		Faculty faculty = university.getFacultyByName(facultyName);
+		
+		ArrayList<String> courseNameList = faculty.getCourseNameList(sem);
+		
+		System.out.println("Choose Course:");
+		printArray(courseNameList);
+		String courseName = courseNameList.get(sc.nextInt() - 1);	
+		Course course = faculty.getCourse(sem, processString(courseName));
+		
+		ArrayList<StudentInfo> studentInfoList = course.getStudentInfoList();
+		
+		StudentInfo student = getStudentInfo(studentInfoList); 
+		
+		HashMap<String, Double> currentMarks = student.getMarks();
+		for (String key: currentMarks.keySet()) {
+			System.out.println("Enter marks for " + key + ": ");
+			double mark = sc.nextDouble(); sc.nextLine();
+			currentMarks.put(key, mark);
+		}
+		
+		student.setMarks(currentMarks);
+		
+	}
+	
+	
+	private StudentInfo getStudentInfo(ArrayList<StudentInfo> studentInfoList) {
+		printMethod();
+		String matricNo = null;
+		System.out.println("Choose method:");
+		int method = getChoice();
+		
+		switch (method) {
+		case 1:
+			System.out.println("Enter matricNo: ");
+			matricNo = sc.nextLine();
+			for (StudentInfo item: studentInfoList) {
+				if (item.getMatricNo().equals(matricNo))
+					return item;
+			}
+			break;
+			
+		case 2:
+			printMatricNoList(studentInfoList);
+			return studentInfoList.get(getChoice()-1); //TODO perform arraylength check
+		}
+		return null;
+	}
+
+	private void printMatricNoList(ArrayList<StudentInfo> studentInfoList) {
+		int i = 1;
+		for (StudentInfo item: studentInfoList) {
+			System.out.println(i++ + ". " + item.getMatricNo());
+		}
+		
+	}
+
+	private void printMethod() {
+		System.out.print(
+				  "### ADMIN MENU ###\n"
+				+ " 1. Enter Matric No.\n"
+				+ " 2. Choose from student list\n"
+				+ "~~~~~~~~~~~~~~~~~~\n"); 
+		
+		
+	}
+
+	private void addFacultyStaff() {
+	
 		ArrayList<String> facultyNameList = university.getFacultyNameList();
 		
 		System.out.println("Enter Staff Name:");
@@ -93,15 +169,14 @@ public class AdminInterface {
 		
 		// success message
 		System.out.println("New Faculty Staff " + staffName + " successfully added.");
-		System.out.println("--- Faculty Staff List ---");
+		System.out.println("~~~ Faculty Staff List ~~~");
 		printArray(university.getFacultyByName(facultyName).getStaffNameList());
-		System.out.println("-----------\n");
+		System.out.println("~~~~~~~~~~~~~\n");
 		
 		
 	}
 
 	private void addStudent() {
-		String confirm = "y";	// add confirmation later
 	
 		ArrayList<String> facultyNameList = university.getFacultyNameList();
 		
@@ -118,9 +193,7 @@ public class AdminInterface {
 		System.out.println("--- Details of new student:---");
 		newStudent.printDetails();
 		System.out.println("-----------\n");
-		
-
-		
+			
 	}
 
 
@@ -164,7 +237,6 @@ public class AdminInterface {
 
 	private String getStaffID(String string) {
 		int index = string.indexOf('\t');
-		String res = string.substring(0, index);
 		return string.substring(0, index);
 		
 	}
@@ -220,7 +292,8 @@ public class AdminInterface {
 				+ " 3. Add Faculty Staff\n"
 				+ " 4. Add Student\n"
 				+ " 5. Print Course Statistics\n"
-				+ " 6. Quit\n"
+				+ " 6. Set Marks\n"
+				+ " 7. Quit\n"
 				+ "~~~~~~~~~~~~~~~~~~\n"); 
 		
 	}
@@ -246,8 +319,8 @@ public class AdminInterface {
 				
 				assessment.add(new Component(title, weightage));
 				
-				System.out.println("Add more components? (yes: 1/no: 0): ");
-				more = getChoice();
+				if (addsUp(assessment))
+					more = 0;
 			}
 			if (!addsUp(assessment)) {
 				System.out.println("Component weightage does not add up to 100%. Please re-enter Course Assessment");
@@ -267,13 +340,19 @@ public class AdminInterface {
 			int total = 0;
 			for (Component item: assessment) {
 				total += item.getWeightage();
-				System.out.println(total);
 			}
 			if (total == 100)
 				return true;
 			else 
 				return false;
 		}
+	}
+	
+	private String processString(String string) {
+		
+		int index = string.indexOf('\t');
+		return string.substring(0, index);
+		
 	}
 	
 }

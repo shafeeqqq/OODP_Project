@@ -11,7 +11,7 @@ public class Student {
 		studentName = name;
 		matricNo = matric;
 		candidature.put(semester, new ArrayList<String>());
-		printDetails();
+//		printDetails();
 	}
 	
 	public String getMatricNo() {

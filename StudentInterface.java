@@ -72,7 +72,8 @@ public class StudentInterface {
 				System.out.println("Error getting courselist");
 			
 			printArray(courseNameList);	// TODO: print vacancy too
-			currentFaculty.registerForCourse(courseNameList.get(getChoice() -1), currentSemester, currentStudent);
+			
+			currentFaculty.registerForCourse(processString(courseNameList.get(getChoice() -1)), currentSemester, currentStudent);
 			break;
 			
 		case 2:
@@ -91,9 +92,14 @@ public class StudentInterface {
 		
 	}
 	
-
-		
 	
+	private String processString(String string) {
+		int index = string.indexOf('\t');
+		return string.substring(0, index);
+		
+	}
+
+			
 	/**
 	 * this method unregister student from the course of code given
 	 * @param courseCode
@@ -120,7 +126,7 @@ public class StudentInterface {
 	 */
 	private void printArray(ArrayList<String> list) {
 		for (int i=0; i<list.size(); i++) 
-			System.out.println((i+1) + ") " + list.get(i));
+			System.out.println((i+1) + ". " + list.get(i));
 		
 	}
 	
@@ -133,7 +139,7 @@ public class StudentInterface {
 				  "### Student Menu ###\n"
 				  + " 1. Course registration/deregistration\n"
 				  + " 2. Print Transcript\n"
-				  + " 3. Quit"); 
+				  + " 3. Quit\n"); 
 		
 	}
 	

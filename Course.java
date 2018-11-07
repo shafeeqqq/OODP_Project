@@ -26,7 +26,7 @@ public class Course {
 		this.courseName = courseName;
 		this.coordinator = coordinator;
 		this.lessonType = Type;
-		this.assessment = assessment;
+		this.assessment.addAll(assessment);
 		initialiseTutorialGroups();
 		this.maxEnrollment = initialiseMaxEnrollment();
 	}
@@ -70,10 +70,10 @@ public class Course {
 				titleOfComponent = assessment.get(j).getTitle();
 				result +=  titleOfComponent + "\t"+ 
 				assessment.get(j).getWeightage()+"\t"+ 
-				studentInfoList.get(i).getMarks(titleOfComponent)
+				studentInfoList.get(i).getMarksByComponent(titleOfComponent)
 				+"\t Grade: ";
 				overallMarks += assessment.get(j).getWeightage()*
-						studentInfoList.get(i).getMarks(titleOfComponent)/100;
+						studentInfoList.get(i).getMarksByComponent(titleOfComponent)/100;
 			}
 			if(overallMarks >= 70) 
 				grade = 'A';
@@ -105,7 +105,7 @@ public class Course {
 	}
 	
 	
-	private String getAssessmentString() {
+	public String getAssessmentString() {
 		String result = "";
 		for (Component item: assessment)
 			result += item.toString();
@@ -114,7 +114,6 @@ public class Course {
 	
 	
 	public String getTutorialGroup() {
-		String group = "";
 		
 		if (tutorialGroups == null)
 			return "N.A.";
@@ -123,6 +122,15 @@ public class Course {
 			ArrayList<String> keys = new ArrayList<String>(tutorialGroups.keySet());
 			return keys.get(0);	// TODO make it random
 		}
+	}
+	
+	
+	public void printStudentInfoOfStudent(String matricNo) {
+		for (StudentInfo item: studentInfoList)
+			if (item.getMatricNo().equals(matricNo)) {
+				item.printMarksByComponent();
+				break;
+			}
 	}
 
 
@@ -195,10 +203,10 @@ public class Course {
 	 * this method set the type of assessment
 	 * @param assessment
 	 */
-	public void setAssessment(ArrayList<Component> assessment) {
-		this.assessment = assessment;
-	}
-	
+//	public void setAssessment(ArrayList<Component> assessment) {
+//		this.assessment = assessment;
+//	}
+//	
 	
 	/**
 	 * this method returns the remaining spaces available
@@ -234,6 +242,8 @@ public class Course {
 
 
 	public ArrayList<String> getAssessmentTitles() {
+		if (assessment == null) return null;
+
 		ArrayList<String> result = new ArrayList<>();
 		for (Component item: assessment)
 			result.add(item.getTitle());

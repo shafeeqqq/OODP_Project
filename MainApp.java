@@ -22,10 +22,10 @@ public class MainApp {
 		university.addStudentToFaculty("NBS", "Darwin", university.getCurrentSemester());
 		
 		// dummy data -- course
-		 university.addCourseToFaculty("SCSE", "CS100", "algorithms", 
-					"F100001 ", LessonType.TYPE_A , null , university.getCurrentSemester());
-		 university.addCourseToFaculty("NBS", "B100", "business", 
-					"F100002 ", LessonType.TYPE_B , null , university.getCurrentSemester());
+//		 university.addCourseToFaculty("SCSE", "CS100", "algorithms", 
+//					"F100001 ", LessonType.TYPE_A , null , university.getCurrentSemester());
+//		 university.addCourseToFaculty("NBS", "B100", "business", 
+//					"F100002 ", LessonType.TYPE_B , null , university.getCurrentSemester());
 		 
 		
 		printMainMenu();

@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class StudentInfo {
 	
 	private String matricNo;
-	private HashMap<String, Double> marks;	// component title : marks
+	private HashMap<String, Double> marks = new HashMap<>();	// component title : marks
 	private String tutorialGroup;
 	
 	
@@ -23,12 +23,13 @@ public class StudentInfo {
 		
 	}
 
+	
 	public String getMatricNo() {
 		return matricNo;
 	}
 	
 	
-	public Double getMarks(String title) {
+	public Double getMarksByComponent(String title) {
 		return marks.get(title);
 	}
 	
@@ -37,10 +38,22 @@ public class StudentInfo {
 		return tutorialGroup;
 	}
 	
+	
 	public void printMarksByComponent() {
 		for (String key: marks.keySet())
 			System.out.println(key + ": " + marks.get(key));
 	
+	}
+	
+	
+	public HashMap<String, Double> getMarks() {
+		return marks;
+	}
+	
+	
+	public void setMarks(HashMap<String, Double> updatedMarks) {
+		marks.clear();
+		marks.putAll(updatedMarks);
 	}
 	
 	
