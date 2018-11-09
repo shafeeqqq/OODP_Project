@@ -70,26 +70,55 @@ public class AdminInterface {
 				System.out.println("You are logged out of the system!\n");
 				break;
 				
-			case 8 :
-				printAllStudents();
+			case 8:
+				printStudentListByGroup();
+				break;
 			
 			default:
 				System.out.println("Invalid input");
 			}
 		}
 	}
-	private void printAllStudents() {
-		ArrayList<Faculty> allFaculty = university.getFacultyList();
-		for (Faculty current : allFaculty) {
-			ArrayList<Student> allStudent = current.getStudentList();
-			for (Student currentStudent: allStudent) {
-				currentStudent.printDetails();
-			}
-		}
+
+
+	private void printStudentListByGroup() {
+		Semester sem = university.getCurrentSemester();	// TODO other semester? 
+		
+		ArrayList<String> facultyNameList = university.getFacultyNameList();
+		
+		System.out.println("Choose faculty:");
+		printArray(facultyNameList);
+		String facultyName = facultyNameList.get(getChoice() - 1);	
+		
+		ArrayList<String> courseNameList = university.getCourseListByFaculty(facultyName, sem);
+		
+		System.out.println("Choose Course:");
+		printArray(courseNameList);
+		String courseCode = courseNameList.get(getChoice() - 1);
+		
+		System.out.println("Print student list by lecture group(L) or tutorial group(T)?");
+		char type = sc.nextLine().charAt(0); 
+		
+		university.printStudentListByGroup(facultyName, sem, courseCode, type);
+		
 	}
 
 	private void printCourseStats() {
-		// TODO
+		Semester sem = university.getCurrentSemester();	// TODO other semester? 
+		
+		ArrayList<String> facultyNameList = university.getFacultyNameList();
+		
+		System.out.println("Choose faculty:");
+		printArray(facultyNameList);
+		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
+		
+		ArrayList<String> courseNameList = university.getCourseListByFaculty(facultyName, sem);
+		
+		System.out.println("Choose Course:");
+		printArray(courseNameList);
+		String courseCode = courseNameList.get(sc.nextInt() - 1);
+		
+		university.printCourseStats(facultyName, sem, courseCode);
 	}
 	
 	private void setMarks() {
@@ -120,20 +149,6 @@ public class AdminInterface {
 		}
 		
 		course.updateMarks(matricNo, updatedMarks);
-		
-//		ArrayList<StudentInfo> studentInfoList = course.getStudentInfoList();
-//		
-//		StudentInfo student = getStudentInfo(studentInfoList); 
-//		
-//		HashMap<String, Double> currentMarks = student.getMarks();
-//		for (String key: currentMarks.keySet()) {
-//			System.out.println("Enter marks for " + key + ": ");
-//			double mark = sc.nextDouble(); sc.nextLine();
-//			currentMarks.put(key, mark);
-//		}
-//		
-//		System.out.println(currentMarks.toString());
-//		student.setMarks(currentMarks);
 		
 	}
 	
@@ -168,6 +183,7 @@ public class AdminInterface {
 		
 	}
 
+	
 	private void addFacultyStaff() {
 	
 		ArrayList<String> facultyNameList = university.getFacultyNameList();
@@ -286,9 +302,9 @@ public class AdminInterface {
 		university.addFaculty(facultyName);
 		System.out.println("New Faculty " + facultyName + " successfully added.");
 	
-		System.out.println("--- Faculty List ---");
+		System.out.println("~~~ Faculty List ~~~");
 		printArray(university.getFacultyNameList());
-		System.out.println("-----------\n");
+		System.out.println("~~~~~~~~~~~~\n");
 	}
 
 
@@ -309,6 +325,7 @@ public class AdminInterface {
 				+ " 5. Print Course Statistics\n"
 				+ " 6. Set Marks\n"
 				+ " 7. Quit\n"
+				+ " 8. Print student list by group\n"
 				+ "~~~~~~~~~~~~~~~~~~\n"); 
 		
 	}
@@ -347,6 +364,7 @@ public class AdminInterface {
 		}
 		return assessment;
 	}
+	
 
 	private boolean addsUp(ArrayList<Component> assessment) {
 		if (assessment.isEmpty())

@@ -176,6 +176,26 @@ public class University {
 			return null;
 	}
 
+
+	public ArrayList<String> getCourseListByFaculty(String facultyName, Semester sem) {
+		Faculty faculty = getFacultyByName(facultyName);
+		return faculty.getCourseNameList(sem);
+	}
+	
+	
+	public void printStudentListByGroup(String facultyName, Semester semester, String courseCode, char type) {
+		Faculty faculty = getFacultyByName(facultyName);
+		faculty.printStudentListByGroup(semester, courseCode, type);
+	}
+
+
+	public void printCourseStats(String facultyName, Semester sem, String courseCode) {
+		Faculty faculty = getFacultyByName(facultyName);
+		faculty.printCourseStats(sem, courseCode);
+		
+	}
+	
+
 	
 	
 }

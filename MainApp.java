@@ -1,6 +1,5 @@
 import java.util.Scanner;
-//something is wrong when u add 2 student of the same faculty (index out of bound)
-//something is wrong when u add 2 students at all
+
 
 public class MainApp {
 
@@ -21,7 +20,7 @@ public class MainApp {
 		
 		// dummy data -- student
 		university.addStudentToFaculty("SCSE", "Cat", university.getCurrentSemester());
-		university.addStudentToFaculty("NBS", "Darwin", university.getCurrentSemester());
+		university.addStudentToFaculty("SCSE", "Darwin", university.getCurrentSemester());
 		
 		// dummy data -- course
 //		 university.addCourseToFaculty("SCSE", "CS100", "algorithms", 
@@ -57,6 +56,7 @@ public class MainApp {
 				System.out.println("Student not found");
 			
 			else {
+				System.out.println("Launching student interface...");
 				StudentInterface si = new StudentInterface(currentFaculty, matricNo, university);
 				si.run();
 			}	
@@ -72,11 +72,6 @@ public class MainApp {
 	private static String getMatricNo() {
 		System.out.println("Enter matric No: ");
 		String matricNo = sc.nextLine();
-		
-//		while(!university.isValidMatricNo(matricNo)) {
-//			System.out.println("Please enter a valid matric No: ");
-//			matricNo = sc.nextLine();
-//		}
 		return matricNo;
 	}
 

@@ -3,11 +3,13 @@ public class Component {
 	
 	private String title;
 	private int weightage;
+	private int maxMarks;
 	
 	
 	public Component(String componentTitle, int componentWeightage) {
 		this.title = componentTitle;
 		this.weightage = componentWeightage;
+		this.maxMarks = 100;
 	}
 	
 	
@@ -34,4 +36,10 @@ public class Component {
 	public String toString() {
 		return title + ": " + weightage + "%\n";
 	}
+	
+	public int getMaxMarks() {
+		return maxMarks;
+	}
+	
+	
 }

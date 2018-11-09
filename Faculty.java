@@ -12,12 +12,12 @@ public class Faculty {	//need interface w university to add student and course
 		this.facultyName = facultyName;
 		courseListBySem.put(semester, new ArrayList<Course>());
 	}
-
-
-	public ArrayList<Student> getStudentList() {
-		return studentList;
-	}
 	
+	
+	public void updateCourseListBySem(Semester semester) {
+		if (!courseListBySem.containsKey(semester))
+			courseListBySem.put(semester, new ArrayList<Course>());
+	}
 	
 	public ArrayList<String> getStaffNameList() {
 		ArrayList<String> staffNameList  = new ArrayList<>();
@@ -25,11 +25,6 @@ public class Faculty {	//need interface w university to add student and course
 			staffNameList.add(staff.getStaffID() + "\t" + staff.getStaffName());
 		}
 		return staffNameList;
-	}
-	
-	
-	public HashMap<Semester, ArrayList<Course>> getCourseListBySem() {
-		return courseListBySem;
 	}
 	
 	
@@ -120,16 +115,6 @@ public class Faculty {	//need interface w university to add student and course
 	
 	
 	/**
-	 * This method returns the course list by semester
-	 * @param semester
-	 * @return
-	 */
-	public ArrayList<Course> getCourseList(Semester semester) {
-		return courseListBySem.get(semester);
-	}
-	
-	
-	/**
 	 * This method returns the specific course object by semester and course ID
 	 * @param semester
 	 * @param courseID
@@ -151,7 +136,6 @@ public class Faculty {	//need interface w university to add student and course
 	public Student getStudent(String matricNo) {
 		for (Student student: studentList) {
 			if (student.getMatricNo().equals(matricNo)) {
-				System.out.println("found student 1");
 				return student;
 			}
 		}
@@ -189,6 +173,65 @@ public class Faculty {	//need interface w university to add student and course
 			result.add(course.getCourseCode() + "\t" + course.getCourseName());
 		}
 		return result;
+	}
+	
+	private void printArray(ArrayList<String> list) {
+		for (int i=0; i<list.size(); i++) 
+			System.out.println(i+1 + ". " + list.get(i));
+		
+	}
+	
+	public String getStudentNameByMatricNo(String matricNo) {
+		String name = null;
+		for (Student student: studentList) {
+			if (student.getMatricNo().equals(matricNo))
+				return student.getStudentName();
+		}
+		return name;
+	}
+	
+	
+	public void printStudentListByGroup(Semester semester, String courseCode, char type) {
+		Course course = getCourse(semester, courseCode);
+		int i=1;
+		if (type == 'L') { // by lecture group 
+			
+			for (String matricNo: course.getAllStudentList()) {
+				System.out.println( " " + i++ + ". " + matricNo + "\t" +getStudentNameByMatricNo(matricNo));
+			}
+			
+		}
+		
+		else if (type == 'T') {
+			HashMap<String, ArrayList<String>> studentListByGroup = course.getStudentListByGroup();
+			if (studentListByGroup.containsKey("N.A.")) {
+				System.out.println("This course does not have any tutorial groups");
+				return;
+			}
+			
+			for (String tutGroup: studentListByGroup.keySet()) {
+				System.out.println(tutGroup + ":");
+				
+				for (String matricNo: studentListByGroup.get(tutGroup)) {
+					System.out.println( " " + i + ". " + matricNo + getStudentNameByMatricNo(matricNo));
+				}
+				
+			}
+		
+		}
+	}
+	
+	
+	public void displayCourseList(Semester sem) {
+		System.out.println("Course List: ");
+		
+	}
+
+
+	public void printCourseStats(Semester sem, String courseCode) {
+		Course course = getCourse(sem, courseCode);
+		course.printCourseStats();
+		
 	}
 	
 }

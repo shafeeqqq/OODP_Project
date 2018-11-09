@@ -289,6 +289,186 @@ public class Course {
 		
 	}
 	
+	
+	public HashMap<String, ArrayList<String>> getStudentListByGroup() {
+		HashMap<String, ArrayList<String>> result = new HashMap<>();
+		for (StudentInfo item: studentInfoList) {
+			String tutorialGroup = item.getTutorialGroup();
+			
+			if (!result.containsKey(tutorialGroup)) 
+				result.put(tutorialGroup, new ArrayList<String>());
+			
+			result.get(tutorialGroup).add(item.getMatricNo());
+			
+			
+			
+		}
+		
+		return result;
+	}
+
+
+	public ArrayList<String> getAllStudentList() {
+		ArrayList<String> result = new ArrayList<>();
+		for (StudentInfo item: studentInfoList) {
+			result.add(item.getMatricNo());
+		}
+		
+		return result;
+	}
+
+
+
+	public void printCourseStats() {
+		System.out.println("Calculating...");
+		int courseworkWeightage = getCourseworkWeightage();
+		boolean setMarksComplete = true;
+		ArrayList<Character> examMarksList = new ArrayList<>();
+		ArrayList<Character> courseworkMarksList = new ArrayList<>();
+		ArrayList<Character> overall = new ArrayList<>();
+		
+		// initialise dictionary with titles
+		HashMap<String, ArrayList<Double>> marksListByComponent = new HashMap<>();
+		for (String title: getComponentTitles())
+			marksListByComponent.put(title, new ArrayList<Double>());
+		
+		// populate dictionary with data
+		for (StudentInfo studentInfo : studentInfoList) {
+			for (String title: getComponentTitles()) {
+				if (studentInfo.getMarksByComponent(title) != null) {
+					double componentMark = studentInfo.getMarksByComponent(title);
+					marksListByComponent.get(title).add(componentMark);	
+				}
+				else
+					setMarksComplete = false;
+			}
+		}
+		
+		if (checkIsEmpty(marksListByComponent)) {
+			System.out.println("You have not set marks for the students");
+			return;
+		}
+		
+		if (marksListByComponent.containsKey("exam")) {
+			int maxMarks = getComponentByTitle("exam").getMaxMarks();
+			
+			for (Double mark: marksListByComponent.get("exam"))	{
+				examMarksList.add(getGrade(mark, maxMarks ));
+				System.out.println("exam");
+			}
+				
+		}
+		
+		if (courseworkWeightage != 0) {
+			for (int i=0; i<studentInfoList.size(); i++) {
+				double totalCoursework = 0;
+	
+				for (String title: getComponentTitles()) {
+					if (title.equalsIgnoreCase("exam"))
+						continue;
+					else {
+						System.out.println("Coursework:");
+						Component component = getComponentByTitle(title);
+						System.out.println(marksListByComponent.toString());
+						totalCoursework += marksListByComponent.get(title).get(i) * component.getWeightage()/100.0;
+						courseworkMarksList.add(getGrade(totalCoursework, courseworkWeightage));	
+					}
+				}	
+			}
+		}
+		
+		for (int i=0; i<studentInfoList.size(); i++) {
+			double total = 0;
+			System.out.println("Overall: ");
+			for (String title: getComponentTitles()) {
+					Component component = getComponentByTitle(title);
+					total += marksListByComponent.get(title).get(i) * component.getWeightage()/100.0;	
+				}
+			overall.add(getGrade(total, 100));
+	
+		}	
+		
+		System.out.println("Exam stats");
+		printComponentStats(examMarksList);
+		
+		System.out.println("Coursework stats");
+		printComponentStats(courseworkMarksList);
+		
+		System.out.println("Overall stats");
+		printComponentStats(overall);
+		
+		if (setMarksComplete == false)
+			System.out.println("Not all students' marks are set!");
+		
+	}
+
+
+	private boolean checkIsEmpty(HashMap<String, ArrayList<Double>> hashmap) {
+		for (String key: hashmap.keySet()) {
+			if (hashmap.get(key).isEmpty())
+				return true;
+		}
+		return false;
+	}
+
+
+
+	private void printComponentStats(ArrayList<Character> array) {
+		HashMap<Character, Integer> temp = new HashMap<>();
+		System.out.println(array.toString());
+		
+		for (Character grade: array) {
+			if (!temp.containsKey(grade)) 
+				temp.put(grade, 0);
+			temp.put(grade, temp.get(grade) + 1) ;
+			}		
+		
+		System.out.println(temp.toString());
+	}
+
+
+
+	private int getCourseworkWeightage() {
+		int weightage = 0;
+		for (Component item: assessment) {
+			if (!item.getTitle().equalsIgnoreCase("exam"))
+				weightage += item.getWeightage();
+		}
+		return weightage;
+	}
+
+
+
+	private Component getComponentByTitle(String title) {
+		for (Component component: assessment) {
+			if (component.getTitle().equalsIgnoreCase(title))
+				return component;	
+		}
+		return null;
+	}
+
+
+
+	private char getGrade(Double mark, int maxMarks) {
+		
+	
+		char grade;
+		if(mark >= 70*maxMarks/100) 
+			grade = 'A';
+		
+		else if (mark >= 60*maxMarks/100)
+			grade = 'B';
+		
+		else if (mark >= 50*maxMarks/100)
+			grade = 'C';
+		
+		else
+			grade = 'F';
+	
+		System.out.println(mark + " " + maxMarks + " " + grade);
+		return grade;
+	}
+	
 
 	
 }
