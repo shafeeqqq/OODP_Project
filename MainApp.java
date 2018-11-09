@@ -1,4 +1,6 @@
 import java.util.Scanner;
+//something is wrong when u add 2 student of the same faculty (index out of bound)
+//something is wrong when u add 2 students at all
 
 public class MainApp {
 

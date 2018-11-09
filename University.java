@@ -39,7 +39,7 @@ public class University {
 		return facultyList;
 	}
 	
-	
+
 	public ArrayList<String> getFacultyNameList() {
 		ArrayList<String> facultyNameList = new ArrayList<>();
 		
@@ -131,17 +131,19 @@ public class University {
 	private int getLast(int type) {
 		int num = -100;
 		int lastIndex = 0;
-		
+		String ID = "";
 		if (type == 0) {
 			lastIndex = matricNoList.size()-1;
-			
-		} else if (type ==1) 
+			ID = matricNoList.get(lastIndex);	
+		} 
+		else if (type ==1) {
 			lastIndex = staffIDList.size()-1;
+			ID = staffIDList.get(lastIndex);			
+		}
+
+		num = Integer.parseInt(ID.substring(1, ID.length()));	//cannot limit 
 		
-		String ID = staffIDList.get(lastIndex);
-		num = Integer.parseInt(ID.substring(1, ID.length()));	
-		
-		return num + 1;
+		return num;
 	}
 	
 	

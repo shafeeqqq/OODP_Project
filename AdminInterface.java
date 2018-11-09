@@ -69,14 +69,25 @@ public class AdminInterface {
 				run = 2;
 				System.out.println("You are logged out of the system!\n");
 				break;
+				
+			case 8 :
+				printAllStudents();
 			
 			default:
 				System.out.println("Invalid input");
 			}
 		}
 	}
-	
-	
+	private void printAllStudents() {
+		ArrayList<Faculty> allFaculty = university.getFacultyList();
+		for (Faculty current : allFaculty) {
+			ArrayList<Student> allStudent = current.getStudentList();
+			for (Student currentStudent: allStudent) {
+				currentStudent.printDetails();
+			}
+		}
+	}
+
 	private void printCourseStats() {
 		// TODO
 	}
@@ -240,6 +251,7 @@ public class AdminInterface {
 		return string.substring(0, index);
 		
 	}
+	
 
 	private LessonType getLessonType() {
 		System.out.println("Enter Lesson Type (e.g. 'A'): ");
