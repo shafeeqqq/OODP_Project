@@ -135,11 +135,11 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param courseID
 	 * @return
 	 */
-	public Course getCourse(Semester semester, String courseID) {
+	public Course getCourse(Semester semester, String courseCode) {
 		ArrayList<Course> copy =  courseListBySem.get(semester);
 		int index=0;
 		for (int i =0; i<copy.size(); i++) {
-			if (copy.get(i).getCourseCode() == courseID) {
+			if (copy.get(i).getCourseCode() == courseCode) {
 				index = i;
 				break;
 			}
@@ -162,22 +162,27 @@ public class Faculty {	//need interface w university to add student and course
 	public String getTranscript(Student student) {
 		String temp = "Student Name: " + student.getStudentName() + 
 				"\nMatriculation Number: "+ student.getMatricNo() + "\n";
+		
 		HashMap<Semester, ArrayList<String>> candidature = student.getCandidature();
-		for (Semester semester : candidature.keySet()) {
+		
+		for (Semester semester: candidature.keySet()) {
 			temp += semester.toString()+ "\n";
-			for (int i = 0; i< courseListBySem.get(semester).size();i++) {
-				Course currentCourse= courseListBySem.get(semester).get(i);
-				temp+= currentCourse.getCourseCode() + "\t"
-						+ currentCourse.getCourseName() + "\t"
-						+ currentCourse.getComponentsWeightage(student.getMatricNo())
-						+"\n";
-			}
+			for (String courseCode : candidature.get(semester)) 
+				temp += courseCode + ": " + getGradeString(semester, courseCode, student.getMatricNo());
+
 		}
 
 		return temp;
 		//print course, grade, weightage and mark for each component
 	}	
 	
+	private String getGradeString(Semester semester, String courseCode, String matricNo) {
+		Course course = getCourse(semester, courseCode);
+		StudentInfo studentInfo = course.getStudentInfoOfStudent(matricNo);
+		return studentInfo.getMarksString();
+	}
+
+
 	public ArrayList<String> getCourseNameList(Semester sem) {
 		ArrayList<String> result = new ArrayList<>();
 		for(Course course: courseListBySem.get(sem)) {

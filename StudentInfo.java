@@ -32,6 +32,7 @@ public class StudentInfo {
 	public Double getMarksByComponent(String title) {
 		return marks.get(title);
 	}
+
 	
 	
 	public String getTutorialGroup() {
@@ -54,6 +55,14 @@ public class StudentInfo {
 	public void setMarks(HashMap<String, Double> updatedMarks) {
 		marks.clear();
 		marks.putAll(updatedMarks);
+		System.out.println("MARKS" + marks.toString());
+	}
+
+	public String getMarksString() {
+		String result = "";
+		for (String key: marks.keySet()) 
+			result += key + ": " + marks.get(key) + "\n";
+		return result;
 	}
 	
 	

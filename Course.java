@@ -250,5 +250,45 @@ public class Course {
 		
 		return result;
 	}
+
+
+
+	public StudentInfo getStudentInfoOfStudent(String matricNo) {
+		StudentInfo result=null;
+		for (StudentInfo item: studentInfoList) {
+			if (matricNo.equals(item.getMatricNo()))
+				return item;
+		}
+		return result;
+	}
+	
+	public ArrayList<String> getComponentTitles() {
+		ArrayList<String> result = new ArrayList<>();
+		
+		for (Component item: assessment) 
+			result.add(item.getTitle());
+
+		return result;	
+	}
+	
+	public ArrayList<String> getMatricNoList() {
+		ArrayList<String> result = new ArrayList<>();
+		
+		for (StudentInfo item: studentInfoList) 
+			result.add(item.getMatricNo());
+		
+		return result;	
+	}
+
+
+
+	public void updateMarks(String matricNo, HashMap<String, Double> updatedMarks) {
+		StudentInfo si = getStudentInfoOfStudent(matricNo);
+		System.out.println(updatedMarks.toString());
+		si.setMarks(updatedMarks);
+		
+	}
+	
+
 	
 }

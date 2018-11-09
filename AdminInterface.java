@@ -108,23 +108,37 @@ public class AdminInterface {
 		String courseName = courseNameList.get(sc.nextInt() - 1);	
 		Course course = faculty.getCourse(sem, processString(courseName));
 		
-		ArrayList<StudentInfo> studentInfoList = course.getStudentInfoList();
+		ArrayList<String> components = course.getComponentTitles();
+		HashMap<String, Double> updatedMarks = new HashMap<>();
 		
-		StudentInfo student = getStudentInfo(studentInfoList); 
+		String matricNo = getMatricNoInput(course.getMatricNoList());
 		
-		HashMap<String, Double> currentMarks = student.getMarks();
-		for (String key: currentMarks.keySet()) {
-			System.out.println("Enter marks for " + key + ": ");
-			double mark = sc.nextDouble(); sc.nextLine();
-			currentMarks.put(key, mark);
+		for (String item: components) {
+			System.out.println("Enter marks for " + item + ": ");
+			Double mark = sc.nextDouble();
+			updatedMarks.put(item, mark);
 		}
 		
-		student.setMarks(currentMarks);
+		course.updateMarks(matricNo, updatedMarks);
+		
+//		ArrayList<StudentInfo> studentInfoList = course.getStudentInfoList();
+//		
+//		StudentInfo student = getStudentInfo(studentInfoList); 
+//		
+//		HashMap<String, Double> currentMarks = student.getMarks();
+//		for (String key: currentMarks.keySet()) {
+//			System.out.println("Enter marks for " + key + ": ");
+//			double mark = sc.nextDouble(); sc.nextLine();
+//			currentMarks.put(key, mark);
+//		}
+//		
+//		System.out.println(currentMarks.toString());
+//		student.setMarks(currentMarks);
 		
 	}
 	
 	
-	private StudentInfo getStudentInfo(ArrayList<StudentInfo> studentInfoList) {
+	private String getMatricNoInput(ArrayList<String> list) {
 		printMethod();
 		String matricNo = null;
 		System.out.println("Choose method:");
@@ -134,26 +148,15 @@ public class AdminInterface {
 		case 1:
 			System.out.println("Enter matricNo: ");
 			matricNo = sc.nextLine();
-			for (StudentInfo item: studentInfoList) {
-				if (item.getMatricNo().equals(matricNo))
-					return item;
-			}
-			break;
+			return matricNo;
 			
 		case 2:
-			printMatricNoList(studentInfoList);
-			return studentInfoList.get(getChoice()-1); //TODO perform arraylength check
+			printArray(list);
+			return list.get(getChoice()-1); //TODO perform arraylength check
 		}
 		return null;
 	}
-
-	private void printMatricNoList(ArrayList<StudentInfo> studentInfoList) {
-		int i = 1;
-		for (StudentInfo item: studentInfoList) {
-			System.out.println(i++ + ". " + item.getMatricNo());
-		}
-		
-	}
+	
 
 	private void printMethod() {
 		System.out.print(
