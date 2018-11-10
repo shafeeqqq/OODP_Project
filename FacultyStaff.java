@@ -6,13 +6,13 @@ public class FacultyStaff {
 	private String staffID;
 	private String staffName;
 	private String coordinatorOf;
-	private boolean isProfessor;
+	private boolean isProfessor; //
 	private ArrayList<String> courseList;
 	private HashMap<Semester, String> workLoadBySemester;
 	private String facultyName;
 	
 	/**This method construct a FacultyStaff object
-	 * @param id, name
+	 * @param id, names
 	 * Instantiate staffID and staffName
 	 */
 	public FacultyStaff(String staffName, String staffID) {
