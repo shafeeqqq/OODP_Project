@@ -6,7 +6,7 @@ public class FacultyStaff {
 	private String staffID;
 	private String staffName;
 	private String coordinatorOf;
-	private boolean isProfessor; //
+	private boolean isProfessor; 
 	private ArrayList<String> courseList;
 	private HashMap<Semester, String> workLoadBySemester;
 	private String facultyName;
