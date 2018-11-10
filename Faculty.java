@@ -76,7 +76,7 @@ public class Faculty {	//need interface w university to add student and course
 		System.out.println("processing...");
 		
 		Course course = getCourse(currentSem, courseCode);	
-		
+		//
 		if (course.getVacancy() > 0) {
 			student.addCourse(currentSem, courseCode);
 			course.addStudent(matricNo, tutorialGroup);
