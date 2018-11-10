@@ -1,14 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
+
+
 public class StudentInterface {
 	
 	Scanner sc = new Scanner(System.in);
-	/*
-	 * register for course
-	 * print transcript
-	 * 
-	 */
+	
 	private Faculty currentFaculty;
 	private University university;
 	private Student currentStudent;
@@ -29,6 +27,8 @@ public class StudentInterface {
 		System.out.println("found student");
 		currentSemester = university.getCurrentSemester();
 	}
+	
+	
 	/**
 	 * this method let the student register or unregister or print his transcript from the main function
 	 */
@@ -37,11 +37,11 @@ public class StudentInterface {
 		while (run == 1) {
 			printMenu();
 			int choice = getChoice();
+			
 			switch (choice) {
 			case 1:
 				courseRegControl();
 				break;
-				
 			case 2:
 				getTranscript();
 				break;
@@ -54,6 +54,8 @@ public class StudentInterface {
 			}
 		}
 	}
+	
+	
 	/**
 	 * this method controls the registration and unregistration of the courses of the student from the run()
 	 */
@@ -63,15 +65,9 @@ public class StudentInterface {
 		int menuChoice = getChoice();
 		int courseChoice = -1;
 		
-		
 		switch (menuChoice) {
 		case 1:
-		
-			if (currentSemester != null)
-				courseNameList = currentFaculty.getCourseNameList(currentSemester);
-			else
-				System.out.println("Error getting courselist");
-			
+			courseNameList = currentFaculty.getCourseNameList(currentSemester);
 			printArray(courseNameList);	// TODO: print vacancy too
 			
 			currentFaculty.registerForCourse(processString(courseNameList.get(getChoice() -1)), currentSemester, matricNo);
@@ -80,11 +76,7 @@ public class StudentInterface {
 		case 2:
 			//TODO: display faculty list
 		case 3:
-			currentSemester = university.getCurrentSemester();
-			if (currentSemester != null)
-				courseNameList = currentFaculty.getCourseNameList(currentSemester);
-			else
-				System.out.println("Error getting courselist");
+			courseNameList = currentFaculty.getCourseNameList(currentSemester);
 			
 			printArray(courseNameList);
 			courseChoice = getChoice();
