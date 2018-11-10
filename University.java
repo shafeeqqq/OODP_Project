@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class University {
 	
@@ -14,8 +15,6 @@ public class University {
 	University(String universityName) {
 		this.name = universityName;
 		initialiseSemesterList();
-		
-
 	}
 	
 	
@@ -31,12 +30,10 @@ public class University {
 
 	public void addFaculty(String facultyName) {
 		Faculty newFaculty = new Faculty(facultyName, getCurrentSemester());
-		facultyList.add(newFaculty);
-	}
-	
-	
-	public ArrayList<Faculty> getFacultyList() {
-		return facultyList;
+		if (!facultyExists(facultyName))
+			facultyList.add(newFaculty);
+		else
+			System.out.println("Faculty already exists.");
 	}
 	
 
@@ -46,11 +43,6 @@ public class University {
 		for (Faculty faculty: facultyList) 
 			facultyNameList.add(faculty.getFacultyName());
 		return facultyNameList;
-	}
-	
-	
-	public ArrayList<Semester> getSemesterList() {
-		return semesterList;
 	}
 	
 	
@@ -67,12 +59,11 @@ public class University {
 	}
 	
 	
-	public Course addCourseToFaculty(String facultyName, String courseCode, String courseName,
+	public void addCourseToFaculty(String facultyName, String courseCode, String courseName,
 			String coordinator, LessonType lessonType, ArrayList<Component> assessment, Semester semester) {
 		
 		Faculty faculty = getFacultyByName(facultyName);
-		Course newCourse = faculty.addCourse(courseCode, courseName, coordinator, lessonType, assessment, semester);
-		return newCourse;
+		faculty.addCourse(courseCode, courseName, coordinator, lessonType, assessment, semester);
 	}
 	
 	
@@ -159,11 +150,8 @@ public class University {
 	
 	
 	public boolean isValidMatricNo(String matricNo) {
-		if (matricNoList.contains(matricNo)) {
-			return true;
-		}
-
-		
+		if (matricNoList.contains(matricNo)) 
+			return true;	
 		else 
 			return false;
 	}
@@ -194,8 +182,49 @@ public class University {
 		faculty.printCourseStats(sem, courseCode);
 		
 	}
-	
 
+
+	public ArrayList<Component> getCourseAssessment(String facultyName, Semester sem, String courseCode) {
+		Faculty faculty = getFacultyByName(facultyName);
+		return faculty.getCourseAssessment(sem, courseCode);
+		
+	}
+
+
+	public void updateCourseAssessment(String facultyName, Semester sem, String courseCode, ArrayList<Component> assessment) {
+		Faculty faculty = getFacultyByName(facultyName);
+		faculty.updateCourseAssessment(sem, courseCode, assessment);
+		
+	}
+
+
+	public ArrayList<String> getComponentTitles(String facultyName, Semester sem, String courseCode) {
+		Faculty faculty = getFacultyByName(facultyName);
+		return faculty.getComponentTitles(sem, courseCode);
+	}
+
+
+	public void updateMarks(String facultyName, Semester sem, String courseCode, String matricNo,
+			HashMap<String, Double> updatedMarks) {
+		Faculty faculty = getFacultyByName(facultyName);
+		faculty.updateMarks(sem, courseCode, matricNo, updatedMarks);
+		
+	}
+
+
+	public ArrayList<String> getMatricNoList(String facultyName, Semester sem, String courseCode) {
+		Faculty faculty = getFacultyByName(facultyName);
+		return faculty.getMatricNoList(sem, courseCode);
+	}
+	
+	
+	private boolean facultyExists(String facultyName) {
+		for (Faculty faculty: facultyList) {
+			if (faculty.getFacultyName().equalsIgnoreCase(facultyName))
+				return true;
+		}
+		return false;
+	}
 	
 	
 }

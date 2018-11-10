@@ -4,36 +4,25 @@ import java.util.Scanner;
 
 public class AdminInterface {
 
-	
 	/*
 	 * TODO:
-	 * add student -- 
-	 * add course -- 
 	 * check vacancy in course
 	 * print student list by tutorial group; lec - everyone
 	 * enter course assessment weightage
-	 * enter coursework marks
-	 * print course stats
+	 * enter coursework marks --
+	 * print course stats --
 	 *
 	 */
 	
-	
 	Scanner sc = new Scanner(System.in);
-	/*
-	 * register for course
-	 * print transcript
-	 * 
-	 */
-	
-	
 	private University university;
 	
 	
 	public AdminInterface(University university) {
 		this.university = university;
-	
 	}
 
+	
 	public void run() {
 		int run = 1;
 		while (run == 1) {
@@ -66,12 +55,20 @@ public class AdminInterface {
 				break;
 				
 			case 7:
-				run = 2;
-				System.out.println("You are logged out of the system!\n");
+				editCourseWeightage();
 				break;
 				
 			case 8:
 				printStudentListByGroup();
+				break;
+				
+			case 9:
+				checkCourseVacancy();
+				break;
+				
+			case 10:
+				run = 0;
+				System.out.println("You are logged out of the system!\n");
 				break;
 			
 			default:
@@ -79,242 +76,8 @@ public class AdminInterface {
 			}
 		}
 	}
-
-
-	private void printStudentListByGroup() {
-		Semester sem = university.getCurrentSemester();	// TODO other semester? 
-		
-		ArrayList<String> facultyNameList = university.getFacultyNameList();
-		
-		System.out.println("Choose faculty:");
-		printArray(facultyNameList);
-		String facultyName = facultyNameList.get(getChoice() - 1);	
-		
-		ArrayList<String> courseNameList = university.getCourseListByFaculty(facultyName, sem);
-		
-		System.out.println("Choose Course:");
-		printArray(courseNameList);
-		String courseCode = courseNameList.get(getChoice() - 1);
-		
-		System.out.println("Print student list by lecture group(L) or tutorial group(T)?");
-		char type = sc.nextLine().charAt(0); 
-		
-		university.printStudentListByGroup(facultyName, sem, courseCode, type);
-		
-	}
-
-	private void printCourseStats() {
-		Semester sem = university.getCurrentSemester();	// TODO other semester? 
-		
-		ArrayList<String> facultyNameList = university.getFacultyNameList();
-		
-		System.out.println("Choose faculty:");
-		printArray(facultyNameList);
-		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
-		
-		ArrayList<String> courseNameList = university.getCourseListByFaculty(facultyName, sem);
-		
-		System.out.println("Choose Course:");
-		printArray(courseNameList);
-		String courseCode = courseNameList.get(sc.nextInt() - 1);
-		
-		university.printCourseStats(facultyName, sem, courseCode);
-	}
-	
-	private void setMarks() {
-		Semester sem = university.getCurrentSemester();
-		ArrayList<String> facultyNameList = university.getFacultyNameList();
-		
-		System.out.println("Choose faculty:");
-		printArray(facultyNameList);
-		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
-		Faculty faculty = university.getFacultyByName(facultyName);
-		
-		ArrayList<String> courseNameList = faculty.getCourseNameList(sem);
-		
-		System.out.println("Choose Course:");
-		printArray(courseNameList);
-		String courseName = courseNameList.get(sc.nextInt() - 1);	
-		Course course = faculty.getCourse(sem, processString(courseName));
-		
-		ArrayList<String> components = course.getComponentTitles();
-		HashMap<String, Double> updatedMarks = new HashMap<>();
-		
-		String matricNo = getMatricNoInput(course.getMatricNoList());
-		
-		for (String item: components) {
-			System.out.println("Enter marks for " + item + ": ");
-			Double mark = sc.nextDouble();
-			updatedMarks.put(item, mark);
-		}
-		
-		course.updateMarks(matricNo, updatedMarks);
-		
-	}
 	
 	
-	private String getMatricNoInput(ArrayList<String> list) {
-		printMethod();
-		String matricNo = null;
-		System.out.println("Choose method:");
-		int method = getChoice();
-		
-		switch (method) {
-		case 1:
-			System.out.println("Enter matricNo: ");
-			matricNo = sc.nextLine();
-			return matricNo;
-			
-		case 2:
-			printArray(list);
-			return list.get(getChoice()-1); //TODO perform arraylength check
-		}
-		return null;
-	}
-	
-
-	private void printMethod() {
-		System.out.print(
-				  "### ADMIN MENU ###\n"
-				+ " 1. Enter Matric No.\n"
-				+ " 2. Choose from student list\n"
-				+ "~~~~~~~~~~~~~~~~~~\n"); 
-		
-		
-	}
-
-	
-	private void addFacultyStaff() {
-	
-		ArrayList<String> facultyNameList = university.getFacultyNameList();
-		
-		System.out.println("Enter Staff Name:");
-		String staffName = sc.nextLine();
-		
-		System.out.println("Choose faculty:");
-		printArray(facultyNameList);
-		String facultyName = facultyNameList.get(sc.nextInt() - 1);
-		
-		university.addStaffToFaculty(facultyName, staffName);
-		
-		// success message
-		System.out.println("New Faculty Staff " + staffName + " successfully added.");
-		System.out.println("~~~ Faculty Staff List ~~~");
-		printArray(university.getFacultyByName(facultyName).getStaffNameList());
-		System.out.println("~~~~~~~~~~~~~\n");
-		
-		
-	}
-
-	private void addStudent() {
-	
-		ArrayList<String> facultyNameList = university.getFacultyNameList();
-		
-		System.out.println("Enter Student Name:");
-		String studentName = sc.nextLine();
-		
-		System.out.println("Choose faculty:");
-		printArray(facultyNameList);
-		String facultyName = facultyNameList.get(sc.nextInt() - 1);	
-	
-		Student newStudent = university.addStudentToFaculty(facultyName, studentName, university.getCurrentSemester());
-		
-		System.out.println("New student successfully added.");
-		System.out.println("--- Details of new student:---");
-		newStudent.printDetails();
-		System.out.println("-----------\n");
-			
-	}
-
-
-	private void addCourse() {
-		
-		ArrayList<String> facultyNameList = university.getFacultyNameList();
-		
-		
-		System.out.println("Choose faculty:");
-		printArray(facultyNameList);
-		String facultyName = facultyNameList.get(getChoice() - 1);	
-		
-		ArrayList<String> staffNameList = university.getFacultyByName(facultyName).getStaffNameList();
-		
-		System.out.println("Enter Course Code:");
-		String courseCode = sc.nextLine();
-		
-		System.out.println("Enter Course Name:");
-		String courseName = sc.nextLine();
-		
-		System.out.println("Choose Course Coordinator:");
-		printArray(staffNameList);
-		String staffID = getStaffID(staffNameList.get(getChoice() - 1));	// coordinator
-		
-		System.out.println("Choose Lesson Type:");
-		LessonType.printLessonTypes();
-		LessonType lessonType = getLessonType();
-		
-		ArrayList<Component> assessment = getAssessmentInput();
-		
-		Course newCourse = university.addCourseToFaculty(facultyName, courseCode, courseName, 
-				staffID, lessonType, assessment, university.getCurrentSemester());
-		
-		System.out.println("New Course successfully added.");
-		System.out.println("--- Details of newly added course:---");
-		newCourse.printDetails();
-		System.out.println("-----------\n");
-		
-		
-	}
-
-	private String getStaffID(String string) {
-		int index = string.indexOf('\t');
-		return string.substring(0, index);
-		
-	}
-	
-
-	private LessonType getLessonType() {
-		System.out.println("Enter Lesson Type (e.g. 'A'): ");
-		char type = sc.nextLine().charAt(0);
-		
-		switch(type) {
-		case 'a':
-		case 'A':
-			return LessonType.TYPE_A;
-		
-		case 'b':
-		case 'B':
-			return LessonType.TYPE_B;
-			
-		case 'c':
-		case 'C':
-			return LessonType.TYPE_C;
-			
-		default:
-			return LessonType.TYPE_A;
-			
-		}
-	}
-
-	private void addFaculty() {
-		System.out.println("Enter new faculty name: ");
-		String facultyName = sc.nextLine();
-
-		university.addFaculty(facultyName);
-		System.out.println("New Faculty " + facultyName + " successfully added.");
-	
-		System.out.println("~~~ Faculty List ~~~");
-		printArray(university.getFacultyNameList());
-		System.out.println("~~~~~~~~~~~~\n");
-	}
-
-
-
-	private void printArray(ArrayList<String> list) {
-		for (int i=0; i<list.size(); i++) 
-			System.out.println(i+1 + ". " + list.get(i));
-		
-	}
-
 	private void printMenu() {
 		System.out.print(
 				  "### ADMIN MENU ###\n"
@@ -324,17 +87,151 @@ public class AdminInterface {
 				+ " 4. Add Student\n"
 				+ " 5. Print Course Statistics\n"
 				+ " 6. Set Marks\n"
-				+ " 7. Quit\n"
+				+ " 7. Edit Course Assessment\n"
 				+ " 8. Print student list by group\n"
+				+ " 9. Check Course Vacancy\n"
+				+ " 10. Quit\n"
 				+ "~~~~~~~~~~~~~~~~~~\n"); 
 		
 	}
 	
-	private int getChoice() {
-		int choice = sc.nextInt();
-		sc.nextLine();
-		return choice;
+	
+	private void addFaculty() {
+		String facultyName = getStringInput("Enter Faculty Name:");
+		university.addFaculty(facultyName);
+		
+		// TODO: success message
 	}
+	
+	
+	private void addCourse() {
+		String facultyName = chooseFaculty();
+		String courseCode = getStringInput("Enter Course Code:");
+		String courseName = getStringInput("Enter Course Name:");
+		String staffID = chooseCoordinator(facultyName);
+		
+		LessonType lessonType = chooseLessonType();	
+		ArrayList<Component> assessment = getAssessmentInput();
+		
+		university.addCourseToFaculty(facultyName, courseCode, courseName, 
+				staffID, lessonType, assessment, university.getCurrentSemester());
+		//TODO: success message
+	}
+
+	
+	private void addFacultyStaff() {
+		String staffName = getStringInput("Enter Staff Name:");
+		String facultyName = chooseFaculty();
+		
+		university.addStaffToFaculty(facultyName, staffName);
+		
+		//TODO: success message	
+	}
+
+	
+	private void addStudent() {
+		String studentName = getStringInput("Enter Student Name:");
+		String facultyName = chooseFaculty();
+	
+		university.addStudentToFaculty(facultyName, studentName, university.getCurrentSemester());
+		
+		//TODO: success message
+	}
+	
+
+	private void editCourseWeightage() {
+		Semester sem = university.getCurrentSemester();	// TODO other semester? 
+		String facultyName = chooseFaculty();	
+		String courseCode = chooseCourse(facultyName, sem);
+
+		ArrayList<Component> assessment  = university.getCourseAssessment(facultyName, sem, courseCode);		
+		assessment = executeEditCourseAssessment(assessment);
+		
+		university.updateCourseAssessment(facultyName, sem, courseCode, assessment);
+		//TODO: success message
+	}
+	
+	
+	private ArrayList<Component> executeEditCourseAssessment(ArrayList<Component> assessment) {
+		printAssessment(assessment);
+		printEditAssessmentOptions();
+		int choice = getChoice();
+		
+		switch (choice) {
+		case 1:
+			assessment = updateAssessment(assessment);
+			break;
+		
+		case 2:
+			assessment = getAssessmentInput();
+			break;
+			
+		default:
+			System.out.print("Invalid input. "); 
+		}
+		return assessment;
+	}
+
+	
+	private void checkCourseVacancy() {
+		Semester sem = university.getCurrentSemester();	// TODO other semester? 
+	
+		String facultyName = chooseFaculty();	
+		String courseCode = chooseCourse(facultyName, sem);
+		
+	}
+
+
+	private void printStudentListByGroup() {
+		Semester sem = university.getCurrentSemester();	// TODO other semester? 
+		String facultyName = chooseFaculty();	
+		String courseCode = chooseCourse(facultyName, sem);
+		char type = getStringInput("Print student list by lecture group(L) or tutorial group(T)?").charAt(0);
+		
+		university.printStudentListByGroup(facultyName, sem, courseCode, type);
+		
+	}
+	
+
+	private void printCourseStats() {
+		Semester sem = university.getCurrentSemester();	// TODO other semester? 
+		
+		String facultyName = chooseFaculty();	
+		String courseCode = chooseCourse(facultyName, sem);
+		
+		university.printCourseStats(facultyName, sem, courseCode);
+	}
+	
+	
+	private void setMarks() {
+		Semester sem = university.getCurrentSemester();
+		
+		String facultyName = chooseFaculty();	
+		String courseCode = chooseCourse(facultyName, sem);
+		
+		ArrayList<String> components = university.getComponentTitles(facultyName, sem, courseCode);
+		HashMap<String, Double> updatedMarks = new HashMap<>();
+		
+		String matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem, courseCode));
+		
+		for (String item: components) {
+			System.out.println("Enter marks for " + item + ": ");
+			Double mark = sc.nextDouble();
+			updatedMarks.put(item, mark);
+		}
+		university.updateMarks(facultyName, sem, courseCode, matricNo, updatedMarks);
+	}
+
+	
+	private String chooseCoordinator(String facultyName) {
+		ArrayList<String> staffNameList = university.getFacultyByName(facultyName).getStaffNameList();
+		
+		System.out.println("Choose Course Coordinator:");
+		printArray(staffNameList);
+		String staffID = processString(staffNameList.get(getChoice() - 1));
+		return staffID;
+	}
+	
 	
 	private ArrayList<Component> getAssessmentInput() {
 		ArrayList<Component> assessment = new ArrayList<>();
@@ -355,7 +252,7 @@ public class AdminInterface {
 					more = 0;
 			}
 			if (!addsUp(assessment)) {
-				System.out.println("Component weightage does not add up to 100%. Please re-enter Course Assessment");
+				System.out.println("Component weightage does not add up to 100%. Please re-enter Course Assessment.");
 				more = 1;
 				assessment.clear();
 			}
@@ -363,6 +260,91 @@ public class AdminInterface {
 				break;
 		}
 		return assessment;
+	}
+	
+	
+	private ArrayList<Component> updateAssessment(ArrayList<Component> assessment) {
+
+		int more = 1;
+		System.out.println("Update Course Assessment: ");
+		
+		while (more == 1) {
+			for (Component item: assessment)  {
+				System.out.println("Enter weightage for: " + item.getTitle());
+				int weightage = getChoice();
+				item.setWeightage(weightage);
+			}
+				
+			if (!addsUp(assessment)) 
+				System.out.println("Component weightage does not add up to 100%. Please re-enter Course Assessment.");
+			
+			else 
+				break;
+		}
+		return assessment;
+	}
+	
+	
+	private String chooseFaculty() {
+		ArrayList<String> facultyNameList = university.getFacultyNameList();
+		
+		System.out.println("Choose faculty:");
+		printArray(facultyNameList);
+		String facultyName = facultyNameList.get(getChoice() - 1);	
+		
+		return facultyName;
+	}
+	
+	private String chooseCourse(String facultyName, Semester sem) {
+		ArrayList<String> courseNameList = university.getCourseListByFaculty(facultyName, sem);
+		
+		System.out.println("Choose Course:");
+		printArray(courseNameList);
+		String courseCode = courseNameList.get(getChoice() - 1);
+		
+		return courseCode;
+	}
+	
+	
+	private LessonType chooseLessonType() {
+		System.out.println("Choose Lesson Type:");
+		LessonType.printLessonTypes();
+		System.out.println("Enter Lesson Type (e.g. 'A'): ");
+		char type = sc.nextLine().toLowerCase().charAt(0);
+		
+		switch(type) {
+		case 'a':
+			return LessonType.TYPE_A;
+		
+		case 'b':
+			return LessonType.TYPE_B;
+			
+		case 'c':
+			return LessonType.TYPE_C;
+			
+		default:
+			return LessonType.TYPE_A;
+			
+		}
+	}
+	
+	
+	private String getMatricNoInput(ArrayList<String> list) {
+		printMethod();
+		String matricNo = null;
+		System.out.println("Choose method:");
+		int method = getChoice();
+		
+		switch (method) {
+		case 1:
+			matricNo = getStringInput("Enter matricNo: ");
+			return matricNo;
+			
+		case 2:
+			printArray(list);
+			return list.get(getChoice()-1); //TODO perform arraylength check
+		}
+		return null;
 	}
 	
 
@@ -381,11 +363,56 @@ public class AdminInterface {
 		}
 	}
 	
+	
 	private String processString(String string) {
-		
 		int index = string.indexOf('\t');
 		return string.substring(0, index);
 		
+	}
+	
+	
+	private void printArray(ArrayList<String> list) {
+		for (int i=0; i<list.size(); i++) 
+			System.out.println(i+1 + ". " + list.get(i));
+	}
+	
+	
+	private void printAssessment(ArrayList<Component> assessment) {
+		System.out.print("### COURSE ASSESSMENT COMPONENTS ###"); 
+		for (Component item: assessment) 
+			System.out.println(item.toString());
+		System.out.print("~~~~~~~~~~~~~~~~~~\n"); 
+	}
+	
+	
+	private void printEditAssessmentOptions() {
+		System.out.print(
+				  "### EDIT COURSE ASSESSMENT ###\n"
+				+ " 1. Update weightage for existing components\n"
+				+ " 2. Re-enter assessment (from scratch)\n"
+				+ "~~~~~~~~~~~~~~~~~~\n"); 
+	}
+	
+
+	private void printMethod() {
+		System.out.print(
+				  "### CHOOSE METHOD ###\n"
+				+ " 1. Enter Matric No.\n"
+				+ " 2. Choose from student list\n"
+				+ "~~~~~~~~~~~~~~~~~~\n"); 
+	}
+	
+	
+	private int getChoice() {
+		int choice = sc.nextInt();
+		sc.nextLine();
+		return choice;
+	}
+	
+	
+	private String getStringInput(String msg) {
+		System.out.println(msg); 
+		return sc.nextLine();
 	}
 	
 }

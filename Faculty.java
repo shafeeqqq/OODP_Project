@@ -50,12 +50,21 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param tutorialGroup
 	 * @param LessonType
 	 */
-	public Course addCourse(String courseCode, String courseName, String coordinator,
+	public void addCourse(String courseCode, String courseName, String coordinator,
 			LessonType lessonType, ArrayList<Component> assessment, Semester sem) {
 		
 		Course newCourse = new Course(courseCode, courseName, coordinator, lessonType, assessment);
-		courseListBySem.get(sem).add(newCourse);
-		return newCourse;
+		if (!courseExists(sem, courseCode))
+			courseListBySem.get(sem).add(newCourse);
+		
+		else {
+			System.out.println("Course already exists.");
+			return;
+		}
+		System.out.println("New Course successfully added.");
+		System.out.println("~~~ Details of newly added course ~~~");
+		newCourse.printDetails();
+		System.out.println("~~~~~~~~~\n");
 	}
 	
 	
@@ -63,25 +72,20 @@ public class Faculty {	//need interface w university to add student and course
 	 * this method register the current student for the course of the code given
 	 * @param courseCode
 	 */
-	public void registerForCourse(String courseCode, Semester currentSem, Student student) {
+	public void registerForCourse(String courseCode, Semester currentSem, String matricNo) {
 		System.out.println("processing...");
 		
-		Course course = getCourse(currentSem, courseCode);
-		
+		Course course = getCourse(currentSem, courseCode);	
 		
 		if (course.getVacancy() > 0) {
 			student.addCourse(currentSem, courseCode);
-
-			System.out.println(course.getAssessmentString());
+			course.addStudent(matricNo, tutorialGroup);
 			course.getStudentInfoList().add(new StudentInfo(student.getMatricNo(), course.getTutorialGroup(), course.getAssessmentTitles()));
 			
-			System.out.println("Registration Successful");
-			student.printDetails();
-			course.printStudentInfoOfStudent(student.getMatricNo());
-
+			System.out.println("Registration Successful!\n");
 		
 		} else 
-			System.out.println("There is no more vacancy in the course.");
+			System.out.println("There is no more vacancy in the course.\n");
 	}
 	
 	
@@ -175,11 +179,7 @@ public class Faculty {	//need interface w university to add student and course
 		return result;
 	}
 	
-	private void printArray(ArrayList<String> list) {
-		for (int i=0; i<list.size(); i++) 
-			System.out.println(i+1 + ". " + list.get(i));
-		
-	}
+
 	
 	public String getStudentNameByMatricNo(String matricNo) {
 		String name = null;
@@ -204,6 +204,7 @@ public class Faculty {	//need interface w university to add student and course
 		
 		else if (type == 'T') {
 			HashMap<String, ArrayList<String>> studentListByGroup = course.getStudentListByGroup();
+		
 			if (studentListByGroup.containsKey("N.A.")) {
 				System.out.println("This course does not have any tutorial groups");
 				return;
@@ -212,26 +213,57 @@ public class Faculty {	//need interface w university to add student and course
 			for (String tutGroup: studentListByGroup.keySet()) {
 				System.out.println(tutGroup + ":");
 				
-				for (String matricNo: studentListByGroup.get(tutGroup)) {
+				for (String matricNo: studentListByGroup.get(tutGroup)) 
 					System.out.println( " " + i + ". " + matricNo + getStudentNameByMatricNo(matricNo));
-				}
-				
+					
 			}
-		
 		}
 	}
 	
-	
-	public void displayCourseList(Semester sem) {
-		System.out.println("Course List: ");
-		
-	}
-
 
 	public void printCourseStats(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
 		course.printCourseStats();
 		
+	}
+
+
+	public ArrayList<Component> getCourseAssessment(Semester sem, String courseCode) {
+		Course course = getCourse(sem, courseCode);
+		return course.getAssessment();
+	}
+
+
+	public void updateCourseAssessment(Semester sem, String courseCode, ArrayList<Component> assessment) {
+		Course course = getCourse(sem, courseCode);
+		course.setAssessment(assessment);
+	}
+
+
+	public ArrayList<String> getComponentTitles(Semester sem, String courseCode) {
+		Course course = getCourse(sem, courseCode);
+		return course.getComponentTitles();
+	}
+
+
+	public void updateMarks(Semester sem, String courseCode, String matricNo, HashMap<String, Double> updatedMarks) {
+		Course course = getCourse(sem, courseCode);
+		course.updateMarks(matricNo, updatedMarks);
+	}
+
+
+	public ArrayList<String> getMatricNoList(Semester sem, String courseCode) {
+		Course course = getCourse(sem, courseCode);
+		return course.getMatricNoList();
+	}
+	
+	
+	private boolean courseExists(Semester sem, String courseCode) {
+		for (Course course: courseListBySem.get(sem)) {
+			if (course.getCourseCode().equalsIgnoreCase(courseCode))
+				return true;
+		}
+		return false;
 	}
 	
 }

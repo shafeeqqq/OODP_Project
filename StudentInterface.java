@@ -73,7 +73,7 @@ public class StudentInterface {
 			
 			printArray(courseNameList);	// TODO: print vacancy too
 			
-			currentFaculty.registerForCourse(processString(courseNameList.get(getChoice() -1)), currentSemester, currentStudent);
+			currentFaculty.registerForCourse(processString(courseNameList.get(getChoice() -1)), currentSemester, matricNo);
 			break;
 			
 		case 2:
@@ -136,7 +136,7 @@ public class StudentInterface {
 	 */
 	private void printMenu() {
 		System.out.print(
-				  "### Student Menu ###\n"
+				  "### STUDENT MENU ###\n"
 				  + " 1. Course registration/deregistration\n"
 				  + " 2. Print Transcript\n"
 				  + " 3. Quit\n"); 
@@ -149,7 +149,7 @@ public class StudentInterface {
 	 */
 	private void printCourseRegMenu() {
 		System.out.print(		
-				  "### Course Registration ###\n"
+				  "### COURSE REGISTRATION ###\n"
 				+ " 1. Courses from my Faculty\n"
 				+ " 2. Courses from other Faculty\n"
 				+ " 3. Unregister from a course\n"); 
