@@ -26,6 +26,7 @@ public class StudentInterface {
 		this.currentFaculty = currentFaculty;
 		this.matricNo = matricNo;
 		this.currentStudent = currentFaculty.getStudent(matricNo);
+		System.out.println("found student");
 		currentSemester = university.getCurrentSemester();
 	}
 	/**
