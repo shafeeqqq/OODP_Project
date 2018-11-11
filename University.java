@@ -225,6 +225,18 @@ public class University {
 		}
 		return false;
 	}
+
+
+	public ArrayList<String> getAvailableStaff(String facultyName) { //return the list of available staff to be coordinator
+		Faculty currentFaculty = getFacultyByName(facultyName);
+		ArrayList<String> result = new ArrayList<>();
+		for(FacultyStaff currentStaff : currentFaculty.getStaffList()) {
+			if (currentStaff.getCoordinatorOf() == null) {
+				result.add(currentStaff.getStaffName());
+			}
+		}
+		return result;
+	}
 	
 	
 }
