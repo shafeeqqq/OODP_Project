@@ -333,11 +333,11 @@ public class Faculty {	//need interface w university to add student and course
 		return staffList;
 	}
 
-	public ArrayList<Course> getAllCourses() {
-		for(Course currentCourse) {
-			
-		}
-		courseListBySem
-	}
+//	public ArrayList<Course> getAllCourses() {
+//		for(Course currentCourse) {
+//			
+//		}
+//		courseListBySem
+//	}
 	
 }

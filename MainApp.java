@@ -47,7 +47,7 @@ public class MainApp {
 	private static void Saves() throws IOException {
 		file.saveStudents("students.txt",university.getAllStudents());
 		file.saveStaffs("facultystaff.txt", university.getAllStaffs());
-		file.saveCourses("courses.txt",university.getallCourses());
+//		file.saveCourses("courses.txt",university.getallCourses());
 	}
 
 	private static void launchInterface(String mode) {
