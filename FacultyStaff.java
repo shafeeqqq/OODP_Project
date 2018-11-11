@@ -18,6 +18,11 @@ public class FacultyStaff {
 	public FacultyStaff(String staffName, String staffID) {
 		this.staffName = staffName;
 		this.staffID = staffID;
+		this.coordinatorOf = null;
+	}
+	
+	public String getCoordinatorOf() {
+		return coordinatorOf;
 	}
 	
 	

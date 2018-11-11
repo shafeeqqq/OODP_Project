@@ -109,6 +109,7 @@ public class AdminInterface {
 		String courseCode = getStringInput("Enter Course Code:");
 		String courseName = getStringInput("Enter Course Name:");
 		String staffID = chooseCoordinator(facultyName);
+
 		
 		LessonType lessonType = chooseLessonType();	
 		ArrayList<Component> assessment = getAssessmentInput();
@@ -228,7 +229,8 @@ public class AdminInterface {
 
 	
 	private String chooseCoordinator(String facultyName) {
-		ArrayList<String> staffNameList = university.getFacultyByName(facultyName).getStaffNameList();
+		ArrayList<String> staffNameList = university.getAvailableStaff(facultyName);
+//		ArrayList<String> staffNameList = university.getFacultyByName(facultyName).getStaffNameList();
 		
 		System.out.println("Choose Course Coordinator:");
 		printArray(staffNameList);

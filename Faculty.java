@@ -14,7 +14,9 @@ public class Faculty {	//need interface w university to add student and course
 		courseListBySem.put(semester, new ArrayList<Course>());
 	}
 	
-	
+	public ArrayList<FacultyStaff> getStaffList() {
+		return staffList;
+	}
 	public void updateCourseListBySem(Semester semester) {
 		if (!courseListBySem.containsKey(semester))
 			courseListBySem.put(semester, new ArrayList<Course>());

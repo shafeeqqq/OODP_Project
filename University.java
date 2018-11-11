@@ -64,14 +64,6 @@ public class University {
 		return newStudent;
 	}
 	
-	// overloading
-	public Student addStudentToFaculty(String facultyName, String studentName, String matricNo, HashMap<Semester, ArrayList<String>> candidature) {
-		Faculty faculty = getFacultyByName(facultyName);
-		matricNoList.add(matricNo);
-		Student newStudent = faculty.addStudent(studentName, matricNo, candidature);
-		return newStudent;
-	}
-	
 	
 	public void addCourseToFaculty(String facultyName, String courseCode, String courseName,
 			String coordinator, LessonType lessonType, ArrayList<Component> assessment, Semester semester) {
@@ -152,10 +144,10 @@ public class University {
 	}
 	
 	
-	public Faculty getFacultyOfStudent(String matricNo) { // TODO: change method
+	public Faculty getFacultyOfStudent(String matricNo) {
 		Student currentStudent;
 		for (Faculty faculty: facultyList) {
-			currentStudent = faculty.getStudentObj(matricNo);
+			currentStudent = faculty.getStudent(matricNo);
 			if ( currentStudent != null)
 				return faculty;
 		}
@@ -181,7 +173,7 @@ public class University {
 
 	public ArrayList<String> getCourseListByFaculty(String facultyName, Semester sem) {
 		Faculty faculty = getFacultyByName(facultyName);
-		return faculty.getCourseNameList(sem, false);
+		return faculty.getCourseNameList(sem);
 	}
 	
 	
@@ -241,9 +233,15 @@ public class University {
 	}
 
 
-	public int getCourseVacancy(String facultyName, Semester sem, String courseCode) {
-		Faculty faculty = getFacultyByName(facultyName);
-		return faculty.getCourseVacancy(sem, courseCode);
+	public ArrayList<String> getAvailableStaff(String facultyName) { //return the list of available staff to be coordinator
+		Faculty currentFaculty = getFacultyByName(facultyName);
+		ArrayList<String> result = new ArrayList<>();
+		for(FacultyStaff currentStaff : currentFaculty.getStaffList()) {
+			if (currentStaff.getCoordinatorOf() == null) {
+				result.add(currentStaff.getStaffName());
+			}
+		}
+		return result;
 	}
 	
 	
