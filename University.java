@@ -251,14 +251,19 @@ public class University {
 	public ArrayList<String> getAvailableStaff(String facultyName) { //return the list of available staff to be coordinator
 		Faculty currentFaculty = getFacultyByName(facultyName);
 		ArrayList<String> result = new ArrayList<>();
-		for(FacultyStaff currentStaff : currentFaculty.getStaffList()) {
-			if (currentStaff.getCoordinatorOf() == null) {
-				result.add(currentStaff.getStaffName());
+		result = currentFaculty.getAvailableStaff();
+		return result;
+	}
+
+
+	public FacultyStaff getStaffByID(String facultyName, String staffID) {
+		FacultyStaff result = null;
+		Faculty current = getFacultyByName(facultyName);
+		for (FacultyStaff currentStaff : 	current.getStaffList()) {
+			if (currentStaff.getStaffID() == staffID) {
+				return currentStaff;
 			}
 		}
 		return result;
 	}
-	
-	
-	
 }

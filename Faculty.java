@@ -29,6 +29,7 @@ public class Faculty {	//need interface w university to add student and course
 	}
 	
 	
+	
 	/**
 	 * this method adds a new student to the student list inside the Faculty object
 	 * @param studentname
@@ -60,7 +61,11 @@ public class Faculty {	//need interface w university to add student and course
 	 */
 	public void addCourse(String courseCode, String courseName, String coordinator,
 			LessonType lessonType, ArrayList<Component> assessment, Semester sem) {
-		
+		for (FacultyStaff now : staffList) {
+			if (now.getStaffID() == coordinator) {
+				now.setCoordinator(courseCode);
+			}
+		}
 		Course newCourse = new Course(courseCode, courseName, coordinator, lessonType, assessment);
 		if (!courseExists(sem, courseCode))
 			courseListBySem.get(sem).add(newCourse);
@@ -286,4 +291,16 @@ public class Faculty {	//need interface w university to add student and course
 	public ArrayList<FacultyStaff> getStaffList() {
 		return staffList;
 	}
+
+
+	public ArrayList<String> getAvailableStaff() {
+		ArrayList<String> result = new ArrayList<>();
+		for (FacultyStaff currentStaff : staffList) {
+			if (currentStaff.getCoordinatorOf() == null) {
+				result.add(currentStaff.getStaffID() + "\t" + currentStaff.getStaffName());
+			}
+		}
+		return result;
+	}
+	
 }

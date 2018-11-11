@@ -109,7 +109,7 @@ public class AdminInterface {
 		String courseCode = getStringInput("Enter Course Code:");
 		String courseName = getStringInput("Enter Course Name:");
 		String staffID = chooseCoordinator(facultyName);
-
+		Semester sem = university.getCurrentSemester();
 		
 		LessonType lessonType = chooseLessonType();	
 		ArrayList<Component> assessment = getAssessmentInput();
@@ -120,6 +120,8 @@ public class AdminInterface {
 	}
 
 	
+
+
 	private void addFacultyStaff() {
 		String staffName = getStringInput("Enter Staff Name:");
 		String facultyName = chooseFaculty();
@@ -235,6 +237,7 @@ public class AdminInterface {
 		System.out.println("Choose Course Coordinator:");
 		printArray(staffNameList);
 		String staffID = processString(staffNameList.get(getChoice() - 1));
+		
 		return staffID;
 	}
 	
