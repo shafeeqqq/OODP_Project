@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class Course {
 	
 	private String courseCode;
-	private String facultyName;
+	private String facultyName;//
 	private String courseName;
 	private String coordinator;
 	private int maxEnrollment;
