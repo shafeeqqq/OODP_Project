@@ -466,13 +466,10 @@ public class Course {
 	public String getOverallGrade(String matricNo) {
 		String grade = "You are not registered for this course.";
 		StudentInfo studentInfo = getStudentInfoOfStudent(matricNo);
-		System.out.println(assessment.size());
-		System.out.println("\n\n"+this.courseCode + " " + studentInfo.getMarksString() + "asdfjasl");
 		if (studentInfo != null) {
 			
 			double total = 0;
 			for (Component item: assessment) {
-				System.out.println(item.getTitle()+ "   SDFSDF");
 				if (studentInfo.getMarksByComponent(item.getTitle()) == null)
 					return "Pending";
 				total += studentInfo.getMarksByComponent(item.getTitle())  * item.getWeightage()/100.0;

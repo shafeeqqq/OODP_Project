@@ -36,7 +36,6 @@ public class StudentInfo {
 	
 	
 	public Double getMarksByComponent(String title) {
-		System.out.println(marks.get(title) + "siMARKS");
 		return marks.get(title);
 	}
 
