@@ -332,5 +332,12 @@ public class Faculty {	//need interface w university to add student and course
 	public ArrayList<FacultyStaff> getAllStaffs() {
 		return staffList;
 	}
+
+	public ArrayList<Course> getAllCourses() {
+		for(Course currentCourse) {
+			
+		}
+		courseListBySem
+	}
 	
 }
