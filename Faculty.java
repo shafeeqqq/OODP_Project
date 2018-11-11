@@ -153,9 +153,9 @@ public class Faculty {	//need interface w university to add student and course
 		System.out.println(courseListBySem.toString());
 		for (Semester semester: candidature.keySet()) {
 			temp += semester.toString()+ "\n";
-			for (String courseCode : candidature.get(semester)) 
-				temp += courseCode + ": " + getGradeString(semester, courseCode, student.getMatricNo());
-
+			for (String courseCode : candidature.get(semester)) {
+				temp += courseCode + ": " + getGradeString(semester, courseCode, student.getMatricNo()) + "\n";
+			}
 		}
 
 		return temp;
@@ -163,12 +163,10 @@ public class Faculty {	//need interface w university to add student and course
 	}	
 	
 	private String getGradeString(Semester semester, String courseCode, String matricNo) {
-		System.out.println(courseCode);
 		Course course = getCourse(semester, courseCode);
-		StudentInfo studentInfo = course.getStudentInfoOfStudent(matricNo);
-		if (studentInfo == null)
-			return null;
-		return studentInfo.getMarksString();
+		if (course != null)
+			return course.getOverallGrade(matricNo);
+		return "Course does not exist.";
 	}
 
 
@@ -271,7 +269,6 @@ public class Faculty {	//need interface w university to add student and course
 	
 	
 	private boolean courseExists(Semester sem, String courseCode) {
-		if (courseListBySem.get(sem) == null ) System.out.println("courselist null");
 		if (courseListBySem.get(sem).isEmpty()) return false;
 		for (Course course: courseListBySem.get(sem)) {
 			if (course.getCourseCode().equalsIgnoreCase(courseCode))
@@ -292,20 +289,18 @@ public class Faculty {	//need interface w university to add student and course
 		return course.getVacancy();
 	}
 	
-	public ArrayList<FacultyStaff> getStaffList() {
-		return staffList;
-	}
-
+	
 
 	public ArrayList<String> getAvailableStaff() {
 		ArrayList<String> result = new ArrayList<>();
 		for (FacultyStaff currentStaff : staffList) {
 			if (currentStaff.getCoordinatorOf() == null) {
-				result.add(currentStaff.getStaffID() + "\t" + currentStaff.getStaffName()+ "\t" +currentStaff.getCoordinatorOf());
+				result.add(currentStaff.getStaffID() + "\t" + currentStaff.getStaffName());
 			}
 		}
 		return result;
-	}//
+	}
+	
 
 	public void addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType,
 			ArrayList<Component> assessment, Semester sem, ArrayList<StudentInfo> studentInfoList) {
@@ -315,7 +310,6 @@ public class Faculty {	//need interface w university to add student and course
 			}
 		}
 		Course newCourse = new Course(this.facultyName, courseCode, courseName, coordinator, lessonType, assessment,studentInfoList);
-		if (courseListBySem.get(sem) == null ) System.out.println("nulll null");
 		if (!courseExists(sem, courseCode))
 			courseListBySem.get(sem).add(newCourse);
 		
@@ -327,7 +321,6 @@ public class Faculty {	//need interface w university to add student and course
 		System.out.println("~~~ Details of newly added course ~~~");
 		newCourse.printDetails();
 		System.out.println("~~~~~~~~~\n");
-		System.out.println(courseListBySem.toString());
 		
 	}
 	

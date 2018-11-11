@@ -86,7 +86,7 @@ public class FileIO {
 				studentInfoList.add(current);
 				
 			}
-			university.addCourseToFaculty(facultyName, courseCode, courseName, coordinator, lessonType, assessment, sem,studentInfoList);
+			university.addCourseToFaculty(facultyName, courseCode, courseName, coordinator, lessonType, assessment, sem);//,studentInfoList);
 		}
 	}
 

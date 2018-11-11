@@ -254,18 +254,6 @@ public class University {
 		result = currentFaculty.getAvailableStaff();
 		return result;
 	}
-
-
-	public FacultyStaff getStaffByID(String facultyName, String staffID) {
-		FacultyStaff result = null;
-		Faculty current = getFacultyByName(facultyName);
-		for (FacultyStaff currentStaff : 	current.getStaffList()) {
-			if (currentStaff.getStaffID() == staffID) {
-				return currentStaff;
-			}
-		}
-		return result;
-	}
 	
 	
 	public Semester getSemester(Semester sem) {

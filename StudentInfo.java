@@ -17,10 +17,10 @@ public class StudentInfo {
 	}
 
 	
-	StudentInfo(String currentMatric, String currentTutorialGroup, HashMap<String, Double> marks2) {
+	StudentInfo(String currentMatric, String currentTutorialGroup, HashMap<String, Double> marks) {
 		this.matricNo = currentMatric;
 		this.tutorialGroup = currentTutorialGroup;
-		this.marks = marks2;
+		this.marks.putAll(marks);
 	}
 
 	private void initialiseMarks(ArrayList<String> components) {
