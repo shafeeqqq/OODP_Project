@@ -283,4 +283,7 @@ public class Faculty {	//need interface w university to add student and course
 		return course.getVacancy();
 	}
 	
+	public ArrayList<FacultyStaff> getStaffList() {
+		return staffList;
+	}
 }

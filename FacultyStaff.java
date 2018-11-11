@@ -25,8 +25,16 @@ public class FacultyStaff {
 		this.staffName = staffName;
 		this.staffID = staffID;
 		this.facultyName = facultyName;
+		printDetails();
 	}
 	
+	
+	private void printDetails() {
+		System.out.print(
+				"Name: " + staffName + "\n"
+			  + "Staff ID: " + staffID + "\n"
+			  + "Faculty: " + facultyName + "\n");
+	}
 	
 	/**This method sets the coordinator status for current staff for the course with code passed as parameter
 	 * 
@@ -34,6 +42,10 @@ public class FacultyStaff {
 	 */
 	public void setCoordinator(String courseCode) { //need interface with faculty to change attribute in course
 		
+	}
+	
+	public String getCoordinatorOf() {
+		return coordinatorOf;
 	}
 	
 	

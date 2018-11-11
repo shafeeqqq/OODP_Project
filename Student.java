@@ -38,7 +38,7 @@ public class Student {
 		return candidature;
 	}
 	
-	public void printDetails() {
+	private void printDetails() {
 		System.out.print(
 				"Name: " + studentName + "\n"
 			  + "Matriculation No.: " + matricNo + "\n"

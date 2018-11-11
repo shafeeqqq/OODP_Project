@@ -66,7 +66,7 @@ public class FileIO {
 		
         for (int i = 0 ; i < facultyStaffList.size() ; i++) {
 				String line = facultyStaffList.get(i);
-				String[] strArr = st.split("\\|");
+				String[] strArr = line.split("\\|");
 				
 				String staffName = strArr[0];// first token
 				String staffID = strArr[1];// second token
