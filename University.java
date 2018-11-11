@@ -270,7 +270,6 @@ public class University {
 			LessonType lessonType, ArrayList<Component> assessment, Semester sem,
 			ArrayList<StudentInfo> studentInfoList) {
 		Faculty faculty = getFacultyByName(facultyName);
-		faculty.addCourse(courseCode, courseName, coordinator, lessonType, assessment, sem, studentInfoList);
-		
+		faculty.addCourse(courseCode, courseName, coordinator, lessonType, assessment, sem, studentInfoList);		
 	}
 }

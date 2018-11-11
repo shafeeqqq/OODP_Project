@@ -33,6 +33,15 @@ public class Course {
 	}
 	
 	
+<<<<<<< HEAD
+	Course(String facultyName2, String courseCode2, String courseName2, String coordinator2,
+			LessonType lessonType2, ArrayList<Component> assessment2, ArrayList<StudentInfo> studentInfoList2) {
+		this.courseCode = courseCode2;
+		this.courseName = courseName2;
+		this.coordinator = coordinator2;
+		this.lessonType = lessonType2;
+		this.assessment.addAll(assessment2);
+=======
 	Course(String facultyName, String courseCode, String courseName, String coordinator,
 			LessonType lessonType, ArrayList<Component> assessment, ArrayList<StudentInfo> studentInfoList) {
 		this.courseCode = courseCode;
@@ -40,6 +49,7 @@ public class Course {
 		this.coordinator = coordinator;
 		this.lessonType = lessonType;
 		this.assessment.addAll(assessment);
+>>>>>>> branch 'master' of https://github.com/shafeeqqq/OODP_Project.git
 		initialiseTutorialGroups();
 		this.maxEnrollment = initialiseMaxEnrollment();
 		this.facultyName = facultyName;

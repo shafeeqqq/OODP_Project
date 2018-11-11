@@ -299,9 +299,14 @@ public class Faculty {	//need interface w university to add student and course
 			}
 		}
 		return result;
+<<<<<<< HEAD
+	}//
+	
+=======
 	}
 	
 
+>>>>>>> branch 'master' of https://github.com/shafeeqqq/OODP_Project.git
 	public void addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType,
 			ArrayList<Component> assessment, Semester sem, ArrayList<StudentInfo> studentInfoList) {
 		for (FacultyStaff now : staffList) {
@@ -309,7 +314,15 @@ public class Faculty {	//need interface w university to add student and course
 				now.setCoordinator(courseCode);
 			}
 		}
+<<<<<<< HEAD
+		System.out.println(assessment);
+		System.out.println("adbsada");
+		Course newCourse = new Course(this.facultyName, courseCode, courseName, coordinator, lessonType, assessment,studentInfoList);	
+
+		if (courseListBySem.get(sem) == null ) System.out.println("null null");
+=======
 		Course newCourse = new Course(this.facultyName, courseCode, courseName, coordinator, lessonType, assessment,studentInfoList);
+>>>>>>> branch 'master' of https://github.com/shafeeqqq/OODP_Project.git
 		if (!courseExists(sem, courseCode))
 			courseListBySem.get(sem).add(newCourse);
 		
