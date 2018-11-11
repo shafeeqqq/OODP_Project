@@ -87,7 +87,7 @@ public class Course {
 	}
 	
 	
-	public ArrayList<String> getTutorialGroupsVacancy() {
+	public ArrayList<String> getAvailTutGroups() {
 		ArrayList<String> result = new ArrayList<>();
 		if (tutorialGroups == null)
 			return null;
@@ -109,7 +109,7 @@ public class Course {
 			if (item.getTutorialGroup().equals(tutGroup))
 				++count;
 		}
-		return count;
+		return tutorialGroups.get(tutGroup) - count;
 	}
 
 	
