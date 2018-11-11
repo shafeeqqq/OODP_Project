@@ -72,7 +72,9 @@ public class AdminInterface {
 				break;
 			
 			default:
-				System.out.println("Invalid input");
+				System.out.println("You have entered a wrong input! \n"
+						+ "Please enter a number from 1 to 10!");
+				System.out.println();
 			}
 		}
 	}
