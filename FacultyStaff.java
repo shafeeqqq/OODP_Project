@@ -48,11 +48,7 @@ public class FacultyStaff {
 	public void setCoordinator(String courseCode) { //need interface with faculty to change attribute in course
 		
 	}
-	
-	public String getCoordinatorOf() {
-		return coordinatorOf;
-	}
-	
+
 	
 	/**
 	 * This method adds the passed courseCode to the current Staff's workload as a string

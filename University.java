@@ -58,10 +58,18 @@ public class University {
 		faculty.addStaff(staffName, staffID);
 	}
 	
-	public Student addStudentToFaculty(String facultyName, String studentName, Semester semester) {
+	public void addStudentToFaculty(String facultyName, String studentName, Semester semester) {
 		Faculty faculty = getFacultyByName(facultyName);
 		Student newStudent = faculty.addStudent(studentName, generateMatricNo(), semester);
-		return newStudent;
+	}
+	
+	
+	// overloading
+	public void addStudentToFaculty(String facultyName, String studentName, String matricNo, HashMap<Semester, ArrayList<String>> candidature) {
+		Faculty faculty = getFacultyByName(facultyName);
+		matricNoList.add(matricNo);
+		Student newStudent = faculty.addStudent(studentName, matricNo, candidature);
+		
 	}
 	
 	
@@ -147,7 +155,7 @@ public class University {
 	public Faculty getFacultyOfStudent(String matricNo) {
 		Student currentStudent;
 		for (Faculty faculty: facultyList) {
-			currentStudent = faculty.getStudent(matricNo);
+			currentStudent = faculty.getStudentObj(matricNo);
 			if ( currentStudent != null)
 				return faculty;
 		}
@@ -173,7 +181,7 @@ public class University {
 
 	public ArrayList<String> getCourseListByFaculty(String facultyName, Semester sem) {
 		Faculty faculty = getFacultyByName(facultyName);
-		return faculty.getCourseNameList(sem);
+		return faculty.getCourseNameList(sem, false);
 	}
 	
 	
@@ -181,6 +189,13 @@ public class University {
 		Faculty faculty = getFacultyByName(facultyName);
 		faculty.printStudentListByGroup(semester, courseCode, type);
 	}
+	
+	
+	public int getCourseVacancy(String facultyName, Semester sem, String courseCode) {
+		Faculty faculty = getFacultyByName(facultyName);
+		return faculty.getCourseVacancy(sem, courseCode);
+	}
+	
 
 
 	public void printCourseStats(String facultyName, Semester sem, String courseCode) {
@@ -244,17 +259,6 @@ public class University {
 		return result;
 	}
 	
-	
-	public ArrayList<String> getAvailableStaff(String facultyName) { //return the list of available staff to be coordinator
-		Faculty currentFaculty = getFacultyByName(facultyName);
-		ArrayList<String> result = new ArrayList<>();
-		for(FacultyStaff currentStaff : currentFaculty.getStaffList()) {
-			if (currentStaff.getCoordinatorOf() == null) {
-				result.add(currentStaff.getStaffName());
-			}
-		}
-		return result;
-	}
 	
 	
 }
