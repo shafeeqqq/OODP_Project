@@ -15,7 +15,6 @@ public class FileIO {
 	private static final String STUDENT_FILE = "students.txt";
 	private static final String FACULTYSTAFF_FILE = "facultystaff.txt";
 	private static final String COURSE_FILE = "courses.txt";
-	private static final String STUDENT_INFO_FILE = "studinfo";
 	private University university;
 
 	FileIO (University university) {
@@ -37,7 +36,6 @@ public class FileIO {
 	private void readCourses (String filename) throws IOException {
 		// read String from text file
 		ArrayList<String> courseList = readFromFile(filename);
-
 		for (int i = 0 ; i < courseList.size() ; i++) {
 			String line = courseList.get(i);
 			String[] strArr = line.split("\\|");
@@ -73,20 +71,25 @@ public class FileIO {
 				assessment.add(component);
 			}
 			ArrayList<StudentInfo> studentInfoList  = new ArrayList<>();
-			
-			for (i=8; i<strArr.length; i++) {
-				String[] currentStudentInfo = strArr[i].split(",");
+			for (int x = 8; x < strArr.length; x++) {
+				String[] currentStudentInfo = strArr[x].split(",");
 				String currentMatric = currentStudentInfo[0];
 				String currentTutorialGroup = currentStudentInfo[1];
 				HashMap<String, Double> marks = new HashMap<>();
-				for (int j = 2;j<currentStudentInfo.length;j++) {
-					marks.put(assessment.get(j-2).getTitle(), Double.parseDouble(currentStudentInfo[j]));
+				for (int y = 2;y <currentStudentInfo.length;y++) {
+					marks.put(assessment.get(y-2).getTitle(), Double.parseDouble(currentStudentInfo[y]));
 				}
+
+
 				StudentInfo current = new StudentInfo(currentMatric, currentTutorialGroup, marks);
-				studentInfoList.add(current);
+//				for (String key: marks.keySet()) {
+//					System.out.println(key);
+//				}
 				
+
+				studentInfoList.add(current);
 			}
-			university.addCourseToFaculty(facultyName, courseCode, courseName, coordinator, lessonType, assessment, sem,studentInfoList);
+			university.addCourseToFaculty(facultyName, courseCode, courseName, coordinator, lessonType, assessment, sem, studentInfoList);
 		}
 	}
 

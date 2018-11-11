@@ -306,7 +306,7 @@ public class Faculty {	//need interface w university to add student and course
 		}
 		return result;
 	}//
-
+	
 	public void addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType,
 			ArrayList<Component> assessment, Semester sem, ArrayList<StudentInfo> studentInfoList) {
 		for (FacultyStaff now : staffList) {
@@ -314,8 +314,11 @@ public class Faculty {	//need interface w university to add student and course
 				now.setCoordinator(courseCode);
 			}
 		}
-		Course newCourse = new Course(this.facultyName, courseCode, courseName, coordinator, lessonType, assessment,studentInfoList);
-		if (courseListBySem.get(sem) == null ) System.out.println("nulll null");
+		System.out.println(assessment);
+		System.out.println("adbsada");
+		Course newCourse = new Course(this.facultyName, courseCode, courseName, coordinator, lessonType, assessment,studentInfoList);	
+
+		if (courseListBySem.get(sem) == null ) System.out.println("null null");
 		if (!courseExists(sem, courseCode))
 			courseListBySem.get(sem).add(newCourse);
 		

@@ -39,7 +39,7 @@ public class Course {
 		this.courseName = courseName2;
 		this.coordinator = coordinator2;
 		this.lessonType = lessonType2;
-		this.assessment.addAll(assessment);
+		this.assessment.addAll(assessment2);
 		initialiseTutorialGroups();
 		this.maxEnrollment = initialiseMaxEnrollment();
 		this.facultyName = facultyName2;
