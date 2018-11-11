@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+//display all listing of students after addition of 1 student
 public class MainApp {
 
 	

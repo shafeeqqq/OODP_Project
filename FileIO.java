@@ -15,6 +15,7 @@ public class FileIO {
 	private static final String STUDENT_FILE = "students.txt";
 	private static final String FACULTYSTAFF_FILE = "facultystaff.txt";
 	private static final String COURSE_FILE = "courses.txt";
+	private static final String STUDENT_INFO_FILE = "studinfo";
 	private University university;
 
 	FileIO (University university) {
@@ -26,6 +27,8 @@ public class FileIO {
 			readStudents(STUDENT_FILE);
 			readFacultyStaff(FACULTYSTAFF_FILE);
 			readCourses(COURSE_FILE);
+			readStudentInfo(STUDENT_INFO_FILE);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -188,6 +191,27 @@ public class FileIO {
 		return data;
 	}
 
+	private void readStudentInfo (String fileName) throws IOException{
+		ArrayList<String> studentInfoList = readFromFile(fileName);		
+		
+        for (int i = 0 ; i < studentInfoList.size() ; i++) {
+				String st = (String)studentInfoList.get(i);
+				String[] strArr = st.split("\\|");
+		
+				String  studentID = strArr[0];// first token
+				String  tutorialGroup = strArr[1];// second token
+				ArrayList<String> compName = new ArrayList<String>();
+				ArrayList<String> compMarks = new ArrayList<>();
+				for(int j=2; j < strArr.length ;j=j+2) {                         
+					compName.add(strArr[j]);
+					compMarks.add(strArr[j+1]);
+
+				}
+				StudentInfo studInfo = new StudentInfo(studentID, tutorialGroup, compName);
+				//need a method to add marks into StudentInfo obj
+			}
+		
+	}
 
 
 }
