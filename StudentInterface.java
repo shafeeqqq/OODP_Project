@@ -204,8 +204,22 @@ public class StudentInterface {
 	 * @return
 	 */
 	private int getChoice() {
-		int choice = sc.nextInt();
-		sc.nextLine();
+		System.out.println("Enter choice: ");
+		boolean error = true;
+		int choice = 0;
+		do {//make sure it is the right input
+			try {
+				choice = sc.nextInt();
+				error = false;
+			}
+			catch (Exception e) {
+				System.out.println("You have entered a wrong input!");
+				System.out.println("Please enter 1 or 2");
+				sc.reset();
+				sc.next();
+			}			
+		}while (error);
+		sc.hasNextLine();
 		return choice;
 	}
 }
