@@ -119,7 +119,7 @@ public class University {
 			num = base;
 		}
 		else {
-			num = getLast(1);	// type=1 for staff
+			num = getLast(1) + 1;	// type=1 for staff
 		}
 		
 		String newStaffID = "F" + num;
