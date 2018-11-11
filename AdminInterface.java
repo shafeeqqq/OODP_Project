@@ -309,7 +309,7 @@ public class AdminInterface {
 				error = false;
 			}
 			catch(IndexOutOfBoundsException IndexOutOfBounds) {
-				System.out.println("You have entered a wrong index \n"
+				System.out.println("You have entered a wrong input \n"
 						+ "Please enter a number from the list: ");
 			}
 		}while(error);
@@ -323,8 +323,18 @@ public class AdminInterface {
 		
 		System.out.println("Choose Course:");
 		printArray(courseNameList);
-		String courseCode = courseNameList.get(getChoice() - 1);
-		
+		boolean error = true;
+		String courseCode = null;
+		do {
+			try {
+				courseCode = courseNameList.get(getChoice() - 1);
+				error = false;
+			}
+			catch(IndexOutOfBoundsException IndexOutOfBounds) {
+				System.out.println("You have entered a wrong input \n"
+						+ "Please enter a number from the list: ");
+			}
+		}while(error);
 		return courseCode;
 	}
 	
@@ -434,7 +444,7 @@ public class AdminInterface {
 			}
 			catch (Exception e) {
 				System.out.println("You have entered a wrong input!");
-				System.out.println("Please enter a number from 1 to 10: ");
+				System.out.println("Please enter a number from the menu: ");
 				sc.reset();
 				sc.next();
 			}			
