@@ -264,7 +264,7 @@ public class AdminInterface {
 		while (addsUp(assessment) != 100) {
 			while (more == 1) {
 				System.out.println("Enter Component name: ");
-				String title = sc.nextLine();
+				String title = sc.nextLine().toLowerCase();
 
 				System.out.println("Enter Component weightage (%) for " + title + ": ");
 				int weightage = getChoice();

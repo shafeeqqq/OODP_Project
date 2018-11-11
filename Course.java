@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -244,7 +245,7 @@ public class Course {
 		ArrayList<String> result = new ArrayList<>();
 		
 		for (Component item: assessment) 
-			result.add(item.getTitle());
+			result.add(item.getTitle().toLowerCase());
 
 		return result;	
 	}
@@ -300,8 +301,7 @@ public class Course {
 		ArrayList<Character> examMarksList = new ArrayList<>();
 		ArrayList<Character> courseworkMarksList = new ArrayList<>();
 
-		
-		// initialise dictionary with titles
+		System.out.println(getComponentTitles().toString());
 		HashMap<String, ArrayList<Double>> marksListByComponent = new HashMap<>();
 		for (String title: getComponentTitles())
 			marksListByComponent.put(title, new ArrayList<Double>());
@@ -317,7 +317,7 @@ public class Course {
 					setMarksComplete = false;
 			}
 		}
-		
+		System.out.println(marksListByComponent.keySet());
 		if (checkIsEmpty(marksListByComponent)) {
 			System.out.println("You have not set marks for the students");
 			return;
@@ -345,7 +345,6 @@ public class Course {
 		
 		for (int i=0; i<studentInfoList.size(); i++) {
 			double total = 0;
-			System.out.println("Overall: ");
 			for (String title: getComponentTitles()) {
 					Component component = getComponentByTitle(title);
 					total += marksListByComponent.get(title).get(i) * component.getWeightage()/100.0;	
@@ -369,9 +368,7 @@ public class Course {
 				if (title.equalsIgnoreCase("exam"))
 					continue;
 				else {
-					System.out.println("Coursework:");
 					Component component = getComponentByTitle(title);
-					System.out.println(marksListByComponent.toString());
 					totalCoursework += marksListByComponent.get(title).get(i) * component.getWeightage()/100.0;
 					courseworkMarksList .add(getGrade(totalCoursework, courseworkWeightage));	
 				}
@@ -388,9 +385,9 @@ public class Course {
 		int maxMarks = getComponentByTitle("exam").getMaxMarks();
 		
 		for (Double mark: marksListByComponent.get("exam"))	{
-			examMarksList.add(getGrade(mark, maxMarks ));
-			System.out.println("exam");
-		}		
+			examMarksList.add(getGrade(mark, maxMarks));
+		}	
+
 		return examMarksList;
 	}
 
@@ -406,6 +403,7 @@ public class Course {
 
 
 	private void printComponentStats(ArrayList<Character> array, String msg) {
+		DecimalFormat df = new DecimalFormat("#.0");
 		System.out.println(msg);
 		HashMap<Character, Integer> temp = new HashMap<>();
 		for (Character grade: array) {
@@ -413,6 +411,13 @@ public class Course {
 				temp.put(grade, 0);
 			temp.put(grade, temp.get(grade) + 1) ;
 		}		
+		
+		for (Character grade: temp.keySet()) {
+			
+			double cent = 100.0*temp.get(grade)/array.size();
+			System.out.print(grade +": " + df.format(cent) + "% \t");
+		}
+		System.out.println("");
 	}
 
 
@@ -447,7 +452,6 @@ public class Course {
 		else
 			grade = 'F';
 	
-		System.out.println(mark + " " + maxMarks + " " + grade);
 		return grade;
 	}
 
@@ -462,11 +466,13 @@ public class Course {
 	public String getOverallGrade(String matricNo) {
 		String grade = "You are not registered for this course.";
 		StudentInfo studentInfo = getStudentInfoOfStudent(matricNo);
-		
+		System.out.println(assessment.size());
+		System.out.println("\n\n"+this.courseCode + " " + studentInfo.getMarksString() + "asdfjasl");
 		if (studentInfo != null) {
 			
 			double total = 0;
 			for (Component item: assessment) {
+				System.out.println(item.getTitle()+ "   SDFSDF");
 				if (studentInfo.getMarksByComponent(item.getTitle()) == null)
 					return "Pending";
 				total += studentInfo.getMarksByComponent(item.getTitle())  * item.getWeightage()/100.0;
