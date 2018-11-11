@@ -425,7 +425,7 @@ public class AdminInterface {
 				sc.next();
 			}			
 		}while (error);
-		sc.hasNextLine();
+		sc.nextLine();
 		return choice;
 	}
 	

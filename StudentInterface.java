@@ -219,7 +219,7 @@ public class StudentInterface {
 				sc.next();
 			}			
 		}while (error);
-		sc.hasNextLine();
+		sc.nextLine();
 		return choice;
 	}
 }

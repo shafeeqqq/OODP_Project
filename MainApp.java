@@ -80,7 +80,7 @@ public class MainApp {
 				sc.next();
 			}			
 		}while (error);
-		sc.hasNextLine();
+		sc.nextLine();
 		return choice;
 	}
 
