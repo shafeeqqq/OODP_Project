@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class Course {
 	
 	private String courseCode;
-	private String facultyName;//
+	private String facultyName;
 	private String courseName;
 	private String coordinator;
 	private int maxEnrollment;
@@ -33,15 +33,6 @@ public class Course {
 	}
 	
 	
-<<<<<<< HEAD
-	Course(String facultyName2, String courseCode2, String courseName2, String coordinator2,
-			LessonType lessonType2, ArrayList<Component> assessment2, ArrayList<StudentInfo> studentInfoList2) {
-		this.courseCode = courseCode2;
-		this.courseName = courseName2;
-		this.coordinator = coordinator2;
-		this.lessonType = lessonType2;
-		this.assessment.addAll(assessment2);
-=======
 	Course(String facultyName, String courseCode, String courseName, String coordinator,
 			LessonType lessonType, ArrayList<Component> assessment, ArrayList<StudentInfo> studentInfoList) {
 		this.courseCode = courseCode;
@@ -49,7 +40,6 @@ public class Course {
 		this.coordinator = coordinator;
 		this.lessonType = lessonType;
 		this.assessment.addAll(assessment);
->>>>>>> branch 'master' of https://github.com/shafeeqqq/OODP_Project.git
 		initialiseTutorialGroups();
 		this.maxEnrollment = initialiseMaxEnrollment();
 		this.facultyName = facultyName;
@@ -60,7 +50,7 @@ public class Course {
 	private int initialiseMaxEnrollment() {
 		int num = 0;
 		if (tutorialGroups == null) {
-			return 20;
+			return 10;
 		}
 		
 		else {
@@ -479,7 +469,7 @@ public class Course {
 			for (Component item: assessment) {
 				if (studentInfo.getMarksByComponent(item.getTitle()) == null)
 					return "Pending";
-				total += studentInfo.getMarksByComponent(item.getTitle()) * item.getWeightage()/100.0;
+				total += studentInfo.getMarksByComponent(item.getTitle())  * item.getWeightage()/100.0;
 			}
 			return String.valueOf(getGrade(total, 100));
 		}
