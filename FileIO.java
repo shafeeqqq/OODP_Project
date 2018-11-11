@@ -30,9 +30,7 @@ public class FileIO {
 
 
 	public void readStudents(String filename) throws IOException {
-		// read String from text file
 		ArrayList<String> stringArray = readFromFile(filename);
-		ArrayList alr = new ArrayList() ;// to store Students data
 
 		for (int i = 0 ; i < stringArray.size() ; i++) {
 			String st = (String)stringArray.get(i);
@@ -64,34 +62,28 @@ public class FileIO {
 	
 	public void readFacultyStaff(String filename) throws IOException {
 		// read String from text file
-		ArrayList<String> stringArray = readFromFile(filename);
-		ArrayList alr = new ArrayList() ;// to store Students data
-
-		for (int i = 0 ; i < stringArray.size() ; i++) {
-			String st = (String)stringArray.get(i);
-			String[] strArr = st.split("\\|");
-			// get individual 'fields' of the string separated by SEPARATOR
-
-			String  name = strArr[0];// first token
-			String  matricNo = strArr[1];// second token
-			String facultyName = strArr[2];
-			HashMap<Semester, ArrayList<String>> candidature = new HashMap<>();
-			
-			for(int j=3; j < strArr.length ;j=j+3) {
-				//year,number
-				int year = Integer.parseInt(strArr[j]);
-				int number = Integer.parseInt(strArr[j+1]);
-				Semester sem = new Semester(year,number);
+		ArrayList<String> facultyStaffList = readFromFile(filename);
+		
+        for (int i = 0 ; i < facultyStaffList.size() ; i++) {
+				String line = facultyStaffList.get(i);
+				String[] strArr = st.split("\\|");
 				
-				String courseCodeList= strArr[j+2];
-				String[] str = courseCodeList.split("\\,");
-				ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(str));
-				candidature.put(sem, arrayList);
+				String staffName = strArr[0];// first token
+				String staffID = strArr[1];// second token
+				String facultyName = strArr[2];
 				
+				/*for(int j=2; j < strArr.length ;j=j+3) {                         //to add in if we need workloadbysemester
+					//year,number
+					int year = Integer.parseInt(strArr[j]);
+					int number = Integer.parseInt(strArr[j+1]);
+					String coursecode= strArr[j+2];
+					String[] str = coursecode.split("\\,");
+					ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(str));
+				}*/
+				
+				university.addStaffToFaculty(facultyName, staffName, staffID);
+
 			}
-			university.addStudentToFaculty(facultyName, name, matricNo, candidature);
-
-		}
 	}
 	
 	public static void saveStudents(String filename, List al) throws IOException {

@@ -52,6 +52,12 @@ public class University {
 	}
 	
 	
+	public void addStaffToFaculty(String facultyName, String staffName, String staffID) {
+		Faculty faculty = getFacultyByName(facultyName);
+		staffIDList.add(staffID);
+		faculty.addStaff(staffName, staffID);
+	}
+	
 	public Student addStudentToFaculty(String facultyName, String studentName, Semester semester) {
 		Faculty faculty = getFacultyByName(facultyName);
 		Student newStudent = faculty.addStudent(studentName, generateMatricNo(), semester);
