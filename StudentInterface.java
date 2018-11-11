@@ -113,6 +113,7 @@ public class StudentInterface {
 			int choice = getChoice() - 1 ;
 			tutGroup = processStringSpace(tutGroupList.get(choice));
 		}
+		System.out.println(tutGroup);
 		return tutGroup;
 	}
 

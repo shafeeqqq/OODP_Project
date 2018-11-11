@@ -166,6 +166,8 @@ public class Faculty {	//need interface w university to add student and course
 		System.out.println(courseCode);
 		Course course = getCourse(semester, courseCode);
 		StudentInfo studentInfo = course.getStudentInfoOfStudent(matricNo);
+		if (studentInfo == null)
+			return null;
 		return studentInfo.getMarksString();
 	}
 

@@ -57,7 +57,7 @@ public class Course {
 		
 		else {
 			for (int i=0; i<tutorialCount; i++) 
-				tutorialGroups.put("Group " + (i+1), 10);
+				tutorialGroups.put("TUT" + (i+1), 10);
 		}
 	}
 	

@@ -1,0 +1,15 @@
+|1|Exam|60.0|Quiz|65.0|Project|61.0
+|1|Exam|70.0|Quiz|45.0|Project|62.0
+|1|Exam|80.0|Quiz|55.0|Project|54.0
+|1|Exam|90.0|Quiz|40.0|Project|73.0
+|1|Exam|65.0|Quiz|80.0|Project|23.0
+|1|Exam|75.0|Quiz|70.0|Project|48.0
+|1|Exam|85.0|Quiz|90.0|Project|30.0
+|1|Exam|95.0|Quiz|80.0|Project|70.0
+|2|Exam|10.0|Quiz|70.0|Project|80.0
+|2|Exam|20.0|Quiz|60.0|Project|90.0
+|2|Exam|30.0|Quiz|50.0|Project|30.0
+|2|Exam|40.0|Quiz|40.0|Project|40.0
+|2|Exam|50.0|Quiz|30.0|Project|50.0
+|2|Exam|60.0|Quiz|20.0|Project|20.0
+|2|Exam|30.0|Quiz|10.0|Project|80.0
