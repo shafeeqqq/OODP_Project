@@ -301,7 +301,20 @@ public class AdminInterface {
 		
 		System.out.println("Choose faculty:");
 		printArray(facultyNameList);
-		String facultyName = facultyNameList.get(getChoice() - 1);	
+		String facultyName = null;
+
+		boolean error = true;
+		do {
+			try {
+				facultyName = facultyNameList.get(getChoice() - 1);	
+				error = false;
+			}
+			catch(IndexOutOfBoundsException IndexOutOfBounds) {
+				System.out.println("You have entered a wrong index \n"
+						+ "Please enter a number from the list: ");
+			}
+		}while(error);
+
 		
 		return facultyName;
 	}
