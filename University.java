@@ -294,11 +294,11 @@ public class University {
 	}
 
 
-	public ArrayList<Course> getallCourses() {
-		ArrayList<Course> result = new ArrayList<>();		
-		for (Faculty faculty: facultyList) {
-			result.addAll(faculty.getAllCourses());
-		}
-		return result;		
-	}
+//	public ArrayList<Course> getallCourses() {
+//		ArrayList<Course> result = new ArrayList<>();		
+//		for (Faculty faculty: facultyList) {
+//			result.addAll(faculty.getAllCourses());
+//		}
+//		return result;		
+//	}
 }
