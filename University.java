@@ -60,7 +60,7 @@ public class University {
 	
 	public void addStudentToFaculty(String facultyName, String studentName, Semester semester) {
 		Faculty faculty = getFacultyByName(facultyName);
-		Student newStudent = faculty.addStudent(studentName, generateMatricNo(), semester);
+		faculty.addStudent(studentName, generateMatricNo(), semester);
 	}
 	
 	
@@ -68,7 +68,7 @@ public class University {
 	public void addStudentToFaculty(String facultyName, String studentName, String matricNo, HashMap<Semester, ArrayList<String>> candidature) {
 		Faculty faculty = getFacultyByName(facultyName);
 		matricNoList.add(matricNo);
-		Student newStudent = faculty.addStudent(studentName, matricNo, candidature);
+		faculty.addStudent(studentName, matricNo, candidature);
 		
 	}
 	
@@ -265,5 +265,15 @@ public class University {
 			}
 		}
 		return result;
+	}
+	
+	
+	public Semester getSemester(Semester sem) {
+		for (Semester item: semesterList) {
+			if (item.equals(sem))
+				return item;
+		}
+		semesterList.add(sem);
+		return sem;
 	}
 }

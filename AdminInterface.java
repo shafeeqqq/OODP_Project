@@ -247,7 +247,7 @@ public class AdminInterface {
 		int more = 1;
 		System.out.println("Enter Course Assessment: ");
 		
-		while (!addsUp(assessment)) {
+		while (addsUp(assessment) != 100) {
 			while (more == 1) {
 				System.out.println("Enter Component name: ");
 				String title = sc.nextLine();
@@ -257,10 +257,10 @@ public class AdminInterface {
 				
 				assessment.add(new Component(title, weightage));
 				
-				if (addsUp(assessment))
+				if (addsUp(assessment) >= 100)
 					more = 0;
 			}
-			if (!addsUp(assessment)) {
+			if (addsUp(assessment) != 100) {
 				System.out.println("Component weightage does not add up to 100%. Please re-enter Course Assessment.");
 				more = 1;
 				assessment.clear();
@@ -284,7 +284,7 @@ public class AdminInterface {
 				item.setWeightage(weightage);
 			}
 				
-			if (!addsUp(assessment)) 
+			if (addsUp(assessment) != 100) 
 				System.out.println("Component weightage does not add up to 100%. Please re-enter Course Assessment.");
 			
 			else 
@@ -357,18 +357,15 @@ public class AdminInterface {
 	}
 	
 
-	private boolean addsUp(ArrayList<Component> assessment) {
+	private int addsUp(ArrayList<Component> assessment) {
 		if (assessment.isEmpty())
-			return false;
+			return 0;
 		else {
 			int total = 0;
 			for (Component item: assessment) {
 				total += item.getWeightage();
 			}
-			if (total == 100)
-				return true;
-			else 
-				return false;
+			return total;
 		}
 	}
 	

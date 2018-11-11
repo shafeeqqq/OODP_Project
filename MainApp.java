@@ -15,10 +15,8 @@ public class MainApp {
 		university.addFaculty("SCSE");
 		university.addFaculty("NBS");
 	
-		file.populateFacultyData();
-		file.populateStudentData();
-		
-		
+		file.populateData();
+	
 		printMainMenu();
 		int choice = getChoice();
 		while(choice != 6) {

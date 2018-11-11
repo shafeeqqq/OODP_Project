@@ -20,12 +20,24 @@ public class Semester {
 		return (year + " Semester " + number);
 	}
 	
-	public boolean equals(Semester semester) {
+	
+	@Override
+	public boolean equals(Object obj) {
+		Semester semester = (Semester) obj;
 		if (semester.getYear() == this.year && semester.getNumber() == this.number)
 			return true;
 		else
 			return false;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 2;
+        int code = 1;
+        code = prime * this.year + this.number; 
+        return code;
+	}
+
 	
 	
 }

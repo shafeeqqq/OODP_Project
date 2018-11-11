@@ -4,6 +4,7 @@ import java.util.HashMap;
 public class Course {
 	
 	private String courseCode;
+	private String facultyName;
 	private String courseName;
 	private String coordinator;
 	private int maxEnrollment;
@@ -20,7 +21,7 @@ public class Course {
 	 * @param group
 	 * @param Type
 	 */
-	public Course(String courseCode, String courseName, String coordinator, LessonType Type, ArrayList<Component> assessment) {
+	public Course(String facultyName, String courseCode, String courseName, String coordinator, LessonType Type, ArrayList<Component> assessment) {
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.coordinator = coordinator;
@@ -28,6 +29,7 @@ public class Course {
 		this.assessment.addAll(assessment);
 		initialiseTutorialGroups();
 		this.maxEnrollment = initialiseMaxEnrollment();
+		this.facultyName = facultyName;
 	}
 	
 	

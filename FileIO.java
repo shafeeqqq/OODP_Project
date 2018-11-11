@@ -14,27 +14,64 @@ public class FileIO {
 	private static final String SEPERATOR2 = ",";
 	private static final String STUDENT_FILE = "students.txt";
 	private static final String FACULTYSTAFF_FILE = "facultystaff.txt";
+	private static final String COURSE_FILE = "courses.txt";
 	private University university;
 
 	FileIO (University university) {
 		this.university = university;
 	}
-	
-	public void populateStudentData() {
+
+	public void populateData() {
 		try {
 			readStudents(STUDENT_FILE);
+			readFacultyStaff(FACULTYSTAFF_FILE);
+			readCourses(COURSE_FILE);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void populateFacultyData() {
-		try {
-			readFacultyStaff(FACULTYSTAFF_FILE);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+
+	public void readCourses (String filename) throws IOException {
+		// read String from text file
+		ArrayList<String> courseList = readFromFile(filename);
+
+		for (int i = 0 ; i < courseList.size() ; i++) {
+			String line = courseList.get(i);
+			String[] strArr = line.split("\\|");
+
+			String courseCode = strArr[0];// first token
+			String courseName = strArr[1];// second token
+			String facultyName = strArr[2];
+			int year = Integer.parseInt(strArr[3]);
+			int number = Integer.parseInt(strArr[4]);
+			Semester sem = university.getSemester(new Semester(year,number));
+			String coordinator = strArr[5];
 		
+			ArrayList<Component> assessment = new ArrayList<>() ;
+			LessonType lessonType;
+
+			if (strArr[6].equals("TYPE_A")) {
+				lessonType = LessonType.TYPE_A; 
+			}
+			else if (strArr[6].equals("TYPE_B")) {
+				lessonType = LessonType.TYPE_B; 
+			}
+			else{
+				lessonType = LessonType.TYPE_C; 
+			}
+			
+			String components = strArr[7];
+			String[] titleOrWeightage = components.split("\\,");
+			
+			for(int j=0; j < titleOrWeightage.length ;j=j+2) {
+				String title = titleOrWeightage[j];
+				int weightage = Integer.parseInt(titleOrWeightage[j+1]);
+				Component component = new Component(title, weightage);
+				assessment.add(component);
+			}
+			university.addCourseToFaculty(facultyName, courseCode, courseName, coordinator, lessonType, assessment, sem);
+		}
 	}
 
 
@@ -50,38 +87,38 @@ public class FileIO {
 			String  matricNo = strArr[1];// second token
 			String facultyName = strArr[2];
 			HashMap<Semester, ArrayList<String>> candidature = new HashMap<>();
-			
+
 			for(int j=3; j < strArr.length ;j=j+3) {
 				//year,number
 				int year = Integer.parseInt(strArr[j]);
 				int number = Integer.parseInt(strArr[j+1]);
-				Semester sem = new Semester(year,number);
-				
+				Semester sem = university.getSemester(new Semester(year,number));
+
 				String courseCodeList= strArr[j+2];
 				String[] str = courseCodeList.split("\\,");
 				ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(str));
 				candidature.put(sem, arrayList);
-				
+
 			}
 			university.addStudentToFaculty(facultyName, name, matricNo, candidature);
 
 		}
 	}
 
-	
+
 	public void readFacultyStaff(String filename) throws IOException {
 		// read String from text file
 		ArrayList<String> facultyStaffList = readFromFile(filename);
-		
-        for (int i = 0 ; i < facultyStaffList.size() ; i++) {
-				String line = facultyStaffList.get(i);
-				String[] strArr = line.split("\\|");
-				
-				String staffName = strArr[0];// first token
-				String staffID = strArr[1];// second token
-				String facultyName = strArr[2];
-				
-				/*for(int j=2; j < strArr.length ;j=j+3) {                         //to add in if we need workloadbysemester
+
+		for (int i = 0 ; i < facultyStaffList.size() ; i++) {
+			String line = facultyStaffList.get(i);
+			String[] strArr = line.split("\\|");
+
+			String staffName = strArr[0];// first token
+			String staffID = strArr[1];// second token
+			String facultyName = strArr[2];
+
+			/*for(int j=2; j < strArr.length ;j=j+3) {                         //to add in if we need workloadbysemester
 					//year,number
 					int year = Integer.parseInt(strArr[j]);
 					int number = Integer.parseInt(strArr[j+1]);
@@ -89,12 +126,12 @@ public class FileIO {
 					String[] str = coursecode.split("\\,");
 					ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(str));
 				}*/
-				
-				university.addStaffToFaculty(facultyName, staffName, staffID);
 
-			}
+			university.addStaffToFaculty(facultyName, staffName, staffID);
+
+		}
 	}
-	
+
 	public static void saveStudents(String filename, List al) throws IOException {
 		List alw = new ArrayList() ;// to store Students data
 
@@ -151,6 +188,6 @@ public class FileIO {
 		return data;
 	}
 
-	
+
 
 }

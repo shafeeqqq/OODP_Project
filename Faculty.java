@@ -66,7 +66,8 @@ public class Faculty {	//need interface w university to add student and course
 				now.setCoordinator(courseCode);
 			}
 		}
-		Course newCourse = new Course(courseCode, courseName, coordinator, lessonType, assessment);
+		Course newCourse = new Course(this.facultyName, courseCode, courseName, coordinator, lessonType, assessment);
+		if (courseListBySem.get(sem) == null ) System.out.println("nulll null");
 		if (!courseExists(sem, courseCode))
 			courseListBySem.get(sem).add(newCourse);
 		
@@ -78,6 +79,7 @@ public class Faculty {	//need interface w university to add student and course
 		System.out.println("~~~ Details of newly added course ~~~");
 		newCourse.printDetails();
 		System.out.println("~~~~~~~~~\n");
+		System.out.println(courseListBySem.toString());
 	}
 	
 	
@@ -267,6 +269,10 @@ public class Faculty {	//need interface w university to add student and course
 	
 	
 	private boolean courseExists(Semester sem, String courseCode) {
+		System.out.println(courseListBySem.toString());
+		System.out.println(sem.toString());
+		if (courseListBySem.get(sem) == null ) System.out.println("courselist null");
+		if (courseListBySem.get(sem).isEmpty()) return false;
 		for (Course course: courseListBySem.get(sem)) {
 			if (course.getCourseCode().equalsIgnoreCase(courseCode))
 				return true;
