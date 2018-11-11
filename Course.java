@@ -50,7 +50,7 @@ public class Course {
 	private int initialiseMaxEnrollment() {
 		int num = 0;
 		if (tutorialGroups == null) {
-			return 10;
+			return 20;
 		}
 		
 		else {
