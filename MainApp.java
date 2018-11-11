@@ -1,8 +1,7 @@
+import java.io.IOException;
 import java.util.Scanner;
 //display all listing of students after addition of 1 student
 public class MainApp {
-
-	
 	public static University university;
 	public static FileIO file;
 	static Scanner sc = new Scanner(System.in);
@@ -21,18 +20,32 @@ public class MainApp {
 		int choice = getChoice();
 		while(choice != 6) {
 			switch(choice) {
-			case 1:
+			case 1:{
 				launchInterface("admin");
-				break;
-				
-			case 2:
-				launchInterface("student");
-				break;
+				break;				
 			}
-			printMainMenu();
-			choice = getChoice();
-		}
+			case 2:{
+				launchInterface("student");
+				break;				
+			}
 
+			case 3:{
+				try {
+					Saves();
+				} catch (IOException e) {
+					System.out.println("Cannot save!");
+					e.printStackTrace();
+				}
+				break;		
+			}
+		}
+			printMainMenu();
+			choice = getChoice();			
+	}
+}
+
+	private static void Saves() throws IOException {
+		file.saveStudents("students.txt",university.getAllStudents());
 	}
 
 	private static void launchInterface(String mode) {

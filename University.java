@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class University {
 	
@@ -271,5 +272,13 @@ public class University {
 			ArrayList<StudentInfo> studentInfoList) {
 		Faculty faculty = getFacultyByName(facultyName);
 		faculty.addCourse(courseCode, courseName, coordinator, lessonType, assessment, sem, studentInfoList);		
+	}
+
+
+	public ArrayList<Student> getAllStudents() {
+		ArrayList<Student> result = new ArrayList<>();
+		for (Faculty faculty: facultyList)
+			result.addAll(faculty.getAllStudents());
+		return result;
 	}
 }

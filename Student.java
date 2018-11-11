@@ -71,4 +71,8 @@ public class Student {
 			return true;
 		return false;
 	}
+
+	public String getFacultyName() {
+		return facultyName;
+	}
 }

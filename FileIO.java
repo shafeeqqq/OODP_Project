@@ -65,7 +65,7 @@ public class FileIO {
 			String[] titleOrWeightage = components.split("\\,");
 			
 			for(int j=0; j < titleOrWeightage.length ;j=j+2) {
-				String title = titleOrWeightage[j];
+				String title = titleOrWeightage[j].toLowerCase();
 				int weightage = Integer.parseInt(titleOrWeightage[j+1]);
 				Component component = new Component(title, weightage);
 				assessment.add(component);
@@ -132,11 +132,9 @@ public class FileIO {
 		for (int i = 0 ; i < facultyStaffList.size() ; i++) {
 			String line = facultyStaffList.get(i);
 			String[] strArr = line.split("\\|");
-
 			String staffName = strArr[0];// first token
 			String staffID = strArr[1];// second token
 			String facultyName = strArr[2];
-
 			/*for(int j=2; j < strArr.length ;j=j+3) {                         //to add in if we need workloadbysemester
 					//year,number
 					int year = Integer.parseInt(strArr[j]);
@@ -151,36 +149,50 @@ public class FileIO {
 		}
 	}
 
-	public static void saveStudents(String filename, List al) throws IOException {
-		List alw = new ArrayList() ;// to store Students data
-
-		for (int i = 0 ; i < al.size() ; i++) {
-			Student stud = (Student)al.get(i);
-			StringBuilder st =  new StringBuilder() ;
-			st.append(stud.getStudentName().trim());
-			st.append(SEPARATOR1);
-			st.append(stud.getMatricNo());
-			st.append(SEPARATOR1);
+	public void saveStudents(String filename, ArrayList<Student> al) throws IOException {
+		ArrayList<String> result = new ArrayList<>() ;// to store Students data
+		System.out.println(al.size());
+		for (Student stud: al) {
+		//	System.out.println(stud.getStudentName());
+			StringBuilder st =  new StringBuilder();
+			String std = "";
+			std += stud.getStudentName();
+			std += "|";
+			std += stud.getMatricNo();
+			std += "|";
+			std += stud.getFacultyName();
+			std += "|";
+//			st.append(stud.getStudentName());
+//			st.append(SEPARATOR1);
+//			st.append(stud.getMatricNo());
+//			st.append(SEPARATOR1);
 			HashMap<Semester, ArrayList<String>> candidature = stud.getCandidature();
 			for(Semester sem : candidature.keySet()) {
-				st.append(sem.getYear());
-				st.append(SEPARATOR1);
-				st.append(sem.getNumber());
-				st.append(SEPARATOR1);
+				std += sem.getYear();
+				std += "|";
+				std += sem.getNumber();
+				std += "|";
+//				st.append(sem.getYear());
+//				st.append(SEPARATOR1);
+//				st.append(sem.getNumber());
+//				st.append(SEPARATOR1);
 				for(String course: candidature.get(sem)) {
-					st.append((course).trim());
-					st.append(SEPERATOR2);
+					std += course.trim();
+					std += ",";
+//					st.append((course).trim());
+//					st.append(SEPERATOR2);
 				}
-				st.append(SEPARATOR1);
+				std += "|";
+//				st.append(SEPARATOR1);				
 			}
-
-			alw.add(st.toString()) ;
+			std = std.substring(0, std.length() - 2)+"|";
+			result.add(std) ;
 		}
-		writeToFile(filename,alw);
+		writeToFile(filename,result);
 	}
 
 
-	public static void writeToFile(String fileName, List data) throws IOException  {
+	public static void writeToFile(String fileName, ArrayList<String> data) throws IOException  {
 		PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
 		try {

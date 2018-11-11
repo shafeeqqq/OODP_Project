@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Faculty {	//need interface w university to add student and course
@@ -322,6 +323,11 @@ public class Faculty {	//need interface w university to add student and course
 		newCourse.printDetails();
 		System.out.println("~~~~~~~~~\n");
 		
+	}
+
+	public ArrayList<Student> getAllStudents() {
+		// TODO Auto-generated method stub
+		return studentList;
 	}
 	
 }
