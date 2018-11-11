@@ -86,6 +86,12 @@ public class StudentInterface {
 	private void registerCourseSameFaculty() {
 		String courseCode = chooseCourse();
 		String tutorialGroup = "N.A";
+		
+		if (currentStudent.alreadyRegistered(courseCode, currentSemester)) {
+			System.out.println("You have already registered for this course.");
+			return;
+		}
+		
 		if (currentFaculty.getCourseVacancy(currentSemester, courseCode) > 0) {
 			tutorialGroup = chooseTutorialGroup(courseCode);
 			currentFaculty.registerForCourse(currentSemester, courseCode, matricNo, tutorialGroup);
@@ -104,7 +110,6 @@ public class StudentInterface {
 		else {
 			System.out.println("### AVAILABLE TUTORIAL GROUPS ###");
 			printArray(tutGroupList);
-			System.out.println("ENTER CHOICE: ");
 			int choice = getChoice() - 1 ;
 			tutGroup = processStringSpace(tutGroupList.get(choice));
 		}

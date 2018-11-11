@@ -133,16 +133,13 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param courseID
 	 * @return
 	 */
-	public Course getCourse(Semester semester, String courseCode) {
-		ArrayList<Course> copy =  courseListBySem.get(semester);
-		int index=0;
-		for (int i =0; i<copy.size(); i++) {
-			if (copy.get(i).getCourseCode() == courseCode) {
-				index = i;
-				break;
+	public Course getCourse(Semester sem, String courseCode) {
+	
+			for (Course course: courseListBySem.get(sem)) {
+				if (course.getCourseCode().equalsIgnoreCase(courseCode))
+					return course;
 			}
-		}
-		return courseListBySem.get(semester).get(index);
+		return null;
 	}
 	
 	
@@ -152,6 +149,8 @@ public class Faculty {	//need interface w university to add student and course
 		
 		HashMap<Semester, ArrayList<String>> candidature = student.getCandidature();
 		
+		System.out.println(candidature.toString());
+		System.out.println(courseListBySem.toString());
 		for (Semester semester: candidature.keySet()) {
 			temp += semester.toString()+ "\n";
 			for (String courseCode : candidature.get(semester)) 
@@ -164,6 +163,7 @@ public class Faculty {	//need interface w university to add student and course
 	}	
 	
 	private String getGradeString(Semester semester, String courseCode, String matricNo) {
+		System.out.println(courseCode);
 		Course course = getCourse(semester, courseCode);
 		StudentInfo studentInfo = course.getStudentInfoOfStudent(matricNo);
 		return studentInfo.getMarksString();
@@ -269,8 +269,6 @@ public class Faculty {	//need interface w university to add student and course
 	
 	
 	private boolean courseExists(Semester sem, String courseCode) {
-		System.out.println(courseListBySem.toString());
-		System.out.println(sem.toString());
 		if (courseListBySem.get(sem) == null ) System.out.println("courselist null");
 		if (courseListBySem.get(sem).isEmpty()) return false;
 		for (Course course: courseListBySem.get(sem)) {
@@ -289,8 +287,6 @@ public class Faculty {	//need interface w university to add student and course
 
 	public int getCourseVacancy(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
-		String msg = course.getCourseCode() + "\t" + course.getCourseName() + "\n";
-		msg += "Vacancy: " + course.getVacancy();
 		return course.getVacancy();
 	}
 	
