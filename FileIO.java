@@ -218,4 +218,23 @@ public class FileIO {
 		}
 		return data;
 	}
+
+
+
+	public void saveStaffs(String string, ArrayList<FacultyStaff> allStaffs) throws IOException {
+		ArrayList<String> result = new ArrayList<>() ;// to store Students data
+		for (FacultyStaff staff: allStaffs) {
+		//	System.out.println(stud.getStudentName());
+		//	StringBuilder st =  new StringBuilder();
+			String staf = "";
+			staf += staff.getStaffName();
+			staf += "|";
+			staf += staff.getStaffID();
+			staf += "|";
+			staf += staff.getFacultyName();
+			result.add(staf) ;
+		}
+		writeToFile(string,result);
+		
+	}
 }

@@ -281,4 +281,15 @@ public class University {
 			result.addAll(faculty.getAllStudents());
 		return result;
 	}
+
+
+
+
+	public ArrayList<FacultyStaff> getAllStaffs() {
+		ArrayList<FacultyStaff> result = new ArrayList<>();		
+		for (Faculty faculty: facultyList) {
+			result.addAll(faculty.getAllStaffs());
+		}
+		return result;
+	}
 }

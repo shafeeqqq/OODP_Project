@@ -326,8 +326,11 @@ public class Faculty {	//need interface w university to add student and course
 	}
 
 	public ArrayList<Student> getAllStudents() {
-		// TODO Auto-generated method stub
 		return studentList;
+	}
+
+	public ArrayList<FacultyStaff> getAllStaffs() {
+		return staffList;
 	}
 	
 }
