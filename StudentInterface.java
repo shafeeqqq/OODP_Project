@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -23,7 +24,7 @@ public class StudentInterface {
 		this.university = university;
 		this.currentFaculty = currentFaculty;
 		this.matricNo = matricNo;
-		this.currentStudent = currentFaculty.getStudent(matricNo);
+		this.currentStudent = currentFaculty.getStudentObj(matricNo);
 		System.out.println("found student");
 		currentSemester = university.getCurrentSemester();
 	}
@@ -67,25 +68,66 @@ public class StudentInterface {
 		
 		switch (menuChoice) {
 		case 1:
-			courseNameList = currentFaculty.getCourseNameList(currentSemester);
-			printArray(courseNameList);	// TODO: print vacancy too
-			
-			currentFaculty.registerForCourse(processString(courseNameList.get(getChoice() -1)), currentSemester, matricNo);
-			break;
-			
+			registerCourseSameFaculty();
+			break;	
 		case 2:
-			//TODO: display faculty list
+			unregisterForCourse();
 		case 3:
-			courseNameList = currentFaculty.getCourseNameList(currentSemester);
+			courseNameList = currentFaculty.getCourseNameList(currentSemester, false);
 			
 			printArray(courseNameList);
 			courseChoice = getChoice();
-			unregisterForCourse(courseNameList.get(courseChoice-1));	
+			unregisterForCourse();	
 		}
 		
 	}
 	
 	
+	private void registerCourseSameFaculty() {
+		String courseCode = chooseCourse();
+		String tutorialGroup = "N.A";
+		if (currentFaculty.getCourseVacancy(currentSemester, courseCode) > 0) {
+			tutorialGroup = chooseTutorialGroup(courseCode);
+			currentFaculty.registerForCourse(currentSemester, courseCode, matricNo, tutorialGroup);
+		
+		} else 
+			System.out.println("There is no more vacancy in the course.\n");
+	}
+
+
+	private String chooseTutorialGroup(String courseCode) {
+		String tutGroup = "";
+		ArrayList<String> tutGroupList = currentFaculty.getTutorialGroupsVacancy(currentSemester, courseCode);
+		if (tutGroupList == null)
+			return "N.A.";
+		
+		else {
+			System.out.println("### AVAILABLE TUTORIAL GROUPS ###");
+			printArray(tutGroupList);
+			System.out.println("ENTER CHOICE: ");
+			int choice = getChoice() - 1 ;
+			tutGroup = processStringSpace(tutGroupList.get(choice));
+		}
+		return tutGroup;
+	}
+
+
+	private String processStringSpace(String string) {
+		int index = string.indexOf(' ');
+		return string.substring(0, index);
+	}
+
+
+	private String chooseCourse() {
+		ArrayList<String> courseNameList = currentFaculty.getCourseNameList(currentSemester, true);
+		
+		System.out.println("Choose Course:");
+		printArray(courseNameList);
+		String courseCode = processString(courseNameList.get(getChoice() - 1));	
+		return courseCode;
+	}
+
+
 	private String processString(String string) {
 		int index = string.indexOf('\t');
 		return string.substring(0, index);
@@ -95,21 +137,20 @@ public class StudentInterface {
 			
 	/**
 	 * this method unregister student from the course of code given
-	 * @param courseCode
 	 */
-	private void unregisterForCourse(String courseCode) {
-		StudentInfo temp = new StudentInfo();
-		for (StudentInfo studInfo : currentFaculty.getCourse(university.getCurrentSemester(), courseCode).getStudentInfoList()) {
-			if (studInfo.getMatricNo() == currentStudent.getMatricNo()) {
-				temp = studInfo;
-			}
-		}
-		if (temp != null) {
-			currentFaculty.getCourse(university.getCurrentSemester(), courseCode).getStudentInfoList().remove(temp);
-			currentStudent.getCandidature().get(university.getCurrentSemester()).remove("courseCode");
-		}
-		else 
-			System.out.println("You are not in the course. Please check again!");
+	private void unregisterForCourse() {
+//		StudentInfo temp = new StudentInfo();
+//		for (StudentInfo studInfo : currentFaculty.getCourse(university.getCurrentSemester(), courseCode).getStudentInfoList()) {
+//			if (studInfo.getMatricNo() == currentStudent.getMatricNo()) {
+//				temp = studInfo;
+//			}
+//		}
+//		if (temp != null) {
+//			currentFaculty.getCourse(university.getCurrentSemester(), courseCode).getStudentInfoList().remove(temp);
+//			currentStudent.getCandidature().get(university.getCurrentSemester()).remove("courseCode");
+//		}
+//		else 
+//			System.out.println("You are not in the course. Please check again!");
 	}
 	
 	

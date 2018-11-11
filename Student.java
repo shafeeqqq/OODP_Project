@@ -5,13 +5,23 @@ public class Student {
 	
 	private String studentName;
 	private String matricNo;
+	private String facultyName;
 	private HashMap<Semester, ArrayList<String>> candidature = new HashMap<>();
 	
-	public Student(String name, String matric, Semester semester) {
+	public Student(String name, String matricNo, Semester semester, String facultyName ) {
 		studentName = name;
-		matricNo = matric;
+		this.matricNo = matricNo;
 		candidature.put(semester, new ArrayList<String>());
+		this.facultyName = facultyName;
 //		printDetails();
+	}
+	
+	public Student(String name, String matricNo, String facultyName, HashMap<Semester, ArrayList<String>> candidature) {
+		this.studentName = name;
+		this.matricNo = matricNo;
+		this.candidature.putAll(candidature);
+		this.facultyName = facultyName;
+		printDetails();
 	}
 	
 	public String getMatricNo() {

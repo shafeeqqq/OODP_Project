@@ -58,6 +58,14 @@ public class University {
 		return newStudent;
 	}
 	
+	// overloading
+	public Student addStudentToFaculty(String facultyName, String studentName, String matricNo, HashMap<Semester, ArrayList<String>> candidature) {
+		Faculty faculty = getFacultyByName(facultyName);
+		matricNoList.add(matricNo);
+		Student newStudent = faculty.addStudent(studentName, matricNo, candidature);
+		return newStudent;
+	}
+	
 	
 	public void addCourseToFaculty(String facultyName, String courseCode, String courseName,
 			String coordinator, LessonType lessonType, ArrayList<Component> assessment, Semester semester) {
@@ -138,10 +146,10 @@ public class University {
 	}
 	
 	
-	public Faculty getFacultyOfStudent(String matricNo) {
+	public Faculty getFacultyOfStudent(String matricNo) { // TODO: change method
 		Student currentStudent;
 		for (Faculty faculty: facultyList) {
-			currentStudent = faculty.getStudent(matricNo);
+			currentStudent = faculty.getStudentObj(matricNo);
 			if ( currentStudent != null)
 				return faculty;
 		}
@@ -167,7 +175,7 @@ public class University {
 
 	public ArrayList<String> getCourseListByFaculty(String facultyName, Semester sem) {
 		Faculty faculty = getFacultyByName(facultyName);
-		return faculty.getCourseNameList(sem);
+		return faculty.getCourseNameList(sem, false);
 	}
 	
 	
@@ -224,6 +232,12 @@ public class University {
 				return true;
 		}
 		return false;
+	}
+
+
+	public int getCourseVacancy(String facultyName, Semester sem, String courseCode) {
+		Faculty faculty = getFacultyByName(facultyName);
+		return faculty.getCourseVacancy(sem, courseCode);
 	}
 	
 	
