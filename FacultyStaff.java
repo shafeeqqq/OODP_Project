@@ -19,6 +19,7 @@ public class FacultyStaff {
 		this.staffName = staffName;
 		this.staffID = staffID;
 		this.coordinatorOf = null;
+		printDetails();
 	}
 	
 	public String getCoordinatorOf() {
@@ -30,7 +31,7 @@ public class FacultyStaff {
 		this.staffName = staffName;
 		this.staffID = staffID;
 		this.facultyName = facultyName;
-		printDetails();
+
 	}
 	
 	

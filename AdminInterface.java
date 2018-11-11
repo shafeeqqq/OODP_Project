@@ -184,7 +184,7 @@ public class AdminInterface {
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 		
-		int vacancy = university.getCourseVacancy(facultyName, sem, courseCode);
+		int vacancy = university.getCourseVacancy(facultyName, sem,  processString(courseCode));
 		System.out.println(courseCode);
 		System.out.println("Vacancy: " + vacancy);
 		
@@ -197,7 +197,7 @@ public class AdminInterface {
 		String courseCode = chooseCourse(facultyName, sem);
 		char type = getStringInput("Print student list by lecture group(L) or tutorial group(T)?").charAt(0);
 		
-		university.printStudentListByGroup(facultyName, sem, courseCode, type);
+		university.printStudentListByGroup(facultyName, sem,  processString(courseCode), type);
 		
 	}
 	
@@ -208,7 +208,7 @@ public class AdminInterface {
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 		
-		university.printCourseStats(facultyName, sem, courseCode);
+		university.printCourseStats(facultyName, sem,  processString(courseCode));
 	}
 	
 	
@@ -218,17 +218,17 @@ public class AdminInterface {
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 		
-		ArrayList<String> components = university.getComponentTitles(facultyName, sem, courseCode);
+		ArrayList<String> components = university.getComponentTitles(facultyName, sem,  processString(courseCode));
 		HashMap<String, Double> updatedMarks = new HashMap<>();
 		
-		String matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem, courseCode));
+		String matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem,  processString(courseCode)));
 		
 		for (String item: components) {
 			System.out.println("Enter marks for " + item + ": ");
 			Double mark = sc.nextDouble();
 			updatedMarks.put(item, mark);
 		}
-		university.updateMarks(facultyName, sem, courseCode, matricNo, updatedMarks);
+		university.updateMarks(facultyName, sem,  processString(courseCode), matricNo, updatedMarks);
 	}
 
 	

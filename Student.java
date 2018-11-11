@@ -13,7 +13,7 @@ public class Student {
 		this.matricNo = matricNo;
 		candidature.put(semester, new ArrayList<String>());
 		this.facultyName = facultyName;
-//		printDetails();
+		printDetails();
 	}
 	
 	public Student(String name, String matricNo, String facultyName, HashMap<Semester, ArrayList<String>> candidature) {
@@ -21,7 +21,7 @@ public class Student {
 		this.matricNo = matricNo;
 		this.candidature.putAll(candidature);
 		this.facultyName = facultyName;
-		printDetails();
+
 	}
 	
 	public String getMatricNo() {
@@ -64,5 +64,11 @@ public class Student {
 
 	public void addCourse(Semester sem, String courseCode) {
 		candidature.get(sem).add(courseCode);
+	}
+	
+	public boolean alreadyRegistered(String courseCode, Semester sem) {
+		if (candidature.get(sem).contains(courseCode))
+			return true;
+		return false;
 	}
 }

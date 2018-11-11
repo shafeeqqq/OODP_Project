@@ -32,7 +32,7 @@ public class FileIO {
 	}
 
 
-	public void readCourses (String filename) throws IOException {
+	private void readCourses (String filename) throws IOException {
 		// read String from text file
 		ArrayList<String> courseList = readFromFile(filename);
 
@@ -75,7 +75,7 @@ public class FileIO {
 	}
 
 
-	public void readStudents(String filename) throws IOException {
+	private void readStudents(String filename) throws IOException {
 		ArrayList<String> stringArray = readFromFile(filename);
 
 		for (int i = 0 ; i < stringArray.size() ; i++) {

@@ -35,14 +35,17 @@ public class Course {
 	
 	private int initialiseMaxEnrollment() {
 		int num = 0;
-		if (tutorialGroups == null)
+		if (tutorialGroups == null) {
 			return 10;
+		}
 		
 		else {
 			for (String key: tutorialGroups.keySet())
 				num += tutorialGroups.get(key);
 		}
+		
 		return num;
+		
 	}
 
 
@@ -65,6 +68,7 @@ public class Course {
 			  + "Course Name: " + courseName + "\n"
 			  + "Coordinator: " + coordinator + "\n"
 			  + "Lesson Type: " + lessonType.toString() + "\n"
+			  + "Max Enrollment: " + maxEnrollment + "\n"
 			  + "Assessment: \n"  + getAssessmentString());
 		
 		if (tutorialGroups == null)
@@ -99,7 +103,7 @@ public class Course {
 	}
 	
 	
-	private Integer getTutorialGroupVacancy(String tutGroup) {
+	private int getTutorialGroupVacancy(String tutGroup) {
 		int count = 0;
 		for (StudentInfo item: studentInfoList) {
 			if (item.getTutorialGroup().equals(tutGroup))
@@ -127,28 +131,10 @@ public class Course {
 	
 	
 	/**
-	 * This method sets the course code to the parameter given
-	 * @param code
-	 */
-	public void setCourseCode(String code) {
-		courseCode = code;
-	}
-	
-	
-	/**
 	 * @return courseName
 	 */
 	public String getCourseName() {
 		return courseName;
-	}
-	
-	
-	/**
-	 * this method set the courseName according to the parameters
-	 * @param name
-	 */
-	public void setCourseName(String name) {
-		courseName = name;
 	}
 	
 	
@@ -159,15 +145,7 @@ public class Course {
 		return maxEnrollment;
 	}
 	
-	
-	/**
-	 * this method sets the max enrollment to the parameter given
-	 * @param max
-	 */
-	public void setMaxEnrollment(int max) {
-		maxEnrollment = max;
-	}
-	
+
 	
 	public ArrayList<StudentInfo> getStudentInfoList() {
 		return studentInfoList;
@@ -198,6 +176,7 @@ public class Course {
 	 * @return
 	 */
 	public int getVacancy() {
+		System.out.println(studentInfoList.toString());
 		int count = studentInfoList.size();
 		return (maxEnrollment - count);
 	}
@@ -346,8 +325,6 @@ public class Course {
 			System.out.println("Not all students' marks are set!");
 		
 	}
-
-
 
 	private ArrayList<Character> initialiseOverallMarksList(HashMap<String, ArrayList<Double>> marksListByComponent) {
 		ArrayList<Character> overall = new ArrayList<>();
