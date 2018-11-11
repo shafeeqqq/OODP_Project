@@ -369,7 +369,7 @@ public class AdminInterface {
 
 			default:
 				System.out.println("You have entered a wrong input \n"
-						+ "Please enter a valid type from the list: ");
+						+ "Please enter a valid type (e.g. 'A') from the list: ");
 				type = sc.nextLine().toLowerCase().charAt(0);
 			}
 		} while(true);
