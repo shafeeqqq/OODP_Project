@@ -306,5 +306,29 @@ public class Faculty {	//need interface w university to add student and course
 		}
 		return result;
 	}//
+
+	public void addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType,
+			ArrayList<Component> assessment, Semester sem, ArrayList<StudentInfo> studentInfoList) {
+		for (FacultyStaff now : staffList) {
+			if (now.getStaffID().equals(coordinator)) {
+				now.setCoordinator(courseCode);
+			}
+		}
+		Course newCourse = new Course(this.facultyName, courseCode, courseName, coordinator, lessonType, assessment,studentInfoList);
+		if (courseListBySem.get(sem) == null ) System.out.println("nulll null");
+		if (!courseExists(sem, courseCode))
+			courseListBySem.get(sem).add(newCourse);
+		
+		else {
+			System.out.println("Course already exists.");
+			return;
+		}
+		System.out.println("New Course successfully added.");
+		System.out.println("~~~ Details of newly added course ~~~");
+		newCourse.printDetails();
+		System.out.println("~~~~~~~~~\n");
+		System.out.println(courseListBySem.toString());
+		
+	}
 	
 }

@@ -17,6 +17,12 @@ public class StudentInfo {
 	}
 
 	
+	StudentInfo(String currentMatric, String currentTutorialGroup, HashMap<String, Double> marks2) {
+		this.matricNo = currentMatric;
+		this.tutorialGroup = currentTutorialGroup;
+		this.marks = marks2;
+	}
+
 	private void initialiseMarks(ArrayList<String> components) {
 		for (String item: components) 
 			marks.put(item, null);

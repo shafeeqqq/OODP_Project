@@ -27,7 +27,6 @@ public class FileIO {
 			readStudents(STUDENT_FILE);
 			readFacultyStaff(FACULTYSTAFF_FILE);
 			readCourses(COURSE_FILE);
-			readStudentInfo(STUDENT_INFO_FILE);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -73,7 +72,21 @@ public class FileIO {
 				Component component = new Component(title, weightage);
 				assessment.add(component);
 			}
-			university.addCourseToFaculty(facultyName, courseCode, courseName, coordinator, lessonType, assessment, sem);
+			ArrayList<StudentInfo> studentInfoList  = new ArrayList<>();
+			
+			for (i=8; i<strArr.length; i++) {
+				String[] currentStudentInfo = strArr[i].split(",");
+				String currentMatric = currentStudentInfo[0];
+				String currentTutorialGroup = currentStudentInfo[1];
+				HashMap<String, Double> marks = new HashMap<>();
+				for (int j = 2;j<currentStudentInfo.length;j++) {
+					marks.put(assessment.get(j-2).getTitle(), Double.parseDouble(currentStudentInfo[j]));
+				}
+				StudentInfo current = new StudentInfo(currentMatric, currentTutorialGroup, marks);
+				studentInfoList.add(current);
+				
+			}
+			university.addCourseToFaculty(facultyName, courseCode, courseName, coordinator, lessonType, assessment, sem,studentInfoList);
 		}
 	}
 
@@ -190,28 +203,4 @@ public class FileIO {
 		}
 		return data;
 	}
-
-	private void readStudentInfo (String fileName) throws IOException{
-		ArrayList<String> studentInfoList = readFromFile(fileName);		
-		
-        for (int i = 0 ; i < studentInfoList.size() ; i++) {
-				String st = (String)studentInfoList.get(i);
-				String[] strArr = st.split("\\|");
-		
-				String  studentID = strArr[0];// first token
-				String  tutorialGroup = strArr[1];// second token
-				ArrayList<String> compName = new ArrayList<String>();
-				ArrayList<String> compMarks = new ArrayList<>();
-				for(int j=2; j < strArr.length ;j=j+2) {                         
-					compName.add(strArr[j]);
-					compMarks.add(strArr[j+1]);
-
-				}
-				StudentInfo studInfo = new StudentInfo(studentID, tutorialGroup, compName);
-				//need a method to add marks into StudentInfo obj
-			}
-		
-	}
-
-
 }

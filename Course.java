@@ -33,6 +33,20 @@ public class Course {
 	}
 	
 	
+	Course(String facultyName2, String courseCode2, String courseName2, String coordinator2,
+			LessonType lessonType2, ArrayList<Component> assessment2, ArrayList<StudentInfo> studentInfoList2) {
+		this.courseCode = courseCode2;
+		this.courseName = courseName2;
+		this.coordinator = coordinator2;
+		this.lessonType = lessonType2;
+		this.assessment.addAll(assessment);
+		initialiseTutorialGroups();
+		this.maxEnrollment = initialiseMaxEnrollment();
+		this.facultyName = facultyName2;
+		this.studentInfoList = studentInfoList2;
+	}
+
+
 	private int initialiseMaxEnrollment() {
 		int num = 0;
 		if (tutorialGroups == null) {

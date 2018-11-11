@@ -276,4 +276,13 @@ public class University {
 		semesterList.add(sem);
 		return sem;
 	}
+
+
+	public void addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator,
+			LessonType lessonType, ArrayList<Component> assessment, Semester sem,
+			ArrayList<StudentInfo> studentInfoList) {
+		Faculty faculty = getFacultyByName(facultyName);
+		faculty.addCourse(courseCode, courseName, coordinator, lessonType, assessment, sem, studentInfoList);
+		
+	}
 }
