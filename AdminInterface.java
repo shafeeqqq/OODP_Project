@@ -302,7 +302,6 @@ public class AdminInterface {
 		System.out.println("Choose faculty:");
 		printArray(facultyNameList);
 		String facultyName = null;
-
 		boolean error = true;
 		do {
 			try {

@@ -46,7 +46,8 @@ public class FacultyStaff {
 	 * @param courseCode
 	 */
 	public void setCoordinator(String courseCode) { //need interface with faculty to change attribute in course
-		coordinatorOf = courseCode;
+		this.coordinatorOf = courseCode;
+		System.out.println("hi this is me");
 	}
 
 	

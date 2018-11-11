@@ -62,7 +62,7 @@ public class Faculty {	//need interface w university to add student and course
 	public void addCourse(String courseCode, String courseName, String coordinator,
 			LessonType lessonType, ArrayList<Component> assessment, Semester sem) {
 		for (FacultyStaff now : staffList) {
-			if (now.getStaffID() == coordinator) {
+			if (now.getStaffID().equals(coordinator)) {
 				now.setCoordinator(courseCode);
 			}
 		}
@@ -303,7 +303,7 @@ public class Faculty {	//need interface w university to add student and course
 		ArrayList<String> result = new ArrayList<>();
 		for (FacultyStaff currentStaff : staffList) {
 			if (currentStaff.getCoordinatorOf() == null) {
-				result.add(currentStaff.getStaffID() + "\t" + currentStaff.getStaffName());
+				result.add(currentStaff.getStaffID() + "\t" + currentStaff.getStaffName()+ "\t" +currentStaff.getCoordinatorOf());
 			}
 		}
 		return result;
