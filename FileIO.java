@@ -27,6 +27,15 @@ public class FileIO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void populateFacultyData() {
+		try {
+			readFacultyStaff(FACULTYSTAFF_FILE);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 
 	public void readStudents(String filename) throws IOException {
@@ -142,9 +151,6 @@ public class FileIO {
 		return data;
 	}
 
-	public void populateFacultyData() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

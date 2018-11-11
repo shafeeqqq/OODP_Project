@@ -14,24 +14,10 @@ public class MainApp {
 		// dummy data -- faculty
 		university.addFaculty("SCSE");
 		university.addFaculty("NBS");
-		
-		// dummy data -- faculty staff
-		university.addStaffToFaculty("SCSE", "Alice");
-		university.addStaffToFaculty("NBS", "Bob");
-		
-		// dummy data -- student
-		university.addStudentToFaculty("SCSE", "Cat", university.getCurrentSemester());
-		university.addStudentToFaculty("SCSE", "Darwin", university.getCurrentSemester());
 	
 		file.populateFacultyData();
 		file.populateStudentData();
 		
-		// dummy data -- course
-//		 university.addCourseToFaculty("SCSE", "CS100", "algorithms", 
-//					"F100001 ", LessonType.TYPE_A , null , university.getCurrentSemester());
-//		 university.addCourseToFaculty("NBS", "B100", "business", 
-//					"F100002 ", LessonType.TYPE_B , null , university.getCurrentSemester());
-		 
 		
 		printMainMenu();
 		int choice = getChoice();
