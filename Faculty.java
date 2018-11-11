@@ -115,7 +115,7 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param staffID
 	 */
 	public void addStaff(String staffName, String staffID) {
-		FacultyStaff newStaff = new FacultyStaff(staffName, staffID);
+		FacultyStaff newStaff = new FacultyStaff(staffName, staffID, this.facultyName);
 		staffList.add(newStaff);
 	}
 	

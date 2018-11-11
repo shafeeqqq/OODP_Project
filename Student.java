@@ -42,6 +42,7 @@ public class Student {
 		System.out.print(
 				"Name: " + studentName + "\n"
 			  + "Matriculation No.: " + matricNo + "\n"
+			  + "Faculty: " + facultyName + "\n"
 			  + "Candidature: \n" + getCandidatureString() + "\n");
 	}
 	
@@ -51,6 +52,7 @@ public class Student {
 		for (Semester item: candidature.keySet()) {
 			result += item.toString() + ": \n";
 			result += candidature.get(item).toString();
+			result += "\n";
 		}
 		return result;
 	}
