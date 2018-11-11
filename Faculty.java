@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Faculty {	//need interface w university to add student and course
+	
 	private ArrayList<Student> studentList = new ArrayList<>();
 	private ArrayList<FacultyStaff> staffList = new ArrayList<>();
 	private String facultyName;
@@ -37,7 +38,14 @@ public class Faculty {	//need interface w university to add student and course
 	 * @return 
 	 */
 	public Student addStudent(String studentname, String matricNo, Semester semester) {
-		Student newStudent = new Student(studentname, matricNo, semester);
+		Student newStudent = new Student(studentname, matricNo, semester, this.facultyName);
+		studentList.add(newStudent);
+		return newStudent;
+	}
+	
+	
+	public Student addStudent(String name, String matricNo, HashMap<Semester, ArrayList<String>> candidature) {
+		Student newStudent = new Student(name, matricNo, this.facultyName, candidature);
 		studentList.add(newStudent);
 		return newStudent;
 	}
@@ -74,20 +82,14 @@ public class Faculty {	//need interface w university to add student and course
 	 * this method register the current student for the course of the code given
 	 * @param courseCode
 	 */
-	public void registerForCourse(String courseCode, Semester currentSem, String matricNo) {
-		System.out.println("processing...");
+	public void registerForCourse(Semester sem, String courseCode, String matricNo, String tutorialGroup) {
+		Course course = getCourse(sem, courseCode);	
 		
-		Course course = getCourse(currentSem, courseCode);	
-		//
 		if (course.getVacancy() > 0) {
-//			student.addCourse(currentSem, courseCode);
-//			course.addStudent(matricNo, tutorialGroup);
-//			course.getStudentInfoList().add(new StudentInfo(student.getMatricNo(), course.getTutorialGroup(), course.getAssessmentTitles()));
-			
+			getStudentObj(matricNo).addCourse(sem, courseCode);
+			course.addStudent(matricNo, tutorialGroup);
 			System.out.println("Registration Successful!\n");
-		
-		} else 
-			System.out.println("There is no more vacancy in the course.\n");
+		} 
 	}
 	
 	
@@ -115,7 +117,7 @@ public class Faculty {	//need interface w university to add student and course
 	 * @param staffID
 	 */
 	public void addStaff(String staffName, String staffID) {
-		FacultyStaff newStaff = new FacultyStaff(staffName, staffID);
+		FacultyStaff newStaff = new FacultyStaff(staffName, staffID, this.facultyName);
 		staffList.add(newStaff);
 	}
 	
@@ -136,16 +138,6 @@ public class Faculty {	//need interface w university to add student and course
 			}
 		}
 		return courseListBySem.get(semester).get(index);
-	}
-	
-	
-	public Student getStudent(String matricNo) {
-		for (Student student: studentList) {
-			if (student.getMatricNo().equals(matricNo)) {
-				return student;
-			}
-		}
-		return null;
 	}
 	
 	
@@ -173,14 +165,16 @@ public class Faculty {	//need interface w university to add student and course
 	}
 
 
-	public ArrayList<String> getCourseNameList(Semester sem) {
+	public ArrayList<String> getCourseNameList(Semester sem, boolean vacancy) {
 		ArrayList<String> result = new ArrayList<>();
 		for(Course course: courseListBySem.get(sem)) {
-			result.add(course.getCourseCode() + "\t" + course.getCourseName());
+			if (!vacancy)
+				result.add(course.getCourseCode() + "\t" + course.getCourseName());
+			else
+				result.add(course.getCourseCode() + "\t" + course.getCourseName() + " [" + course.getVacancy() + "]");
 		}
 		return result;
 	}
-	
 
 	
 	public String getStudentNameByMatricNo(String matricNo) {
@@ -190,6 +184,15 @@ public class Faculty {	//need interface w university to add student and course
 				return student.getStudentName();
 		}
 		return name;
+	}
+	
+	
+	public Student getStudentObj(String matricNo) {
+		for (Student student: studentList) {
+			if (student.getMatricNo().equals(matricNo))
+				return student;
+		}
+		return null;
 	}
 	
 	
@@ -266,6 +269,20 @@ public class Faculty {	//need interface w university to add student and course
 				return true;
 		}
 		return false;
+	}
+
+
+	public ArrayList<String> getTutorialGroupsVacancy(Semester sem, String courseCode) {
+		Course course = getCourse(sem, courseCode);
+		return course.getTutorialGroupsVacancy();
+	}
+
+
+	public int getCourseVacancy(Semester sem, String courseCode) {
+		Course course = getCourse(sem, courseCode);
+		String msg = course.getCourseCode() + "\t" + course.getCourseName() + "\n";
+		msg += "Vacancy: " + course.getVacancy();
+		return course.getVacancy();
 	}
 	
 }

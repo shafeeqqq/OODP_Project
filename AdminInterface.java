@@ -180,6 +180,10 @@ public class AdminInterface {
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 		
+		int vacancy = university.getCourseVacancy(facultyName, sem, courseCode);
+		System.out.println(courseCode);
+		System.out.println("Vacancy: " + vacancy);
+		
 	}
 
 

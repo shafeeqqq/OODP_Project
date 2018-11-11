@@ -5,13 +5,23 @@ public class Student {
 	
 	private String studentName;
 	private String matricNo;
+	private String facultyName;
 	private HashMap<Semester, ArrayList<String>> candidature = new HashMap<>();
 	
-	public Student(String name, String matric, Semester semester) {
+	public Student(String name, String matricNo, Semester semester, String facultyName ) {
 		studentName = name;
-		matricNo = matric;
+		this.matricNo = matricNo;
 		candidature.put(semester, new ArrayList<String>());
+		this.facultyName = facultyName;
 //		printDetails();
+	}
+	
+	public Student(String name, String matricNo, String facultyName, HashMap<Semester, ArrayList<String>> candidature) {
+		this.studentName = name;
+		this.matricNo = matricNo;
+		this.candidature.putAll(candidature);
+		this.facultyName = facultyName;
+		printDetails();
 	}
 	
 	public String getMatricNo() {
@@ -32,6 +42,7 @@ public class Student {
 		System.out.print(
 				"Name: " + studentName + "\n"
 			  + "Matriculation No.: " + matricNo + "\n"
+			  + "Faculty: " + facultyName + "\n"
 			  + "Candidature: \n" + getCandidatureString() + "\n");
 	}
 	
@@ -41,6 +52,7 @@ public class Student {
 		for (Semester item: candidature.keySet()) {
 			result += item.toString() + ": \n";
 			result += candidature.get(item).toString();
+			result += "\n";
 		}
 		return result;
 	}

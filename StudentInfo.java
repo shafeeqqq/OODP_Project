@@ -55,7 +55,7 @@ public class StudentInfo {
 	public void setMarks(HashMap<String, Double> updatedMarks) {
 		marks.clear();
 		marks.putAll(updatedMarks);
-		System.out.println("MARKS" + marks.toString());
+		System.out.println("### MARKS ### \n" + getMarksString());
 	}
 
 	public String getMarksString() {

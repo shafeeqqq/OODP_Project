@@ -4,10 +4,12 @@ public class MainApp {
 
 	
 	public static University university;
+	public static FileIO file;
 	static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		university = new University("NTU");
+		file = new FileIO(university);
 		
 		// dummy data -- faculty
 		university.addFaculty("SCSE");
@@ -20,6 +22,9 @@ public class MainApp {
 		// dummy data -- student
 		university.addStudentToFaculty("SCSE", "Cat", university.getCurrentSemester());
 		university.addStudentToFaculty("SCSE", "Darwin", university.getCurrentSemester());
+	
+		file.populateFacultyData();
+		file.populateStudentData();
 		
 		// dummy data -- course
 //		 university.addCourseToFaculty("SCSE", "CS100", "algorithms", 

@@ -81,22 +81,31 @@ public class Course {
 	}
 	
 	
-	public String getTutorialGroup() {
-		
+	public ArrayList<String> getTutorialGroupsVacancy() {
+		ArrayList<String> result = new ArrayList<>();
 		if (tutorialGroups == null)
-			return "N.A.";
+			return null;
 		
 		else {
-			ArrayList<String> keys = new ArrayList<String>(tutorialGroups.keySet());
-			return keys.get(0);	// TODO make it random
+			for (String tutGroup: tutorialGroups.keySet()) {
+				int vacancy = getTutorialGroupVacancy(tutGroup);
+				if (vacancy != 0)
+					result.add(tutGroup + " [" + vacancy + "]" );
+			}
 		}
+		return result;
 	}
 	
 	
-	public void addStudent() {
-		
+	private Integer getTutorialGroupVacancy(String tutGroup) {
+		int count = 0;
+		for (StudentInfo item: studentInfoList) {
+			if (item.getTutorialGroup().equals(tutGroup))
+				++count;
+		}
+		return count;
 	}
-	
+
 	
 	public void printStudentInfoOfStudent(String matricNo) {
 		for (StudentInfo item: studentInfoList)
@@ -447,6 +456,13 @@ public class Course {
 	
 		System.out.println(mark + " " + maxMarks + " " + grade);
 		return grade;
+	}
+
+
+	public void addStudent(String matricNo, String tutorialGroup) {
+		StudentInfo newStudent = new StudentInfo(matricNo, tutorialGroup, getAssessmentTitles());
+		studentInfoList.add(newStudent);
+		
 	}
 	
 }

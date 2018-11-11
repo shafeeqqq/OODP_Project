@@ -24,6 +24,15 @@ public class FacultyStaff {
 	public String getCoordinatorOf() {
 		return coordinatorOf;
 	}
+	
+	
+	public FacultyStaff(String staffName, String staffID, String facultyName) {
+		this.staffName = staffName;
+		this.staffID = staffID;
+		this.facultyName = facultyName;
+	}
+	
+	
 	/**This method sets the coordinator status for current staff for the course with code passed as parameter
 	 * 
 	 * @param courseCode
@@ -31,6 +40,8 @@ public class FacultyStaff {
 	public void setCoordinator(String courseCode) { //need interface with faculty to change attribute in course
 		
 	}
+	
+	
 	/**
 	 * This method adds the passed courseCode to the current Staff's workload as a string
 	 * @param courseCode
