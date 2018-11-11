@@ -33,6 +33,7 @@ public class Course {
 	}
 	
 	
+<<<<<<< HEAD
 	Course(String facultyName2, String courseCode2, String courseName2, String coordinator2,
 			LessonType lessonType2, ArrayList<Component> assessment2, ArrayList<StudentInfo> studentInfoList2) {
 		this.courseCode = courseCode2;
@@ -40,17 +41,26 @@ public class Course {
 		this.coordinator = coordinator2;
 		this.lessonType = lessonType2;
 		this.assessment.addAll(assessment2);
+=======
+	Course(String facultyName, String courseCode, String courseName, String coordinator,
+			LessonType lessonType, ArrayList<Component> assessment, ArrayList<StudentInfo> studentInfoList) {
+		this.courseCode = courseCode;
+		this.courseName = courseName;
+		this.coordinator = coordinator;
+		this.lessonType = lessonType;
+		this.assessment.addAll(assessment);
+>>>>>>> branch 'master' of https://github.com/shafeeqqq/OODP_Project.git
 		initialiseTutorialGroups();
 		this.maxEnrollment = initialiseMaxEnrollment();
-		this.facultyName = facultyName2;
-		this.studentInfoList = studentInfoList2;
+		this.facultyName = facultyName;
+		this.studentInfoList = studentInfoList;
 	}
 
 
 	private int initialiseMaxEnrollment() {
 		int num = 0;
 		if (tutorialGroups == null) {
-			return 10;
+			return 20;
 		}
 		
 		else {
@@ -456,6 +466,25 @@ public class Course {
 		StudentInfo newStudent = new StudentInfo(matricNo, tutorialGroup, getAssessmentTitles());
 		studentInfoList.add(newStudent);
 		
+	}
+
+
+	public String getOverallGrade(String matricNo) {
+		String grade = "You are not registered for this course.";
+		StudentInfo studentInfo = getStudentInfoOfStudent(matricNo);
+		
+		if (studentInfo != null) {
+			
+			double total = 0;
+			for (Component item: assessment) {
+				if (studentInfo.getMarksByComponent(item.getTitle()) == null)
+					return "Pending";
+				total += studentInfo.getMarksByComponent(item.getTitle()) * item.getWeightage()/100.0;
+			}
+			return String.valueOf(getGrade(total, 100));
+		}
+		
+		return grade;
 	}
 	
 }
