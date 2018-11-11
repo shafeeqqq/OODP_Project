@@ -279,9 +279,9 @@ public class Faculty {	//need interface w university to add student and course
 	}
 
 
-	public ArrayList<String> getTutorialGroupsVacancy(Semester sem, String courseCode) {
+	public ArrayList<String> getAvailTutGroups(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
-		return course.getTutorialGroupsVacancy();
+		return course.getAvailTutGroups();
 	}
 
 

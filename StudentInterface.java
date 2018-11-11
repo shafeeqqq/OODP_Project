@@ -103,7 +103,7 @@ public class StudentInterface {
 
 	private String chooseTutorialGroup(String courseCode) {
 		String tutGroup = "";
-		ArrayList<String> tutGroupList = currentFaculty.getTutorialGroupsVacancy(currentSemester, courseCode);
+		ArrayList<String> tutGroupList = currentFaculty.getAvailTutGroups(currentSemester, courseCode);
 		if (tutGroupList == null)
 			return "N.A.";
 		
