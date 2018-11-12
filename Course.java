@@ -63,7 +63,6 @@ public class Course {
 		
 	}
 
-
 	private void initialiseTutorialGroups() {
 		int tutorialCount = lessonType.getTutorialCount();
 		
@@ -92,7 +91,9 @@ public class Course {
 		else if (!tutorialGroups.isEmpty())
 			System.out.println("Tutorial Groups: " + tutorialGroups.toString());
 	}
-	
+	public String getFacultyName() {
+		return facultyName;
+	}
 	
 	public String getAssessmentString() {
 		String result = "";

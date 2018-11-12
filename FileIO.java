@@ -156,7 +156,6 @@ public class FileIO {
 		ArrayList<String> result = new ArrayList<>() ;// to store Students data
 		System.out.println(al.size());
 		for (Student stud: al) {
-		//	System.out.println(stud.getStudentName());
 			StringBuilder st =  new StringBuilder();
 			String std = "";
 			std += stud.getStudentName();
@@ -165,28 +164,17 @@ public class FileIO {
 			std += "|";
 			std += stud.getFacultyName();
 			std += "|";
-//			st.append(stud.getStudentName());
-//			st.append(SEPARATOR1);
-//			st.append(stud.getMatricNo());
-//			st.append(SEPARATOR1);
 			HashMap<Semester, ArrayList<String>> candidature = stud.getCandidature();
 			for(Semester sem : candidature.keySet()) {
 				std += sem.getYear();
 				std += "|";
 				std += sem.getNumber();
 				std += "|";
-//				st.append(sem.getYear());
-//				st.append(SEPARATOR1);
-//				st.append(sem.getNumber());
-//				st.append(SEPARATOR1);
 				for(String course: candidature.get(sem)) {
 					std += course.trim();
 					std += ",";
-//					st.append((course).trim());
-//					st.append(SEPERATOR2);
 				}
-				std += "|";
-//				st.append(SEPARATOR1);				
+				std += "|";		
 			}
 			std = std.substring(0, std.length() - 2)+"|";
 			result.add(std) ;
@@ -194,7 +182,7 @@ public class FileIO {
 		writeToFile(filename,result);
 	}
 
-
+	
 	public static void writeToFile(String fileName, ArrayList<String> data) throws IOException  {
 		PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
@@ -238,6 +226,60 @@ public class FileIO {
 			result.add(staf) ;
 		}
 		writeToFile(string,result);
-		
+	}
+
+	public void saveCourses(String string, ArrayList<Faculty> allFaculty) throws IOException {
+		ArrayList<String> result = new ArrayList<>() ;// to store Students data
+		for (Faculty currentFaculty : allFaculty) {
+			HashMap<Semester, ArrayList<Course>> currentCourseList = new HashMap<>();
+			currentCourseList = currentFaculty.getCourseListBySem();
+			for (Semester sem: currentCourseList.keySet()) {
+				ArrayList<Course> currentCourseBySem = new ArrayList<>();
+				currentCourseBySem = currentCourseList.get(sem);
+				String course = "";
+				for (Course currentCourse : currentCourseBySem) {
+					course += currentCourse.getCourseCode();
+					course += "|";
+					course += currentCourse.getCourseName();
+					course += "|";
+					course += currentCourse.getFacultyName();
+					course += "/";
+					course += sem.getYear();
+					course += "|";
+					course += sem.getNumber();
+					course += "|";					
+					course += currentCourse.getCoordinator();
+					course += "|";
+					course += currentCourse.getLessonType();
+					course += "|";
+					for (Component component: currentCourse.getAssessment()) {
+						course += component.getTitle();
+						course += ",";
+						course += component.getWeightage();
+						course += ",";
+					}
+					course = course.substring(0, course.length()-1) + "|";
+					
+					for (StudentInfo studentinfo: currentCourse.getStudentInfoList()) {
+						course += studentinfo.getMatricNo();
+						course += ",";
+						course += studentinfo.getTutorialGroup();
+						course += ",";
+						HashMap<String, Double> marks = studentinfo.getMarks();
+						for (String componentTitle: marks.keySet()) {
+							course += marks.get(componentTitle);
+							course += ",";
+						}
+						course = course.substring(0, course.length()-1) + "|";
+					}
+			//		course = course.substring(0, course.length() -1);
+					result.add(course);	
+					course = "";
+				}
+
+
+			}
+		}
+		writeToFile(string,result);	
 	}
 }

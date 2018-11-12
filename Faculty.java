@@ -333,11 +333,16 @@ public class Faculty {	//need interface w university to add student and course
 		return staffList;
 	}
 
-//	public ArrayList<Course> getAllCourses() {
-//		for(Course currentCourse) {
-//			
-//		}
-//		courseListBySem
-//	}
+	public ArrayList<Course> getAllCourses() {
+		ArrayList<Course> result = new ArrayList<>();
+		for(Semester sem : courseListBySem.keySet()) {
+			result.addAll(courseListBySem.get(sem));
+		}
+		return result;
+	}
+	
+	public HashMap<Semester, ArrayList<Course>> getCourseListBySem() {
+		return courseListBySem;
+	}
 	
 }
