@@ -38,8 +38,11 @@ public class MainApp {
 				}
 				break;		
 			}
+			default:
+				System.out.println("You have entered a wrong input!\n" + "Please enter 1,2 or 3!");
+				break;
 		}
-			printMainMenu();
+			//printMainMenu();
 			choice = getChoice();			
 	}
 }
@@ -90,7 +93,7 @@ public class MainApp {
 			}
 			catch (Exception e) {
 				System.out.println("You have entered a wrong input!");
-				System.out.println("Please enter 1 or 2: ");
+				System.out.println("Please enter 1,2 or 3: ");
 				sc.reset();
 				sc.next();
 			}			
@@ -105,6 +108,7 @@ public class MainApp {
 				  "### Main Menu ###\n"
 				+ " 1. admin\n"
 				+ " 2. student\n"
+				+ " 3. save all change \n"
 				+ "~~~~~~~~~~~~~~~~~\n"); 
 		
 	}
