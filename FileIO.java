@@ -38,58 +38,61 @@ public class FileIO {
 		ArrayList<String> courseList = readFromFile(filename);
 		for (int i = 0 ; i < courseList.size() ; i++) {
 			String line = courseList.get(i);
-			String[] strArr = line.split("\\|");
-
-			String courseCode = strArr[0];// first token
-			String courseName = strArr[1];// second token
-			String facultyName = strArr[2];
-			int year = Integer.parseInt(strArr[3]);
-			int number = Integer.parseInt(strArr[4]);
-			Semester sem = university.getSemester(new Semester(year,number));
-			String coordinator = strArr[5];
-		
-			ArrayList<Component> assessment = new ArrayList<>() ;
-			LessonType lessonType;
-
-			if (strArr[6].equals("TYPE_A")) {
-				lessonType = LessonType.TYPE_A; 
-			}
-			else if (strArr[6].equals("TYPE_B")) {
-				lessonType = LessonType.TYPE_B; 
-			}
-			else{
-				lessonType = LessonType.TYPE_C; 
-			}
+			String[] strArr = line.split("\\/");
+			//first part is all course detail (courseCode, courseName, facultyName)
+			String[] courseDetail = strArr[0].split("\\|");
+			//second part is all the semestral data (each element contains one semester's data
+			String[] semestralData = strArr[1].split("\\-");
 			
-			String components = strArr[7];
-			String[] titleOrWeightage = components.split("\\,");
+			String courseCode = courseDetail[0]; 			//extract courseCode
+			String courseName = courseDetail[1];			//extract courseName
+			String facultyName = courseDetail[2];			//extract facultyName
 			
-			for(int j=0; j < titleOrWeightage.length ;j=j+2) {
-				String title = titleOrWeightage[j].toLowerCase();
-				int weightage = Integer.parseInt(titleOrWeightage[j+1]);
-				Component component = new Component(title, weightage);
-				assessment.add(component);
-			}
-			ArrayList<StudentInfo> studentInfoList  = new ArrayList<>();
-			for (int x = 8; x < strArr.length; x++) {
-				String[] currentStudentInfo = strArr[x].split(",");
-				String currentMatric = currentStudentInfo[0];
-				String currentTutorialGroup = currentStudentInfo[1];
-				HashMap<String, Double> marks = new HashMap<>();
-				for (int y = 2;y <currentStudentInfo.length;y++) {
-					marks.put(assessment.get(y-2).getTitle(), Double.parseDouble(currentStudentInfo[y]));
-				}
-
-
-				StudentInfo current = new StudentInfo(currentMatric, currentTutorialGroup, marks);
-//				for (String key: marks.keySet()) {
-//					System.out.println(key);
-//				}
+			//checking through each partion of semestralData and creating the course for that sem
+			for (String currentData: semestralData) {
+				String[] currentSem = currentData.split("\\|");
+				int year = Integer.parseInt(currentSem[0]);
+				int number = Integer.parseInt(currentSem[1]);
+				Semester sem = university.getSemester(new Semester(year,number));
+				String coordinator = currentSem[2];
 				
+				ArrayList<Component> assessment = new ArrayList<>() ;
+				LessonType lessonType;
+				if (currentSem[3].equals("TYPE_A")) {
+					lessonType = LessonType.TYPE_A; 
+				}
+				else if (currentSem[3].equals("TYPE_B")) {
+					lessonType = LessonType.TYPE_B; 
+				}
+				else{
+					lessonType = LessonType.TYPE_C; 
+				}
+				
+				String components = currentSem[4];
+				String[] titleOrWeightage = components.split("\\,");
+				
+				for(int j=0; j < titleOrWeightage.length ;j=j+2) {
+					String title = titleOrWeightage[j].toLowerCase();
+					int weightage = Integer.parseInt(titleOrWeightage[j+1]);
+					Component component = new Component(title, weightage);
+					assessment.add(component);
+				}
+				
+				ArrayList<StudentInfo> studentInfoList  = new ArrayList<>();
+				for (int x = 5; x < currentSem.length; x++) {
+					String[] currentStudentInfo = currentSem[x].split(",");
+					String currentMatric = currentStudentInfo[0];
+					String currentTutorialGroup = currentStudentInfo[1];
+					HashMap<String, Double> marks = new HashMap<>();
+					for (int y = 2;y <currentStudentInfo.length;y++) {
+						marks.put(assessment.get(y-2).getTitle(), Double.parseDouble(currentStudentInfo[y]));
+					}
 
-				studentInfoList.add(current);
+					StudentInfo current = new StudentInfo(currentMatric, currentTutorialGroup, marks);
+					studentInfoList.add(current);
+				}
+				university.addCourseToFaculty(facultyName, courseCode, courseName, coordinator, lessonType, assessment, sem, studentInfoList);
 			}
-			university.addCourseToFaculty(facultyName, courseCode, courseName, coordinator, lessonType, assessment, sem, studentInfoList);
 		}
 	}
 
