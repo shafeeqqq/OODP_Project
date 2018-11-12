@@ -9,18 +9,32 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileIO {
-
-	private static final String SEPARATOR1 = "|";
-	private static final String SEPERATOR2 = ",";
+	/**
+	 * stores the name of StudentFile
+	 */
 	private static final String STUDENT_FILE = "students.txt";
+	/**
+	 * stores the name of FacultyFile
+	 */
 	private static final String FACULTYSTAFF_FILE = "facultystaff.txt";
+	/**
+	 * stores the name of CourseFile
+	 */
 	private static final String COURSE_FILE = "courses.txt";
+	/*
+	 * instantiate a university object
+	 */
 	private University university;
-
+	/**
+	 * this constructor instantiate the university variable to be used to save and read files
+	 * @param university
+	 */
 	FileIO (University university) {
 		this.university = university;
 	}
-
+	/**
+	 * this method adds data to the university 
+	 */
 	public void populateData() {
 		try {
 			readStudents(STUDENT_FILE);
@@ -32,7 +46,12 @@ public class FileIO {
 		}
 	}
 
-
+	/**
+	 * this method reads courses from the file by splitting the line into different component
+	 * by the delimiters to construct courses object 
+	 * @param filename
+	 * @throws IOException
+	 */
 	private void readCourses (String filename) throws IOException {
 		// read String from text file
 		ArrayList<String> courseList = readFromFile(filename);
@@ -96,7 +115,12 @@ public class FileIO {
 		}
 	}
 
-
+	/**
+	 * this method reads students from the file by splitting the line into different component
+	 * by the delimiters to construct students object 
+	 * @param filename
+	 * @throws IOException
+	 */
 	private void readStudents(String filename) throws IOException {
 		ArrayList<String> stringArray = readFromFile(filename);
 
@@ -127,7 +151,12 @@ public class FileIO {
 		}
 	}
 
-
+	/**
+	 * this method reads facultyStaff from the file by splitting the line into different component
+	 * by the delimiters to construct FacultyStaff object 
+	 * @param filename
+	 * @throws IOException
+	 */
 	public void readFacultyStaff(String filename) throws IOException {
 		// read String from text file
 		ArrayList<String> facultyStaffList = readFromFile(filename);
@@ -151,12 +180,16 @@ public class FileIO {
 
 		}
 	}
-
+	/**
+	 * this method saves the current students in the database back to the file to be read later
+	 * @param filename
+	 * @param al
+	 * @throws IOException
+	 */
 	public void saveStudents(String filename, ArrayList<Student> al) throws IOException {
 		ArrayList<String> result = new ArrayList<>() ;// to store Students data
 		System.out.println(al.size());
 		for (Student stud: al) {
-			StringBuilder st =  new StringBuilder();
 			String std = "";
 			std += stud.getStudentName();
 			std += "|";
@@ -182,7 +215,12 @@ public class FileIO {
 		writeToFile(filename,result);
 	}
 
-	
+	/**
+	 * this method write to the fileName given the arraylist of data
+	 * @param fileName
+	 * @param data
+	 * @throws IOException
+	 */
 	public static void writeToFile(String fileName, ArrayList<String> data) throws IOException  {
 		PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
@@ -195,7 +233,12 @@ public class FileIO {
 			out.close();
 		}
 	}
-
+	/**
+	 * this method reads from the file everything as arraylist of string
+	 * @param fileName
+	 * @return everything written in the file as arraylist of string
+	 * @throws IOException
+	 */
 	public static ArrayList<String> readFromFile(String fileName) throws IOException {
 		ArrayList<String> data = new ArrayList<>();
 		Scanner scanner = new Scanner(new FileInputStream(fileName));
@@ -211,7 +254,12 @@ public class FileIO {
 	}
 
 
-
+	/**
+	 * this method saves facultyStaff from the file to be read later 
+	 * @param string
+	 * @param allStaffs
+	 * @throws IOException
+	 */
 	public void saveStaffs(String string, ArrayList<FacultyStaff> allStaffs) throws IOException {
 		ArrayList<String> result = new ArrayList<>() ;// to store Students data
 		for (FacultyStaff staff: allStaffs) {
@@ -227,7 +275,12 @@ public class FileIO {
 		}
 		writeToFile(string,result);
 	}
-
+	/**
+	 * this method saves course into the file to be read later
+	 * @param string
+	 * @param allFaculty
+	 * @throws IOException
+	 */
 	public void saveCourses(String string, ArrayList<Faculty> allFaculty) throws IOException {
 		ArrayList<String> result = new ArrayList<>() ;// to store Students data
 		for (Faculty currentFaculty : allFaculty) {
