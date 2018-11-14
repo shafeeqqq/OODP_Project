@@ -308,9 +308,31 @@ public class University {
 	}
 
 
-	public String getTranscript(String matricNo) {
-		String transcript = currentFaculty.getTranscript(currentStudent);
-		return null;
+	public String getTranscript(Student student) {
+		String result = 
+				"Name: " + student.getStudentName() + "\n"
+				+ "Matriculation No: "+ student.getMatricNo() + "\n"
+				+ "Faculty: "+ student.getFacultyName() + "\n";
+		
+		HashMap<Semester, ArrayList<String>> candidature = student.getCandidature();
+		
+		for (Semester semester: candidature.keySet()) {
+			result += semester.toString()+ "\n";
+			for (String courseCode : candidature.get(semester)) {
+				result += courseCode + ": \n" + getTranscriptMsg(semester, courseCode, student.getMatricNo()) + "\n"; 
+			} 
+		}
+		return result;
+	}
+
+
+	private String getTranscriptMsg(Semester sem, String courseCode, String matricNo) {
+		for (Faculty faculty: facultyList) {
+			if (faculty.containsCourse(sem, courseCode)) {
+				return faculty.getTranscriptMsg(sem, courseCode, matricNo);
+			}
+		}
+		return "Error getting marks";
 	}
 
 }

@@ -154,31 +154,6 @@ public class Faculty {	//need interface w university to add student and course
 	}
 	
 	
-	public String getTranscript(Student student) {
-		String result = 
-				"Name: " + student.getStudentName() + "\n"
-				+ "Matriculation No: "+ student.getMatricNo() + "\n"
-				+ "Faculty: "+ student.getFacultyName() + "\n";
-		
-		HashMap<Semester, ArrayList<String>> candidature = student.getCandidature();
-		
-		for (Semester semester: candidature.keySet()) {
-			result += semester.toString()+ "\n";
-			for (String courseCode : candidature.get(semester)) {
-				result += courseCode + ": \n" + getGradeString(semester, courseCode, student.getMatricNo()) + "\n";
-			} 
-		}
-		return result;
-	}	
-	
-	private String getGradeString(Semester semester, String courseCode, String matricNo) {
-		Course course = getCourse(semester, courseCode);
-		if (course != null)
-			return course.getTranscriptMsg(matricNo);
-		return "Course does not exist.";
-	}
-
-
 	public ArrayList<String> getCourseNameList(Semester sem, boolean vacancy) {
 		ArrayList<String> result = new ArrayList<>();
 		for(Course course: courseListBySem.get(sem)) {
@@ -382,6 +357,44 @@ public class Faculty {	//need interface w university to add student and course
 		Student student = getStudentObj(matricNo);
 		return student.unregisterCourse(sem, courseCode);
 	}
+
+	public boolean containsCourse(Semester sem, String courseCode) {
+		if (getCourse(sem, courseCode) == null)
+			return false;
+		return true;
+	}
+
+	public String getTranscriptMsg(Semester sem, String courseCode, String matricNo) {
+		Course course = getCourse(sem, courseCode);
+		return course.getTranscriptMsg(matricNo);
+	}
+
+	
+////	TODO
+//	public String getTranscript(Student student) {
+//		String result = 
+//				"Name: " + student.getStudentName() + "\n"
+//				+ "Matriculation No: "+ student.getMatricNo() + "\n"
+//				+ "Faculty: "+ student.getFacultyName() + "\n";
+//		
+//		HashMap<Semester, ArrayList<String>> candidature = student.getCandidature();
+//		
+//		for (Semester semester: candidature.keySet()) {
+//			result += semester.toString()+ "\n";
+//			for (String courseCode : candidature.get(semester)) {
+////				result += courseCode + ": \n" + getGradeString(semester, courseCode, student.getMatricNo()) + "\n";
+////			} 
+////		}
+////		return result;
+////	}	
+////	
+//	
+//	private String getGradeString(Semester semester, String courseCode, String matricNo) {
+//		Course course = getCourse(semester, courseCode);
+//		if (course != null)
+//			return course.getTranscriptMsg(matricNo);
+//		return "Course does not exist.";
+//	}
 
 	
 }

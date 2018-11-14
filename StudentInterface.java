@@ -248,8 +248,7 @@ public class StudentInterface {
 	 * this method prints the transcript of the current logged in student
 	 */
 	private void getTranscript() {
-		String transcriptt = university.getTranscript(matricNo);
-		String transcript = currentFaculty.getTranscript(currentStudent);
+		String transcript = university.getTranscript(currentStudent);
 		System.out.print(transcript);
 	}
 
