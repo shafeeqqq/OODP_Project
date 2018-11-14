@@ -67,7 +67,7 @@ public class FileIO {
 			String courseName = courseDetail[1];			//extract courseName
 			String facultyName = courseDetail[2];			//extract facultyName
 			
-			//checking through each partion of semestralData and creating the course for that sem
+			//checking through each portion of semestralData and creating the course for that semester
 			for (String currentData: semestralData) {
 				String[] currentSem = currentData.split("\\|");
 				int year = Integer.parseInt(currentSem[0]);
@@ -254,9 +254,10 @@ public class FileIO {
 		}
 	}
 	/**
-	 * this method reads from the file everything as arraylist of string
+	 * this method reads from the file everything into arraylist of string
+	 * each element of arraylist read one line from the file until a newline character is read in. 
 	 * @param fileName
-	 * @return everything written in the file as arraylist of string
+	 * @return everything written in the file into arraylist of string
 	 * @throws IOException
 	 */
 	public static ArrayList<String> readFromFile(String fileName) throws IOException {
