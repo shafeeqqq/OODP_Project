@@ -158,7 +158,7 @@ public class AdminInterface {
 
 
 	private ArrayList<Component> executeEditCourseAssessment(ArrayList<Component> assessment) {
-		printAssessment(assessment);
+		printAssessment(assessment); // TODO: make it string
 		printEditAssessmentOptions();
 		int choice = getChoice();
 
