@@ -344,7 +344,6 @@ public class University {
 		}
 		return "Error getting marks";
 	}
-	//asdjl
 	public ArrayList<String> getAllStudentNameList() {
 		ArrayList<String>  result = new ArrayList<>();
 		for (Faculty faculty: facultyList) {
