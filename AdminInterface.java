@@ -7,23 +7,30 @@ public class AdminInterface {
 
 	Scanner sc = new Scanner(System.in);
 	/**
-	 * This attribute is used to access university
+	 * This attribute is used to access the university object
 	 */
 	private University university;
+	
 	/**
-	 * This constructor initialize the university object for the admininterface
+	 * This constructor initialises the university object for the admin interface
 	 * @param university
 	 */
 	public AdminInterface(University university) {
 		this.university = university;
 	}
 
+	
 	/**
 	 * this method gets the user choice and depending on the choice
-	 * adds a new faculty, adds a new course, add a new faculty staff
-	 * adds a new student, prints the course statistics,
-	 * sets marks for a students, edit the course weightage,
-	 * prints the student list by group and check course vacancy
+	 * 1. add a new faculty,
+	 * 2. add a new course,
+	 * 3. add a new faculty staff,
+	 * 4. add a new student,
+	 * 5. prints the course statistics,
+	 * 6. sets marks for a students corresponding to a course,
+	 * 7. edit the course weightage,
+	 * 8. prints the student list by group
+	 * 9. checks course vacancy
 	 */
 	public void run() {
 		int run = 1;
@@ -81,8 +88,9 @@ public class AdminInterface {
 		}
 	}
 
+	
 	/**
-	 * this method prints the menu for admin interface
+	 * this method prints the menu for the admin interface
 	 */
 	private void printMenu() {
 		System.out.print(
@@ -100,18 +108,23 @@ public class AdminInterface {
 						+ "~~~~~~~~~~~~~~~~~~\n"); 
 
 	}
+	
+	
 	/**
-	 * this method gets the string input for a faculty name and calls the university
-	 * method to add the faculty name 
+	 * This method passes the faculty name 
+	 * and calls the addFaculty method in university
+	 * to add faculty
 	 */
 	private void addFaculty() {
 		String facultyName = getStringInput("Enter Faculty Name:");
 		university.addFaculty(facultyName);
 	}
 
+	
 	/**
-	 * This method adds a new course to the faculty, it asks for user input
-	 * on courseCode, courseName, coordinator staffID, lessontype as well as components
+	 * This method adds a new course to the faculty, 
+	 * by calling the addCourse method in university 
+	 * while passing in the required parameters
 	 */
 	private void addCourse() {
 		String facultyName = chooseFaculty();
@@ -127,8 +140,10 @@ public class AdminInterface {
 				staffID, lessonType, assessment, sem);
 	}
 
+	
 	/**
-	 * This method adds a new facultystaff by calling the addstaff to faculty method from university
+	 * This method adds a new facultyStaff
+	 * by calling the addStaffToFaculty method in university
 	 * passing facultyName and staffName
 	 */
 	private void addFacultyStaff() {
@@ -137,30 +152,41 @@ public class AdminInterface {
 		university.addStaffToFaculty(facultyName, staffName);
 	}
 
+	
 	/**
-	 * This method add a new student
+	 * This method adds a new facultyStaff
+	 * by calling the addStudent method in university
+	 * passing facultyName and studentName
 	 */
 	private void addStudent() {
 		String studentName = getStringInput("Enter Student Name:");
 		String facultyName = chooseFaculty();
 
 		university.addStudentToFaculty(facultyName, studentName, university.getCurrentSemester());
-
-		//TODO: success message
 	}
 
 
+	/**
+	 * This method consolidates the parameters
+	 * required for the updateCourseAssessment method in 
+	 * university to update the assessment
+	 */
 	private void editCourseWeightage() {
-		Semester sem = university.getCurrentSemester();	// TODO other semester? 
+		Semester sem = university.getCurrentSemester();	
 		String facultyName = chooseFaculty();	
 		String courseCode = processString(chooseCourse(facultyName, sem));
 		ArrayList<Component> assessment  = university.getCourseAssessment(facultyName, sem, courseCode);		
 		assessment = executeEditCourseAssessment(assessment);
 		university.updateCourseAssessment(facultyName, sem, courseCode, assessment);
-		//TODO: success message
 	}
 
 
+	/**
+	 * This method controls the execution of getting 
+	 * updated course assessment. It asks the users if
+	 * they would like to re-enter the assessment from scratch
+	 * or simply edit the weightage for the existing components
+	 */
 	private ArrayList<Component> executeEditCourseAssessment(ArrayList<Component> assessment) {
 		printAssessment(assessment); // TODO: make it string
 		printEditAssessmentOptions();
@@ -182,8 +208,15 @@ public class AdminInterface {
 	}
 
 
+	/**
+	 * This method consolidates the parameters
+	 * required for getCourseVacancyMsg: facultyName,
+	 * semester and course code and makes a call to that
+	 * method in university to get the transcript and
+	 * prints it
+	 */
 	private void checkCourseVacancy() {
-		Semester sem = university.getCurrentSemester();	// TODO other semester? 
+		Semester sem = university.getCurrentSemester();	
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 		String msg = university.getCourseVacancyMsg(facultyName, sem,  processString(courseCode));
@@ -191,9 +224,16 @@ public class AdminInterface {
 		System.out.println(msg);
 	}
 
-
+	/**
+	 * This method consolidates the parameters
+	 * required for printStudentListByGroup method in
+	 * university : facultyName, semester and course code
+	 * type, i.e. which group (lecture or tutorial - lab group
+	 * is the same as the tutorial group) and makes a 
+	 * call to print the result
+	 */
 	private void printStudentListByGroup() {
-		Semester sem = university.getCurrentSemester();	// TODO other semester? 
+		Semester sem = university.getCurrentSemester();	
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 		Character type = getStringInput("Print student list by lecture group(L) or tutorial group(T)?").toUpperCase().charAt(0);;
@@ -205,7 +245,12 @@ public class AdminInterface {
 		university.printStudentListByGroup(facultyName, sem,  processString(courseCode), type);
 	}
 
-
+	/**
+	 * This method consolidates the parameters
+	 * required for printCourseStats method in
+	 * university: facultyName, semester and course code
+	 * and makes a call to print the result
+	 */
 	private void printCourseStats() {
 		Semester sem = university.getCurrentSemester();	// TODO other semester? 
 		String facultyName = chooseFaculty();	
@@ -215,26 +260,31 @@ public class AdminInterface {
 	}
 
 
+	/**
+	 * This method gets the user input for the marks
+	 * for the corresponding components of the course.
+	 * It also does input validation to prevent invalid data
+	 * from being saved. It then calls the updateMarks method
+	 * in university to update the marks stored in course.
+	 */
 	private void setMarks() {
-		Semester sem = university.getCurrentSemester();
 
+		Semester sem = university.getCurrentSemester();
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
-
 		ArrayList<String> components = university.getComponentTitles(facultyName, sem,  processString(courseCode));
 		HashMap<String, Double> updatedMarks = new HashMap<>();
-		boolean error = true;
-
 		String matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem,  processString(courseCode)));
+		
 		while (!university.isValidMatricNo(matricNo)) {
 			System.out.println("You have entered a wrong matric no!");
 			matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem,  processString(courseCode)));
 		}
+		
 		System.out.println("The list of components are: ");
-		for (int i=0; i<components.size(); i++) {
-			System.out.println((i+1) +". "+ components.get(i));
-		}
-		error = true;
+		printArray(components);
+		
+		boolean error = true;
 		int choice=-100;
 		do {
 			try {
@@ -246,18 +296,18 @@ public class AdminInterface {
 					choice = chooseOption();
 				}
 				error = false;
-			}catch(InputMismatchException inputMismatchException) {
+			} catch(InputMismatchException inputMismatchException) {
 				System.out.println("You have entered an invalid option, please re-enter your choice!");
 				sc.nextLine();
 			}
-		}while(error);
+		} while (error);
 		error = true;
 
 		while (choice != -1) {
 
 			Double mark = -100.00;
 			while (mark < 0 || mark>100) {
-				System.out.println("Enter mark for "+components.get(choice)+ ":");
+				System.out.println("Enter mark for "+ components.get(choice)+ ":");
 				mark = sc.nextDouble();
 				if (mark < 0||mark >100) {
 					System.out.println("You have entered an invalid mark! Please enter again");
@@ -266,7 +316,8 @@ public class AdminInterface {
 
 			updatedMarks.put(components.get(choice), mark);
 			System.out.println(components.get(choice) +" updated to "+ mark);
-			System.out.println("To continue, choose the next components, else, enter -1");
+			System.out.println("To continue, choose the next components, (enter -1 to quit)");
+			printArray(components);
 			do {
 				try {
 					choice = chooseOption();
@@ -280,7 +331,7 @@ public class AdminInterface {
 						choice = chooseOption();
 					}
 					error = false;
-				}catch(InputMismatchException inputMismatchException) {
+				} catch(InputMismatchException inputMismatchException) {
 					System.out.println("You have entered an invalid option, please re-enter your choice!");
 					sc.nextLine();
 				}
@@ -289,20 +340,29 @@ public class AdminInterface {
 			if (choice == -2) {
 				break;
 			}
-//			for (int i=0; i<components.size(); i++) {
-//				System.out.println((i+1) +". "+ components.get(i));
-//			}
+
 		}
 		university.updateMarks(facultyName, sem,  processString(courseCode), matricNo, updatedMarks);
 	}
 
-
+	
+	/**
+	 * This method gets an integer input from the user
+	 * for the component and returns the value after 
+	 * subtracting one
+	 */
 	private int chooseOption() {
 		System.out.println("Choose component you want to edit: ");
 		int result = sc.nextInt();
 		return result-1;
 	}
 
+	
+	/**
+	 * This method displays a list of available staff for the users
+	 * to choose coordinator for the course. It is a supporting method
+	 * for the addCourse method.
+	 */
 	private String chooseCoordinator(String facultyName) {
 		ArrayList<String> staffNameList = university.getAvailableStaff(facultyName);
 		System.out.println("Choose Course Coordinator:");
@@ -322,7 +382,12 @@ public class AdminInterface {
 		return staffID;
 	}
 
-
+	
+	/**
+	 * This method gets user input for assessment components
+	 * and the corresponding weightage. It is a supporting method
+	 * for the addCourse and editCourseWeightage methods
+	 */
 	private ArrayList<Component> getAssessmentInput() {
 		ArrayList<Component> assessment = new ArrayList<>();
 		int more = 1;
@@ -352,6 +417,10 @@ public class AdminInterface {
 	}
 
 
+	/**
+	 * This method gets user input for weightage for existing
+	 * assessment components. It is a supporting method editCourseWeightage method
+	 */
 	private ArrayList<Component> updateAssessment(ArrayList<Component> assessment) {
 		ArrayList<Component> updated = new ArrayList<>();
 		int more = 1;
@@ -373,7 +442,12 @@ public class AdminInterface {
 		return updated;
 	}
 
-
+	
+	/**
+	 * This method displays the list of faculty and returns the facultyName of the
+	 * chosen faculty. It is a supporting method for the addCourse method among others
+	 * which require choosing faculty
+	 */
 	private String chooseFaculty() {
 		ArrayList<String> facultyNameList = university.getFacultyNameList();
 
@@ -396,6 +470,12 @@ public class AdminInterface {
 		return facultyName;
 	}
 
+	
+	/**
+	 * This method displays the list of courses by faculty and semester and
+	 * returns the course code of the chosen course. It is a supporting method
+	 * for the editCourseWeigthage method among others which require choosing course
+	 */
 	private String chooseCourse(String facultyName, Semester sem) {
 		ArrayList<String> courseNameList = university.getCourseListByFaculty(facultyName, sem);
 
@@ -416,7 +496,12 @@ public class AdminInterface {
 		return courseCode;
 	}
 
-
+	
+	/**
+	 * This method displays the lesson types along with the details
+	 * returns the chosen lessonType. It is a supporting method
+	 * for the addCourse method
+	 */
 	private LessonType chooseLessonType() {
 		System.out.println("Choose Lesson Type:");
 		LessonType.printLessonTypes();
@@ -441,7 +526,9 @@ public class AdminInterface {
 		} while(true);
 	}
 
-
+	/**
+	 * This method provides 2 
+	 */
 	private String getMatricNoInput(ArrayList<String> list) {
 		printMethod();
 		String matricNo = null;
@@ -460,7 +547,11 @@ public class AdminInterface {
 		return null;
 	}
 
-
+	
+	/**
+	 * The purpose of this method is to check if the entered component weightage 
+	 * adds up to 100%. Returns the sum of the component weightage
+	 */
 	private int addsUp(ArrayList<Component> assessment) {
 		if (assessment.isEmpty())
 			return 0;
@@ -473,20 +564,31 @@ public class AdminInterface {
 		}
 	}
 
-
+	
+	/**
+	 * This method gets and returns the course code from a string
+	 * containing course code and course name
+	 */
 	private String processString(String string) {
 		int index = string.indexOf('\t');
 		return string.substring(0, index);
 
 	}
 
-
+	/**
+	 * The method prints a list of string sequentially with a number
+	 * for the user to choose the corresponding item easily
+	 */
 	private void printArray(ArrayList<String> list) {
 		for (int i=0; i<list.size(); i++) 
 			System.out.println(i+1 + ". " + list.get(i));
 	}
 
-
+	
+	/**
+	 * This method formats and prints a list of components so that it 
+	 * is readable
+	 */
 	private void printAssessment(ArrayList<Component> assessment) {
 		System.out.print("### COURSE ASSESSMENT COMPONENTS ###\n"); 
 		for (Component item: assessment) 
@@ -494,7 +596,10 @@ public class AdminInterface {
 		System.out.print("~~~~~~~~~~~~~~~~~~\n"); 
 	}
 
-
+	
+	/**
+	 * This method prints the options for editing assessment
+	 */
 	private void printEditAssessmentOptions() {
 		System.out.print(
 				"### EDIT COURSE ASSESSMENT ###\n"
@@ -503,7 +608,10 @@ public class AdminInterface {
 						+ "~~~~~~~~~~~~~~~~~~\n"); 
 	}
 
-
+	
+	/**
+	 * This method prints the options for getting matric no input
+	 */
 	private void printMethod() {
 		System.out.print(
 				"### CHOOSE METHOD ###\n"
@@ -512,7 +620,11 @@ public class AdminInterface {
 						+ "~~~~~~~~~~~~~~~~~~\n"); 
 	}
 
-
+	
+	/**
+	 * This method gets and returns the integer input and does input validation.
+	 * This is primarily used for choosing an item from a displayed list of items 
+	 */
 	private int getChoice() {
 		System.out.println("Enter choice: ");
 		boolean error = true;
@@ -528,17 +640,26 @@ public class AdminInterface {
 				sc.reset();
 				sc.next();
 			}			
-		}while (error);
+		} while (error);
 		sc.nextLine();
 		return choice;
 	}
 
 
+	/**
+	 * This method prints the message and returns the string input. This is
+	 * mainly used for getting string input such as faculty name, student name etc.
+	 */
 	private String getStringInput(String msg) {
 		System.out.println(msg); 
 		return sc.nextLine();
 	}
 	
+	
+	/**
+	 * This method gets and returns the integer input and does input validation. This
+	 * is primarily used for getting integer input such as assessment weightage etc.
+	 */
 	private int getIntegerInput() {
 		boolean error = true;
 		int choice = 0;
