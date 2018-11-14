@@ -42,6 +42,7 @@ public class Course {
 	
 	/**
 	 * this method construct a course object with the given parameters, anything else is initially 0 or NULL
+	 * This method is used in the run-time of the application
 	 * @param Code
 	 * @param Name
 	 * @param coordinator_staff
@@ -60,7 +61,17 @@ public class Course {
 //		printDetails();
 	}
 	
-	
+	/**
+	 * This method construct a course object with the given parameters
+	 * This method is used in the reading of data from the text file
+	 * @param facultyName
+	 * @param courseCode
+	 * @param courseName
+	 * @param coordinator
+	 * @param lessonType
+	 * @param assessment
+	 * @param studentInfoList
+	 */
 	Course(String facultyName, String courseCode, String courseName, String coordinator,
 			LessonType lessonType, ArrayList<Component> assessment, ArrayList<StudentInfo> studentInfoList) {
 		this.courseCode = courseCode;
@@ -74,7 +85,10 @@ public class Course {
 		this.studentInfoList = studentInfoList;
 	}
 
-
+	/**
+	 * This method sets the max enrollemnt based on the type of lesson
+	 * @return a integer value 
+	 */
 	private int initialiseMaxEnrollment() {
 		int num = 0;
 		if (tutorialGroups == null) {
@@ -87,7 +101,6 @@ public class Course {
 		}
 		
 		return num;
-		
 	}
 
 	private void initialiseTutorialGroups() {
@@ -204,16 +217,11 @@ public class Course {
 	}
 	
 	
-	/**
-	 * this method set the type of assessment
-	 * @param assessment
-	 */
 	public void setAssessment(ArrayList<Component> assessment) { 
 		boolean scratch = isAssessmentScratch(assessment, getComponentTitles());
 		this.assessment.clear();
 		this.assessment.addAll(assessment);
 		if (scratch) {
-			System.out.println("enter");
 			updateStudInfoAssessment();
 		}
 		
@@ -225,11 +233,9 @@ public class Course {
 	private boolean isAssessmentScratch(ArrayList<Component> newer, ArrayList<String> old) { // TODO:cd
 		
 		ArrayList<String> updates = new ArrayList<>();
-		System.out.println("o"+ old.toString());
 		
 		for (Component item: newer)
 			updates.add(item.getTitle());
-		System.out.println("n"+ updates.toString());
 		if (updates.size() != old.size())
 			return true;
 		
