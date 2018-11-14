@@ -6,9 +6,14 @@ import java.util.Scanner;
 public class AdminInterface {
 
 	Scanner sc = new Scanner(System.in);
+	/**
+	 * This attribute is used to access university
+	 */
 	private University university;
-
-
+	/**
+	 * This constructor initialize the university object for the admininterface
+	 * @param university
+	 */
 	public AdminInterface(University university) {
 		this.university = university;
 	}
@@ -102,11 +107,12 @@ public class AdminInterface {
 	private void addFaculty() {
 		String facultyName = getStringInput("Enter Faculty Name:");
 		university.addFaculty(facultyName);
-
-		// TODO: success message
 	}
 
-	
+	/**
+	 * This method adds a new course to the faculty, it asks for user input
+	 * on courseCode, courseName, coordinator staffID, lessontype as well as components
+	 */
 	private void addCourse() {
 		String facultyName = chooseFaculty();
 		String courseCode = getStringInput("Enter Course Code:");
@@ -121,14 +127,19 @@ public class AdminInterface {
 				staffID, lessonType, assessment, sem);
 	}
 
-
+	/**
+	 * This method adds a new facultystaff by calling the addstaff to faculty method from university
+	 * passing facultyName and staffName
+	 */
 	private void addFacultyStaff() {
 		String staffName = getStringInput("Enter Staff Name:");
 		String facultyName = chooseFaculty();
 		university.addStaffToFaculty(facultyName, staffName);
 	}
 
-
+	/**
+	 * This method add a new student
+	 */
 	private void addStudent() {
 		String studentName = getStringInput("Enter Student Name:");
 		String facultyName = chooseFaculty();
