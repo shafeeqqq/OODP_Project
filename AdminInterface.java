@@ -4,16 +4,6 @@ import java.util.Scanner;
 
 public class AdminInterface {
 
-	/*
-	 * TODO:
-	 * check vacancy in course
-	 * print student list by tutorial group; lec - everyone
-	 * enter course assessment weightage
-	 * enter coursework marks --
-	 * print course stats --
-	 *
-	 */
-
 	Scanner sc = new Scanner(System.in);
 	private University university;
 
@@ -22,7 +12,13 @@ public class AdminInterface {
 		this.university = university;
 	}
 
-
+	/**
+	 * this method gets the user choice and depending on the choice
+	 * adds a new faculty, adds a new course, add a new faculty staff
+	 * adds a new student, prints the course statistics,
+	 * sets marks for a students, edit the course weightage,
+	 * prints the student list by group and check course vacancy
+	 */
 	public void run() {
 		int run = 1;
 		while (run == 1) {
@@ -79,7 +75,9 @@ public class AdminInterface {
 		}
 	}
 
-
+	/**
+	 * this method prints the menu for admin interface
+	 */
 	private void printMenu() {
 		System.out.print(
 				"### ADMIN MENU ###\n"
@@ -97,7 +95,10 @@ public class AdminInterface {
 
 	}
 
-
+	/**
+	 * this method gets the string input for a faculty name and calls the university
+	 * method to add the faculty name 
+	 */
 	private void addFaculty() {
 		String facultyName = getStringInput("Enter Faculty Name:");
 		university.addFaculty(facultyName);
@@ -105,7 +106,7 @@ public class AdminInterface {
 		// TODO: success message
 	}
 
-
+	
 	private void addCourse() {
 		String facultyName = chooseFaculty();
 		String courseCode = getStringInput("Enter Course Code:");
@@ -118,7 +119,6 @@ public class AdminInterface {
 
 		university.addCourseToFaculty(facultyName, courseCode, courseName, 
 				staffID, lessonType, assessment, university.getCurrentSemester());
-		//TODO: success message
 	}
 
 
@@ -127,10 +127,7 @@ public class AdminInterface {
 	private void addFacultyStaff() {
 		String staffName = getStringInput("Enter Staff Name:");
 		String facultyName = chooseFaculty();
-
 		university.addStaffToFaculty(facultyName, staffName);
-
-		//TODO: success message	
 	}
 
 
