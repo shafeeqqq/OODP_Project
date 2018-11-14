@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AdminInterface {
@@ -219,15 +220,84 @@ public class AdminInterface {
 		HashMap<String, Double> updatedMarks = new HashMap<>();
 
 		String matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem,  processString(courseCode)));
-
-		for (String item: components) {
-			System.out.println("Enter marks for " + item + ": ");
-			Double mark = sc.nextDouble();
-			updatedMarks.put(item, mark);
+		
+		System.out.println("The list of components are: ");
+		for (int i=0; i<components.size(); i++) {
+			System.out.println((i+1) +". "+ components.get(i));
 		}
+		boolean error = true;
+		int choice=-100;
+		do {
+			try {
+				choice =chooseOption();
+				while(choice < 0 || choice > components.size()) {
+					if ((choice) > components.size() || choice <0) {
+						System.out.println("You have entered an invalid option, please re-enter your choice!");
+					}
+					choice = chooseOption();
+				}
+				error = false;
+			}catch(InputMismatchException inputMismatchException) {
+				System.out.println("You have entered an invalid option, please re-enter your choice!");
+				sc.nextLine();
+			}
+		}while(error);
+		error = true;
+
+		while (choice != -1) {
+
+			Double mark = -100.00;
+			while (mark < 0 || mark>100) {
+				System.out.println("Enter mark for "+components.get(choice)+ ":");
+				mark = sc.nextDouble();
+				if (mark < 0||mark >100) {
+					System.out.println("You have entered an invalid mark! Please enter again");
+				}
+			}
+
+			updatedMarks.put(components.get(choice), mark);
+			System.out.println(components.get(choice) +" updated to "+ mark);
+			System.out.println("To continue, choose the next components, else, enter -1");
+			do {
+				try {
+					choice = chooseOption();
+					if (choice == -2) {
+						break;
+					}
+					while(choice < 0 || choice > components.size()) {
+						if ((choice) > components.size() || choice <0) {
+							System.out.println("You have entered an invalid option, please re-enter your choice!");
+						}
+						choice = chooseOption();
+					}
+					error = false;
+				}catch(InputMismatchException inputMismatchException) {
+					System.out.println("You have entered an invalid option, please re-enter your choice!");
+					sc.nextLine();
+				}
+			}while(error);
+
+			if (choice == -2) {
+				break;
+			}
+			for (int i=0; i<components.size(); i++) {
+				System.out.println((i+1) +". "+ components.get(i));
+			}
+		}
+//		for (String item: components) {
+//			System.out.println("Enter marks for " + item + ": ");
+//			Double mark = sc.nextDouble();
+//			updatedMarks.put(item, mark);
+//		}
 		university.updateMarks(facultyName, sem,  processString(courseCode), matricNo, updatedMarks);
 	}
 
+
+	private int chooseOption() {
+		System.out.println("Choose component you want to edit: ");
+		int result = sc.nextInt();
+		return result-1;
+	}
 
 	private String chooseCoordinator(String facultyName) {
 		ArrayList<String> staffNameList = university.getAvailableStaff(facultyName);
@@ -245,10 +315,6 @@ public class AdminInterface {
 						+ "Please enter a number from the list: ");
 			}
 		} while(error);
-
-
-
-
 		return staffID;
 	}
 
