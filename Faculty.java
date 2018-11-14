@@ -10,7 +10,7 @@ public class Faculty {	//need interface w university to add student and course
 	private HashMap<Semester, ArrayList<Course>> courseListBySem = new HashMap<>();
 	
 
-	public Faculty(String facultyName, Semester semester) { /*ArrayList<Student> studentList*/
+	public Faculty(String facultyName, Semester semester) {
 		this.facultyName = facultyName;
 		courseListBySem.put(semester, new ArrayList<Course>());
 	}
@@ -76,11 +76,12 @@ public class Faculty {	//need interface w university to add student and course
 			System.out.println("Course already exists.");
 			return;
 		}
+		
 		System.out.println("New Course successfully added.");
-		System.out.println("~~~ Details of newly added course ~~~");
+		System.out.println("~ Details of newly added course ~");
 		newCourse.printDetails();
-		System.out.println("~~~~~~~~~\n");
-		System.out.println(courseListBySem.toString());
+		System.out.println("~~~\n");
+
 	}
 	
 	
@@ -94,7 +95,7 @@ public class Faculty {	//need interface w university to add student and course
 		if (course.getVacancy() > 0) {
 			getStudentObj(matricNo).addCourse(sem, courseCode);
 			course.addStudent(matricNo, tutorialGroup);
-			System.out.println("Registration Successful!\n");
+			printFeedback(course, tutorialGroup);
 		} 
 	}
 	
@@ -104,8 +105,21 @@ public class Faculty {	//need interface w university to add student and course
 		if (course.getVacancy() > 0) {
 			student.addCourse(sem, courseCode);
 			course.addStudent(student.getMatricNo(), tutorialGroup);
-			System.out.println("Registration Successful!\n");
+			printFeedback(course, tutorialGroup);
 		} 
+	}
+	
+	// TODO: add in class diagram
+	private void printFeedback(Course course, String tutorialGroup) {
+		System.out.println("Registration Successful!\n");
+		System.out.println(course.getCourseCode() + "\t"+ course.getCourseName());
+		
+		if (course.getLessonType() == LessonType.TYPE_A)
+			System.out.println("This course does not have tutorial/laboratory sessions\n" );
+		else if (course.getLessonType() == LessonType.TYPE_B)
+			System.out.println("Tutorial Group: " + tutorialGroup +"\nNo Laboratory sessions\n"  );
+		else if (course.getLessonType() == LessonType.TYPE_C)
+			System.out.println("Tutorial Group: " + tutorialGroup +"\nLab group is same as the tutorial group\n"  );
 	}
 	
 	
@@ -146,6 +160,7 @@ public class Faculty {	//need interface w university to add student and course
 	 * @return
 	 */
 	public Course getCourse(Semester sem, String courseCode) {
+	
 			for (Course course: courseListBySem.get(sem)) {
 				if (course.getCourseCode().equalsIgnoreCase(courseCode))
 					return course;
@@ -208,8 +223,9 @@ public class Faculty {	//need interface w university to add student and course
 				System.out.println(tutGroup + ":");
 				
 				for (String matricNo: studentListByGroup.get(tutGroup)) 
-					System.out.println( " " + i + ". " + matricNo + getStudentNameByMatricNo(matricNo));
-					
+					System.out.println( " " + i++ + ". " + matricNo + "\t" + getStudentNameByMatricNo(matricNo));
+				
+				System.out.println("");
 			}
 		}
 	}
@@ -284,7 +300,7 @@ public class Faculty {	//need interface w university to add student and course
 		ArrayList<String> result = new ArrayList<>();
 		for (FacultyStaff currentStaff : staffList) {
 			if (currentStaff.getCoordinatorOf() == null) {
-				result.add(currentStaff.getStaffID() + "\t" + currentStaff.getStaffName()+ "\t" +currentStaff.getCoordinatorOf());
+				result.add(currentStaff.getStaffID() + "\t" + currentStaff.getStaffName());
 			}
 		}
 		return result;
@@ -307,9 +323,9 @@ public class Faculty {	//need interface w university to add student and course
 			return;
 		}
 		System.out.println("New Course successfully added.");
-		System.out.println("~~~ Details of newly added course ~~~");
+		System.out.println("~ Details of newly added course ~");
 		newCourse.printDetails();
-		System.out.println("~~~~~~~~~\n");
+		System.out.println("~~~\n");
 		
 	}
 
@@ -339,7 +355,7 @@ public class Faculty {	//need interface w university to add student and course
 			if (course.getCourseCode().equalsIgnoreCase(courseCode))
 				return course.getCourseName();
 		}
-		return result;
+		return result; 
 	}
 
 	public void unregisterCourse(String matricNo, Semester sem, String courseCode) {
@@ -370,31 +386,34 @@ public class Faculty {	//need interface w university to add student and course
 	}
 
 	
-////	TODO
-//	public String getTranscript(Student student) {
-//		String result = 
-//				"Name: " + student.getStudentName() + "\n"
-//				+ "Matriculation No: "+ student.getMatricNo() + "\n"
-//				+ "Faculty: "+ student.getFacultyName() + "\n";
-//		
-//		HashMap<Semester, ArrayList<String>> candidature = student.getCandidature();
-//		
-//		for (Semester semester: candidature.keySet()) {
-//			result += semester.toString()+ "\n";
-//			for (String courseCode : candidature.get(semester)) {
-////				result += courseCode + ": \n" + getGradeString(semester, courseCode, student.getMatricNo()) + "\n";
-////			} 
-////		}
-////		return result;
-////	}	
-////	
-//	
-//	private String getGradeString(Semester semester, String courseCode, String matricNo) {
-//		Course course = getCourse(semester, courseCode);
-//		if (course != null)
-//			return course.getTranscriptMsg(matricNo);
-//		return "Course does not exist.";
-//	}
+	public ArrayList<String> getAllStudentNameList() {
+		ArrayList<String> result = new ArrayList<>();
+		String msg = "";
+		for (Student student: studentList) {
+			msg = student.getMatricNo() + '\t' + student.getStudentName() + "\t\t" + student.getFacultyName();
+			result.add(msg);
+		}
+		return result;
+	}
+
+	public ArrayList<String> getAllCourseNameList(Semester sem) {
+		ArrayList<String> result = new ArrayList<>();
+		String msg = "";
+		for (Course course: courseListBySem.get(sem)) {
+			msg = course.getCourseCode() + '\t' + course.getCourseName() + "\t\t" + getStaffName(course.getCoordinator()) + " ("+ course.getCoordinator() +")";
+			result.add(msg);
+		}
+		return result;
+	}
+
+	private String getStaffName(String staffID) {
+		for (FacultyStaff staff: staffList) {
+			if (staff.getStaffID().equals(staffID))
+				return staff.getStaffName();
+		}
+		
+		return "Error retrieving staff name";
+	}
 
 	
 }

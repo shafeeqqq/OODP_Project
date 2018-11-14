@@ -49,7 +49,6 @@ public class Semester {
 	
 	
 	@Override
-	@Override
 	/**
 	 * This method compares 2 semesters by taking another semester as its parameter and compares it 
 	 * to the current semester and returns a boolean 

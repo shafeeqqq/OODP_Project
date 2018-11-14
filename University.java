@@ -64,6 +64,7 @@ public class University {
 		Faculty faculty = getFacultyByName(facultyName);
 		faculty.addStudent(studentName, generateMatricNo(), semester);
 		printArray(getAllStudentNameList());
+		System.out.println("");
 	}
 	
 	
@@ -81,6 +82,8 @@ public class University {
 		
 		Faculty faculty = getFacultyByName(facultyName);
 		faculty.addCourse(courseCode, courseName, coordinator, lessonType, assessment, semester);
+		printArray(getAllCourseNameList());
+		System.out.println("");
 	}
 	
 	
@@ -104,8 +107,6 @@ public class University {
 		
 		
 		String newMatricNo = "S" + num;
-		System.out.println("dfd " + newMatricNo + " " + num);
-		System.out.println(matricNoList.toString());
 		
 		if (!matricNoList.contains(newMatricNo)) {
 			matricNoList.add(newMatricNo);
@@ -344,6 +345,7 @@ public class University {
 		}
 		return "Error getting marks";
 	}
+	
 	public ArrayList<String> getAllStudentNameList() {
 		ArrayList<String>  result = new ArrayList<>();
 		for (Faculty faculty: facultyList) {
@@ -356,6 +358,15 @@ public class University {
 		for (int i=0; i<list.size(); i++) 
 			System.out.println(i+1 + ". " + list.get(i));
 	}
+	
+	public ArrayList<String> getAllCourseNameList() {
+		ArrayList<String>  result = new ArrayList<>();
+		for (Faculty faculty: facultyList) {
+			result.addAll(faculty.getAllCourseNameList(getCurrentSemester()));
+		}
+		return result;
+	}
+	
 
 
 }
