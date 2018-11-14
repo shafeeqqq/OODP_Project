@@ -71,19 +71,39 @@ public class StudentInterface {
 			registerCourseSameFaculty();
 			break;	
 		case 2:
+			registerCourseDiffFaculty();
+			break;
+			
+		case 3:
 			unregisterForCourse();
 			break;
-		case 3:
-			courseNameList = currentFaculty.getCourseNameList(currentSemester, false);
-			printArray(courseNameList);
-			courseChoice = getChoice();
-			unregisterForCourse();
+		
 		}
 	}
 
 
+	private void registerCourseDiffFaculty() {
+		String facultyName = chooseFaculty();	
+		String courseCode = chooseCourse(facultyName);
+		String tutorialGroup = "N.A";
+		Faculty faculty = university.getFacultyByName(facultyName);
+		
+		if (currentStudent.alreadyRegistered(courseCode, currentSemester)) {
+			System.out.println("You have already registered for this course.");
+			return;
+		}
+
+		if (university.getCourseVacancy(facultyName, currentSemester, courseCode) > 0) {
+			tutorialGroup = chooseTutorialGroup(facultyName, courseCode);
+			faculty.registerForCourseDiffFaculty(currentSemester, courseCode, currentStudent, tutorialGroup);
+
+		} else 
+			System.out.println("There is no more vacancy in the course.\n");
+	}
+
+
 	private void registerCourseSameFaculty() {
-		String courseCode = chooseCourse();
+		String courseCode = chooseCourse(currentFaculty.getFacultyName());
 		String tutorialGroup = "N.A";
 
 		if (currentStudent.alreadyRegistered(courseCode, currentSemester)) {
@@ -92,7 +112,7 @@ public class StudentInterface {
 		}
 
 		if (currentFaculty.getCourseVacancy(currentSemester, courseCode) > 0) {
-			tutorialGroup = chooseTutorialGroup(courseCode);
+			tutorialGroup = chooseTutorialGroup(currentFaculty.getFacultyName(), courseCode);
 			currentFaculty.registerForCourse(currentSemester, courseCode, matricNo, tutorialGroup);
 
 		} else 
@@ -100,9 +120,10 @@ public class StudentInterface {
 	}
 
 
-	private String chooseTutorialGroup(String courseCode) {
+	private String chooseTutorialGroup(String facultyName, String courseCode) {
 		String tutGroup = "";
-		ArrayList<String> tutGroupList = currentFaculty.getAvailTutGroups(currentSemester, courseCode);
+		Faculty faculty = university.getFacultyByName(facultyName);
+		ArrayList<String> tutGroupList = faculty.getAvailTutGroups(currentSemester, courseCode);
 		if (tutGroupList == null)
 			return "N.A.";
 
@@ -123,8 +144,9 @@ public class StudentInterface {
 	}
 
 
-	private String chooseCourse() {
-		ArrayList<String> courseNameList = currentFaculty.getCourseNameList(currentSemester, true);
+	private String chooseCourse(String facultyName) {
+		Faculty faculty = university.getFacultyByName(facultyName);
+		ArrayList<String> courseNameList = faculty.getCourseNameList(currentSemester, true);
 
 		System.out.println("Choose Course:");
 		printArray(courseNameList);
@@ -137,6 +159,28 @@ public class StudentInterface {
 		int index = string.indexOf('\t');
 		return string.substring(0, index);
 
+	}
+	
+	private String chooseFaculty() {
+		ArrayList<String> facultyNameList = university.getFacultyNameList();
+
+		System.out.println("Choose faculty:");
+		printArray(facultyNameList);
+		String facultyName = null;
+		boolean error = true;
+		do {
+			try {
+				facultyName = facultyNameList.get(getChoice() - 1);	
+				error = false;
+			}
+			catch(IndexOutOfBoundsException IndexOutOfBounds) {
+				System.out.println("You have entered a wrong input \n"
+						+ "Please enter a number from the list: ");
+			}
+		} while(error);
+
+
+		return facultyName;
 	}
 
 
@@ -156,6 +200,7 @@ public class StudentInterface {
 
 
 	private void displayCourses(ArrayList<String> list) {
+		System.out.println("eneter");
 		for (int i=0; i<list.size(); i++) {
 			String courseName = currentFaculty.getCourseName(currentSemester, list.get(i));
 			System.out.println((i+1) + ". " + list.get(i) + "\t"+ courseName);
@@ -202,7 +247,8 @@ public class StudentInterface {
 	/**
 	 * this method prints the transcript of the current logged in student
 	 */
-	public void getTranscript() {
+	private void getTranscript() {
+		String transcriptt = university.getTranscript(matricNo);
 		String transcript = currentFaculty.getTranscript(currentStudent);
 		System.out.print(transcript);
 	}

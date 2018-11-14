@@ -98,6 +98,16 @@ public class Faculty {	//need interface w university to add student and course
 		} 
 	}
 	
+	public void registerForCourseDiffFaculty(Semester sem, String courseCode, Student student, String tutorialGroup) {
+		Course course = getCourse(sem, courseCode);	
+		
+		if (course.getVacancy() > 0) {
+			student.addCourse(sem, courseCode);
+			course.addStudent(student.getMatricNo(), tutorialGroup);
+			System.out.println("Registration Successful!\n");
+		} 
+	}
+	
 	
 	/**
 	 * This method changes the name of the current faculty to the parameter passed
@@ -158,9 +168,7 @@ public class Faculty {	//need interface w university to add student and course
 				result += courseCode + ": \n" + getGradeString(semester, courseCode, student.getMatricNo()) + "\n";
 			}
 		}
-
 		return result;
-		
 	}	
 	
 	private String getGradeString(Semester semester, String courseCode, String matricNo) {

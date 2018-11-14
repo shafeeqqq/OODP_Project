@@ -299,12 +299,18 @@ public class University {
 	}
 
 
-	public ArrayList<Faculty> getallFaculty() {
+	public ArrayList<Faculty> getAllFaculty() {
 		ArrayList<Faculty> result = new ArrayList<>();		
 		for (Faculty faculty: facultyList) {
 			result.add(faculty);
 		}
 		return result;	
+	}
+
+
+	public String getTranscript(String matricNo) {
+		String transcript = currentFaculty.getTranscript(currentStudent);
+		return null;
 	}
 
 }

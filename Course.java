@@ -370,7 +370,6 @@ public class Course {
 	}
 
 
-
 	private ArrayList<Character> initialiseCourseworkMarksList(
 			HashMap<String, ArrayList<Double>> marksListByComponent, int courseworkWeightage) {
 		
