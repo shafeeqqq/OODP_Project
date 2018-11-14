@@ -344,5 +344,30 @@ public class Faculty {	//need interface w university to add student and course
 	public HashMap<Semester, ArrayList<Course>> getCourseListBySem() {
 		return courseListBySem;
 	}
+
+	public String getCourseName(Semester sem, String courseCode) {
+		String result = "Course not found";
+		for (Course course: courseListBySem.get(sem)) {
+			if (course.getCourseCode().equalsIgnoreCase(courseCode))
+				return course.getCourseName();
+		}
+		return result;
+	}
+
+	public void unregisterCourse(String matricNo, Semester sem, String courseCode) {
+		Course course = getCourse(sem, courseCode);
+		boolean updatedCourse = course.unregisterStudent(matricNo);
+		boolean updatedStudent = unregisterCourseStudent(matricNo, sem, courseCode);
+		
+		if (updatedCourse && updatedStudent) 
+			System.out.println("Unregistered successfully!");
+		else
+			System.out.println("Error: Unsuccessful");
+	}
+	
+	private boolean unregisterCourseStudent(String matricNo, Semester sem, String courseCode) {
+		Student student = getStudentObj(matricNo);
+		return student.unregisterCourse(sem, courseCode);
+	}
 	
 }

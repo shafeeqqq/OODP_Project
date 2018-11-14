@@ -71,6 +71,15 @@ public class StudentInfo {
 		return result;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		StudentInfo studentInfo = (StudentInfo) obj;
+		if (studentInfo.getMatricNo().equals(this.matricNo))
+			return true;
+		else
+			return false;
+	}
+	
 	
 	
 }

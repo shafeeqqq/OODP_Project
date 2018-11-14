@@ -5,15 +5,15 @@ import java.util.Random;
 
 
 public class StudentInterface {
-	
+
 	Scanner sc = new Scanner(System.in);
-	
+
 	private Faculty currentFaculty;
 	private University university;
 	private Student currentStudent;
 	private String matricNo;
 	Semester currentSemester;
-	
+
 	/**
 	 * this method construct a student interface object for the main function
 	 * @param currentFaculty
@@ -27,8 +27,8 @@ public class StudentInterface {
 		this.currentStudent = currentFaculty.getStudentObj(matricNo);
 		currentSemester = university.getCurrentSemester();
 	}
-	
-	
+
+
 	/**
 	 * this method let the student register or unregister or print his transcript from the main function
 	 */
@@ -37,7 +37,7 @@ public class StudentInterface {
 		while (run == 1) {
 			printMenu();
 			int choice = getChoice();
-			
+
 			switch (choice) {
 			case 1:
 				courseRegControl();
@@ -54,8 +54,8 @@ public class StudentInterface {
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * this method controls the registration and unregistration of the courses of the student from the run()
 	 */
@@ -64,37 +64,36 @@ public class StudentInterface {
 		printCourseRegMenu();
 		int menuChoice = getChoice();
 		int courseChoice = -1;
-		
+
 		switch (menuChoice) {
 		case 1:
 			registerCourseSameFaculty();
 			break;	
 		case 2:
 			unregisterForCourse();
+			break;
 		case 3:
 			courseNameList = currentFaculty.getCourseNameList(currentSemester, false);
-			
 			printArray(courseNameList);
 			courseChoice = getChoice();
-			unregisterForCourse();	
+			unregisterForCourse();
 		}
-		
 	}
-	
-	
+
+
 	private void registerCourseSameFaculty() {
 		String courseCode = chooseCourse();
 		String tutorialGroup = "N.A";
-		
+
 		if (currentStudent.alreadyRegistered(courseCode, currentSemester)) {
 			System.out.println("You have already registered for this course.");
 			return;
 		}
-		
+
 		if (currentFaculty.getCourseVacancy(currentSemester, courseCode) > 0) {
 			tutorialGroup = chooseTutorialGroup(courseCode);
 			currentFaculty.registerForCourse(currentSemester, courseCode, matricNo, tutorialGroup);
-		
+
 		} else 
 			System.out.println("There is no more vacancy in the course.\n");
 	}
@@ -105,7 +104,7 @@ public class StudentInterface {
 		ArrayList<String> tutGroupList = currentFaculty.getAvailTutGroups(currentSemester, courseCode);
 		if (tutGroupList == null)
 			return "N.A.";
-		
+
 		else {
 			System.out.println("### AVAILABLE TUTORIAL GROUPS ###");
 			printArray(tutGroupList);
@@ -125,7 +124,7 @@ public class StudentInterface {
 
 	private String chooseCourse() {
 		ArrayList<String> courseNameList = currentFaculty.getCourseNameList(currentSemester, true);
-		
+
 		System.out.println("Choose Course:");
 		printArray(courseNameList);
 		String courseCode = processString(courseNameList.get(getChoice() - 1));	
@@ -136,29 +135,33 @@ public class StudentInterface {
 	private String processString(String string) {
 		int index = string.indexOf('\t');
 		return string.substring(0, index);
-		
+
 	}
 
-			
+
 	/**
 	 * this method unregister student from the course of code given
 	 */
 	private void unregisterForCourse() {
-//		StudentInfo temp = new StudentInfo();
-//		for (StudentInfo studInfo : currentFaculty.getCourse(university.getCurrentSemester(), courseCode).getStudentInfoList()) {
-//			if (studInfo.getMatricNo() == currentStudent.getMatricNo()) {
-//				temp = studInfo;
-//			}
-//		}
-//		if (temp != null) {
-//			currentFaculty.getCourse(university.getCurrentSemester(), courseCode).getStudentInfoList().remove(temp);
-//			currentStudent.getCandidature().get(university.getCurrentSemester()).remove("courseCode");
-//		}
-//		else 
-//			System.out.println("You are not in the course. Please check again!");
+		ArrayList<String> registeredCourses = currentStudent.getRegisteredCoursesList(currentSemester);
+		System.out.println("### UNREGISTER FOR COURSE ###");
+		displayCourses(registeredCourses);
+
+		int choice = getChoice();
+		String courseCode = registeredCourses.get(choice-1);
+
+		currentFaculty.unregisterCourse(matricNo, currentSemester, courseCode);
 	}
-	
-	
+
+
+	private void displayCourses(ArrayList<String> list) {
+		for (int i=0; i<list.size(); i++) {
+			String courseName = currentFaculty.getCourseName(currentSemester, list.get(i));
+			System.out.println((i+1) + ". " + list.get(i) + "\t"+ courseName);
+		}
+	}
+
+
 	/**
 	 * this method prints all the available course of the student
 	 * @param list
@@ -166,35 +169,35 @@ public class StudentInterface {
 	private void printArray(ArrayList<String> list) {
 		for (int i=0; i<list.size(); i++) 
 			System.out.println((i+1) + ". " + list.get(i));
-		
+
 	}
-	
-	
+
+
 	/**
 	 * this method print the menu for the student interface
 	 */
 	private void printMenu() {
 		System.out.print(
-				  "### STUDENT MENU ###\n"
-				  + " 1. Course registration/deregistration\n"
-				  + " 2. Print Transcript\n"
-				  + " 3. Quit\n"); 
-		
+				"### STUDENT MENU ###\n"
+						+ " 1. Course registration/deregistration\n"
+						+ " 2. Print Transcript\n"
+						+ " 3. Quit\n"); 
+
 	}
-	
-	
+
+
 	/**
 	 * this method print the menu for the available course registration and unregistration
 	 */
 	private void printCourseRegMenu() {
 		System.out.print(		
-				  "### COURSE REGISTRATION ###\n"
-				+ " 1. Courses from my Faculty\n"
-				+ " 2. Courses from other Faculty\n"
-				+ " 3. Unregister from a course\n"); 
+				"### COURSE REGISTRATION ###\n"
+						+ " 1. Courses from my Faculty\n"
+						+ " 2. Courses from other Faculty\n"
+						+ " 3. Unregister from a course\n"); 
 	}
-	
-	
+
+
 	/**
 	 * this method prints the transcript of the current logged in student
 	 */
@@ -202,8 +205,8 @@ public class StudentInterface {
 		String transcript = currentFaculty.getTranscript(currentStudent);
 		System.out.print(transcript);
 	}
-	
-	
+
+
 	/**
 	 * this method get the user input
 	 * @return

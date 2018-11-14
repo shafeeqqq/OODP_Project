@@ -9,7 +9,6 @@ import java.util.Scanner;
  * vacancy message 3/10
  * set marks marks range validation
  * set marks individually? or everyth at once
- * transcript -- display component marks
  */
 
 //display all listing of students after addition of 1 student

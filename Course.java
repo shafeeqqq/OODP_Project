@@ -494,6 +494,19 @@ public class Course {
 		}
 		return error;
 	}
+
+
+	public boolean unregisterStudent(String matricNo) {
+		StudentInfo studentInfo = getStudentInfoOfStudent(matricNo);
+		boolean deleted = false;
+		
+		if (studentInfo == null)
+			System.out.println("Student is registered for this course");
+		else 
+			deleted = studentInfoList.remove(studentInfo);
+		
+		return deleted;
+	}
 	
 
 }

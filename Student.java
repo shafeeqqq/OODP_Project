@@ -71,8 +71,28 @@ public class Student {
 			return true;
 		return false;
 	}
+	
 
 	public String getFacultyName() {
 		return facultyName;
+	}
+	
+
+	public ArrayList<String> getRegisteredCoursesList(Semester sem) {
+		ArrayList<String> result = new ArrayList<>();
+		for (String courseCode: candidature.get(sem))
+			result.add(courseCode);
+		
+		return result;
+	}	
+	
+
+	public boolean unregisterCourse(Semester sem, String courseCode) {
+		boolean deleted=false;
+		for (String course: candidature.get(sem)) {
+			if (courseCode.equalsIgnoreCase(course))
+				deleted = candidature.get(sem).remove(courseCode);
+		}		
+		return deleted;
 	}
 }
