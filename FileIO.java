@@ -104,7 +104,11 @@ public class FileIO {
 					String currentTutorialGroup = currentStudentInfo[1];
 					HashMap<String, Double> marks = new HashMap<>();
 					for (int y = 2;y <currentStudentInfo.length;y++) {
-						marks.put(assessment.get(y-2).getTitle(), Double.parseDouble(currentStudentInfo[y]));
+						String mark = currentStudentInfo[y];
+						if (mark.equals("null"))
+							marks.put(assessment.get(y-2).getTitle(), null);
+						else 
+							marks.put(assessment.get(y-2).getTitle(), Double.parseDouble(mark));
 					}
 
 					StudentInfo current = new StudentInfo(currentMatric, currentTutorialGroup, marks);
@@ -184,21 +188,7 @@ public class FileIO {
 			university.addStaffToFaculty(facultyName, staffName, staffID, coordinatorOf,workLoadBySemester);
 		}
 		
-//		for (int i = 0 ; i < facultyStaffList.size() ; i++) {
-//			String line = facultyStaffList.get(i);
-//			String[] strArr = line.split("\\|");
-//			String facultyName = strArr[2];
-//			for(int j=2; j < strArr.length ;j=j+3) {                         //to add in if we need workloadbysemester
-//					//year,number
-//					int year = Integer.parseInt(strArr[j]);
-//					int number = Integer.parseInt(strArr[j+1]);
-//					String coursecode= strArr[j+2];
-//					String[] str = coursecode.split("\\,");
-//					ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(str));
-//				}
-//			university.addStaffToFaculty(facultyName, staffName, staffID);
-//
-//		}
+
 	}
 	/**
 	 * this method saves the current students in the database back to the file to be read later
@@ -208,7 +198,6 @@ public class FileIO {
 	 */
 	public void saveStudents(String filename, ArrayList<Student> al) throws IOException {
 		ArrayList<String> result = new ArrayList<>() ;// to store Students data
-		System.out.println(al.size());
 		for (Student stud: al) {
 			String std = "";
 			std += stud.getStudentName();
@@ -292,6 +281,10 @@ public class FileIO {
 			staf += staff.getStaffID();
 			staf += "|";
 			staf += staff.getFacultyName();
+			staf += "|";
+			if (staff.getCoordinatorOf() == null) staf += "null";
+			else staf += staff.getCoordinatorOf();
+			staf += "|";
 			staf += "/";
 			HashMap<Semester, ArrayList<String>> workLoadBySemester = staff.getWorkLoadBySemester();
 			for(Semester sem : workLoadBySemester.keySet()) {

@@ -31,7 +31,7 @@ public class Course {
 		initialiseTutorialGroups();
 		this.maxEnrollment = initialiseMaxEnrollment();
 		this.facultyName = facultyName;
-		printDetails();
+//		printDetails();
 	}
 	
 	
@@ -193,7 +193,7 @@ public class Course {
 	 * @return
 	 */
 	public int getVacancy() {
-		System.out.println(studentInfoList.toString());
+
 		int count = studentInfoList.size();
 		return (maxEnrollment - count);
 	}
@@ -203,9 +203,9 @@ public class Course {
 		String msg = "";
 		msg += this.courseCode + "\t" + this.courseName + "\n" ;
 		
-		msg += "Overall: " + (maxEnrollment - studentInfoList.size()) +" ["+ this.maxEnrollment + "]\n";
+		msg += "Overall: " + (maxEnrollment - studentInfoList.size()) +"/"+ this.maxEnrollment + "\n";
 		for (String key: tutorialGroups.keySet()) {
-			msg += key + ": " + getTutorialGroupVacancy(key)  + " [" + tutorialGroups.get(key) +"]\n";
+			msg += key + ": " + getTutorialGroupVacancy(key)  + "/" + tutorialGroups.get(key) +"\n";
 		}
 		return msg;
 	}
@@ -485,7 +485,7 @@ public class Course {
 		if (studentInfo != null) {	
 			double total = 0;
 			for (Component item: assessment) {
-				result += item.getTitle() + "[" +item.getWeightage() + "] : " ;
+				result += item.getTitle() + " [" +item.getWeightage() + "] : " ;
 				if (studentInfo.getMarksByComponent(item.getTitle()) == null) {
 					result += "Pending\n";
 					allSet = false;

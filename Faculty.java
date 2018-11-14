@@ -207,7 +207,9 @@ public class Faculty {	//need interface w university to add student and course
 			
 			for (String matricNo: course.getAllStudentList()) {
 				System.out.println( " " + i++ + ". " + matricNo + "\t" +getStudentNameByMatricNo(matricNo));
+				
 			}
+			System.out.println(""); 
 			
 		}
 		
@@ -225,7 +227,8 @@ public class Faculty {	//need interface w university to add student and course
 				for (String matricNo: studentListByGroup.get(tutGroup)) 
 					System.out.println( " " + i++ + ". " + matricNo + "\t" + getStudentNameByMatricNo(matricNo));
 				
-				System.out.println("");
+				System.out.println(""); 
+				i = 1;
 			}
 		}
 	}

@@ -49,6 +49,7 @@ public class MainApp {
 			case 3:{
 				try {
 					Saves();
+					System.out.println("Saved. \n");
 				} catch (IOException e) {
 					System.out.println("Cannot save!");
 					e.printStackTrace();
@@ -89,7 +90,7 @@ public class MainApp {
 				System.out.println("Student not found");
 
 			else {
-				System.out.println("Launching student interface...");
+				System.out.println("Launching student interface...\n");
 				StudentInterface si = new StudentInterface(currentFaculty, matricNo, university);
 				si.run();
 			}	
@@ -147,7 +148,7 @@ public class MainApp {
 				"### Main Menu ###\n"
 						+ " 1. admin\n"
 						+ " 2. student\n"
-						+ " 3. save all change \n"
+						+ " 3. save all changes \n"
 						+ "~~~~~~~~~~~~~~~~~\n"); 
 
 	}

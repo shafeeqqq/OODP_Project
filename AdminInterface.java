@@ -118,7 +118,7 @@ public class AdminInterface {
 		ArrayList<Component> assessment = getAssessmentInput();
 
 		university.addCourseToFaculty(facultyName, courseCode, courseName, 
-				staffID, lessonType, assessment, university.getCurrentSemester());
+				staffID, lessonType, assessment, sem);
 	}
 
 
@@ -142,8 +142,7 @@ public class AdminInterface {
 	private void editCourseWeightage() {
 		Semester sem = university.getCurrentSemester();	// TODO other semester? 
 		String facultyName = chooseFaculty();	
-		String courseCode = chooseCourse(facultyName, sem);
-
+		String courseCode = processString(chooseCourse(facultyName, sem));
 		ArrayList<Component> assessment  = university.getCourseAssessment(facultyName, sem, courseCode);		
 		assessment = executeEditCourseAssessment(assessment);
 
@@ -189,8 +188,12 @@ public class AdminInterface {
 		Semester sem = university.getCurrentSemester();	// TODO other semester? 
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
-		char type = getStringInput("Print student list by lecture group(L) or tutorial group(T)?").charAt(0);
-
+		Character type = getStringInput("Print student list by lecture group(L) or tutorial group(T)?").toUpperCase().charAt(0);;
+		while (type != 'L' && type !='T' ) {
+			if (type != null)
+				System.out.println("Invalid Input!");
+			type = getStringInput("Print student list by lecture group(L) or tutorial group(T)?").toUpperCase().charAt(0);
+		}
 		university.printStudentListByGroup(facultyName, sem,  processString(courseCode), type);
 	}
 
@@ -213,14 +216,26 @@ public class AdminInterface {
 
 		ArrayList<String> components = university.getComponentTitles(facultyName, sem,  processString(courseCode));
 		HashMap<String, Double> updatedMarks = new HashMap<>();
-
+		boolean error = true;
+	//	String matricNo = "";
+//		do {
+//			try {
+//				matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem,  processString(courseCode)));
+//				error = false;
+//			}catch(Exception nullPtrException) {
+//				System.out.println("You have entered an invalid input! ");
+//			}
+//		}while (error);
 		String matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem,  processString(courseCode)));
-		
+		while (!university.isValidMatricNo(matricNo)) {
+			System.out.println("You have entered a wrong matric no!");
+			matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem,  processString(courseCode)));
+		}
 		System.out.println("The list of components are: ");
 		for (int i=0; i<components.size(); i++) {
 			System.out.println((i+1) +". "+ components.get(i));
 		}
-		boolean error = true;
+		error = true;
 		int choice=-100;
 		do {
 			try {
@@ -312,15 +327,14 @@ public class AdminInterface {
 	private ArrayList<Component> getAssessmentInput() {
 		ArrayList<Component> assessment = new ArrayList<>();
 		int more = 1;
-		System.out.println("ENTER COURSE ASSESSMENT ");
+		System.out.println("Enter Course Assessment");
 
 		while (addsUp(assessment) != 100) {
 			while (more == 1) {
 				System.out.println("Enter Component name: ");
 				String title = sc.nextLine().toLowerCase();
-
 				System.out.println("Enter Component weightage (%) for " + title + ": ");
-				int weightage = getChoice();
+				int weightage = getIntegerInput();
 
 				assessment.add(new Component(title, weightage));
 
@@ -342,12 +356,12 @@ public class AdminInterface {
 	private ArrayList<Component> updateAssessment(ArrayList<Component> assessment) {
 
 		int more = 1;
-		System.out.println("UPDATE COURSE ASSESSMENT ");
+		System.out.println("Enter Course Assessment");
 
 		while (more == 1) {
 			for (Component item: assessment)  {
-				System.out.println("Enter weightage for: " + item.getTitle());
-				int weightage = getChoice();
+				System.out.println("Enter weightage for " + item.getTitle() + ":");
+				int weightage = getIntegerInput();
 				item.setWeightage(weightage);
 			}
 
@@ -475,9 +489,9 @@ public class AdminInterface {
 
 
 	private void printAssessment(ArrayList<Component> assessment) {
-		System.out.print("### COURSE ASSESSMENT COMPONENTS ###"); 
+		System.out.print("### COURSE ASSESSMENT COMPONENTS ###\n"); 
 		for (Component item: assessment) 
-			System.out.println(item.toString());
+			System.out.print(item.toString());
 		System.out.print("~~~~~~~~~~~~~~~~~~\n"); 
 	}
 
@@ -504,13 +518,13 @@ public class AdminInterface {
 		System.out.println("Enter choice: ");
 		boolean error = true;
 		int choice = 0;
-		do {//make sure it is the right input
+		do {
 			try {
 				choice = sc.nextInt();
 				error = false;
 			}
 			catch (Exception e) {
-				System.out.println("You have entered a wrong input!");
+				System.out.println("Invalid input!");
 				System.out.println("Please enter a number from the menu: ");
 				sc.reset();
 				sc.next();
@@ -524,6 +538,25 @@ public class AdminInterface {
 	private String getStringInput(String msg) {
 		System.out.println(msg); 
 		return sc.nextLine();
+	}
+	
+	private int getIntegerInput() {
+		boolean error = true;
+		int choice = 0;
+		do {
+			try {
+				choice = sc.nextInt();
+				error = false;
+			}
+			catch (Exception e) {
+				System.out.println("Invalid input!");
+				System.out.println("Please enter an Integer value: ");
+				sc.reset();
+				sc.next();
+			}			
+		} while (error);
+		sc.nextLine();
+		return choice;
 	}
 
 }

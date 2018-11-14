@@ -226,7 +226,6 @@ public class University {
 	public ArrayList<Component> getCourseAssessment(String facultyName, Semester sem, String courseCode) {
 		Faculty faculty = getFacultyByName(facultyName);
 		return faculty.getCourseAssessment(sem, courseCode);
-		
 	}
 
 

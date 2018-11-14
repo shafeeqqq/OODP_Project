@@ -45,7 +45,10 @@ public class FacultyStaff {
 		this.staffName = staffName;
 		this.staffID = staffID;
 		this.facultyName = facultyName;
-		this.coordinatorOf = coordinatorOf;
+		if (coordinatorOf.equals("null"))
+			this.coordinatorOf = null;
+		else 
+			this.coordinatorOf = coordinatorOf;
 		this.workLoadBySemester.putAll(workLoadBySemester);
 	}
 	/**
