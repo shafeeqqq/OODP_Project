@@ -5,7 +5,7 @@ import java.util.Scanner;
  * TODO
  * check vacancy for tutorial/lab group?
  * tutorial group == lab group ??
- * add student to course with 0 vacancy in tut/lab
+ * add student to course with 0 vacancy in tut/lab 
  * vacancy message 3/10
  * set marks marks range validation
  * set marks individually? or everyth at once
