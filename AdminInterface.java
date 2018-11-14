@@ -275,15 +275,10 @@ public class AdminInterface {
 			if (choice == -2) {
 				break;
 			}
-			for (int i=0; i<components.size(); i++) {
-				System.out.println((i+1) +". "+ components.get(i));
-			}
+//			for (int i=0; i<components.size(); i++) {
+//				System.out.println((i+1) +". "+ components.get(i));
+//			}
 		}
-//		for (String item: components) {
-//			System.out.println("Enter marks for " + item + ": ");
-//			Double mark = sc.nextDouble();
-//			updatedMarks.put(item, mark);
-//		}
 		university.updateMarks(facultyName, sem,  processString(courseCode), matricNo, updatedMarks);
 	}
 
