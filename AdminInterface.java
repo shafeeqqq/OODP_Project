@@ -175,7 +175,7 @@ public class AdminInterface {
 
 	private void checkCourseVacancy() {
 		Semester sem = university.getCurrentSemester();	// TODO other semester? 
-
+ 
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 
