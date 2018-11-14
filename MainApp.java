@@ -1,5 +1,18 @@
 import java.io.IOException;
 import java.util.Scanner;
+
+/**
+ * 
+ * @author shaf
+ * check vacancy for tutorial/lab group?
+ * tutorial group == lab group ??
+ * add student to course with 0 vacancy in tut/lab
+ * vacancy message 3/10
+ * set marks marks range validation
+ * set marks individually? or everyth at once
+ * transcript -- display component marks
+ */
+
 //display all listing of students after addition of 1 student
 public class MainApp {
 	/**
@@ -11,7 +24,7 @@ public class MainApp {
 	 */
 	public static FileIO file;
 	static Scanner sc = new Scanner(System.in);
-	
+
 	/**
 	 * The main function gives users 3 choices,
 	 * to use as admin, students or to save the changes
@@ -19,13 +32,13 @@ public class MainApp {
 	public static void main(String[] args) {
 		university = new University("NTU");
 		file = new FileIO(university);
-		
+
 		// dummy data -- faculty
 		university.addFaculty("SCSE");
 		university.addFaculty("NBS");
-	
+
 		file.populateData();
-	
+
 		printMainMenu();
 		int choice = getChoice();
 		while(choice != 6) {
@@ -51,11 +64,13 @@ public class MainApp {
 			default:
 				System.out.println("You have entered a wrong input!\n" + "Please enter 1,2 or 3!");
 				break;
-		}
+			}
 			//printMainMenu();
 			choice = getChoice();			
+		}
 	}
-}
+
+	
 	/**
 	 * this method saves all the data to the respective files
 	 * @throws IOException
@@ -65,6 +80,8 @@ public class MainApp {
 		file.saveStaffs("facultystaff.txt", university.getAllStaffs());
 		file.saveCourses("courses.txt",university.getallFaculty());
 	}
+	
+	
 	/**
 	 * this method launches 2 interface, admin if mode is 1 and student if mode is 2
 	 * @param mode
@@ -73,10 +90,10 @@ public class MainApp {
 		if (mode.equals("student")) {
 			String matricNo = getMatricNo();
 			Faculty currentFaculty = university.getFacultyOfStudent(matricNo);
-			
+
 			if (currentFaculty == null) 
 				System.out.println("Student not found");
-			
+
 			else {
 				System.out.println("Launching student interface...");
 				StudentInterface si = new StudentInterface(currentFaculty, matricNo, university);
@@ -87,9 +104,10 @@ public class MainApp {
 			AdminInterface ai = new AdminInterface(university);
 			ai.run();
 		}
-		
+
 	}
 
+	
 	/**
 	 * this method gets the input of the user to be used as matricNo to be used to instantiate
 	 * student object
@@ -101,6 +119,7 @@ public class MainApp {
 		return matricNo;
 	}
 
+	
 	/**
 	 * this method gets an integer input from user
 	 * @return a integer
@@ -125,17 +144,18 @@ public class MainApp {
 		return choice;
 	}
 
+	
 	/**
 	 * this method prints the main menu inside the main function
 	 */
 	private static void printMainMenu() {
 		System.out.print(
-				  "### Main Menu ###\n"
-				+ " 1. admin\n"
-				+ " 2. student\n"
-				+ " 3. save all change \n"
-				+ "~~~~~~~~~~~~~~~~~\n"); 
-		
+				"### Main Menu ###\n"
+						+ " 1. admin\n"
+						+ " 2. student\n"
+						+ " 3. save all change \n"
+						+ "~~~~~~~~~~~~~~~~~\n"); 
+
 	}
 
 }
