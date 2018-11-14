@@ -64,7 +64,7 @@ public class MainApp {
 				System.out.println("You have entered a wrong input!\n" + "Please enter 1,2 or 3!");
 				break;
 			}
-			//printMainMenu();
+			printMainMenu();
 			choice = getChoice();			
 		}
 	}

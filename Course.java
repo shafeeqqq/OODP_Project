@@ -462,23 +462,38 @@ public class Course {
 		studentInfoList.add(newStudent);
 		
 	}
-
-
-	public String getOverallGrade(String matricNo) {
-		String grade = "You are not registered for this course.";
+	
+	public String getTranscriptMsg(String matricNo) {
+		String error = "You are not registered for this course.";
 		StudentInfo studentInfo = getStudentInfoOfStudent(matricNo);
-		if (studentInfo != null) {
-			
+		String result = "";
+		
+		boolean allSet = true;
+		
+		if (studentInfo != null) {	
 			double total = 0;
 			for (Component item: assessment) {
-				if (studentInfo.getMarksByComponent(item.getTitle()) == null)
-					return "Pending";
-				total += studentInfo.getMarksByComponent(item.getTitle())  * item.getWeightage()/100.0;
+				result += item.getTitle() + "[" +item.getWeightage() + "] : " ;
+				if (studentInfo.getMarksByComponent(item.getTitle()) == null) {
+					result += "Pending\n";
+					allSet = false;
+				}
+				else {
+					result += studentInfo.getMarksByComponent(item.getTitle()) + "\n" ;
+					total += studentInfo.getMarksByComponent(item.getTitle())  * item.getWeightage()/100.0;
+				}
 			}
-			return String.valueOf(getGrade(total, 100));
+			
+			result += "Overall Grade: ";
+			if (allSet)
+				result += String.valueOf(getGrade(total, 100)) + "\n";
+			else
+				result += "Pending\n";
+			
+			return result;
 		}
-		
-		return grade;
+		return error;
 	}
 	
+
 }

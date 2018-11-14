@@ -145,28 +145,28 @@ public class Faculty {	//need interface w university to add student and course
 	
 	
 	public String getTranscript(Student student) {
-		String temp = "Student Name: " + student.getStudentName() + 
-				"\nMatriculation Number: "+ student.getMatricNo() + "\n";
+		String result = 
+				"Name: " + student.getStudentName() + "\n"
+				+ "Matriculation No: "+ student.getMatricNo() + "\n"
+				+ "Faculty: "+ student.getFacultyName() + "\n";
 		
 		HashMap<Semester, ArrayList<String>> candidature = student.getCandidature();
 		
-		System.out.println(candidature.toString());
-		System.out.println(courseListBySem.toString());
 		for (Semester semester: candidature.keySet()) {
-			temp += semester.toString()+ "\n";
+			result += semester.toString()+ "\n";
 			for (String courseCode : candidature.get(semester)) {
-				temp += courseCode + ": " + getGradeString(semester, courseCode, student.getMatricNo()) + "\n";
+				result += courseCode + ": \n" + getGradeString(semester, courseCode, student.getMatricNo()) + "\n";
 			}
 		}
 
-		return temp;
-		//print course, grade, weightage and mark for each component
+		return result;
+		
 	}	
 	
 	private String getGradeString(Semester semester, String courseCode, String matricNo) {
 		Course course = getCourse(semester, courseCode);
 		if (course != null)
-			return course.getOverallGrade(matricNo);
+			return course.getTranscriptMsg(matricNo);
 		return "Course does not exist.";
 	}
 
