@@ -13,7 +13,7 @@ public class StudentInfo {
 	StudentInfo(String matricNo, String tutorialGroup, ArrayList<String> components) {
 		this.matricNo = matricNo;
 		this.tutorialGroup = tutorialGroup;
-		initialiseMarks(components);
+		updateComponents(components);
 	}
 
 	
@@ -23,7 +23,8 @@ public class StudentInfo {
 		this.marks.putAll(marks);
 	}
 
-	private void initialiseMarks(ArrayList<String> components) {
+	public void updateComponents(ArrayList<String> components) {
+		marks.clear();
 		for (String item: components) 
 			marks.put(item, null);
 		

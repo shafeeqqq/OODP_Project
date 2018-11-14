@@ -145,7 +145,6 @@ public class AdminInterface {
 		String courseCode = processString(chooseCourse(facultyName, sem));
 		ArrayList<Component> assessment  = university.getCourseAssessment(facultyName, sem, courseCode);		
 		assessment = executeEditCourseAssessment(assessment);
-
 		university.updateCourseAssessment(facultyName, sem, courseCode, assessment);
 		//TODO: success message
 	}
@@ -174,10 +173,8 @@ public class AdminInterface {
 
 	private void checkCourseVacancy() {
 		Semester sem = university.getCurrentSemester();	// TODO other semester? 
- 
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
-
 		String msg = university.getCourseVacancyMsg(facultyName, sem,  processString(courseCode));
 
 		System.out.println(msg);
@@ -200,7 +197,6 @@ public class AdminInterface {
 
 	private void printCourseStats() {
 		Semester sem = university.getCurrentSemester();	// TODO other semester? 
-
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 
@@ -217,15 +213,7 @@ public class AdminInterface {
 		ArrayList<String> components = university.getComponentTitles(facultyName, sem,  processString(courseCode));
 		HashMap<String, Double> updatedMarks = new HashMap<>();
 		boolean error = true;
-	//	String matricNo = "";
-//		do {
-//			try {
-//				matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem,  processString(courseCode)));
-//				error = false;
-//			}catch(Exception nullPtrException) {
-//				System.out.println("You have entered an invalid input! ");
-//			}
-//		}while (error);
+
 		String matricNo = getMatricNoInput(university.getMatricNoList(facultyName, sem,  processString(courseCode)));
 		while (!university.isValidMatricNo(matricNo)) {
 			System.out.println("You have entered a wrong matric no!");
@@ -354,7 +342,7 @@ public class AdminInterface {
 
 
 	private ArrayList<Component> updateAssessment(ArrayList<Component> assessment) {
-
+		ArrayList<Component> updated = new ArrayList<>();
 		int more = 1;
 		System.out.println("Enter Course Assessment");
 
@@ -362,7 +350,7 @@ public class AdminInterface {
 			for (Component item: assessment)  {
 				System.out.println("Enter weightage for " + item.getTitle() + ":");
 				int weightage = getIntegerInput();
-				item.setWeightage(weightage);
+				updated.add(new Component(item.getTitle(), weightage));
 			}
 
 			if (addsUp(assessment) != 100) 
@@ -371,7 +359,7 @@ public class AdminInterface {
 			else 
 				break;
 		}
-		return assessment;
+		return updated;
 	}
 
 

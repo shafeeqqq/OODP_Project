@@ -182,12 +182,45 @@ public class Course {
 	 * this method set the type of assessment
 	 * @param assessment
 	 */
-	public void setAssessment(ArrayList<Component> assessment) {
+	public void setAssessment(ArrayList<Component> assessment) { 
+		boolean scratch = isAssessmentScratch(assessment, getComponentTitles());
 		this.assessment.clear();
 		this.assessment.addAll(assessment);
+		if (scratch) {
+			System.out.println("enter");
+			updateStudInfoAssessment();
+		}
+		
+		System.out.println("Assessment Weightage Updated\n");
+		System.out.println(getAssessmentString());
 	}
 	
-	
+
+	private boolean isAssessmentScratch(ArrayList<Component> newer, ArrayList<String> old) { // TODO:cd
+		
+		ArrayList<String> updates = new ArrayList<>();
+		System.out.println("o"+ old.toString());
+		
+		for (Component item: newer)
+			updates.add(item.getTitle());
+		System.out.println("n"+ updates.toString());
+		if (updates.size() != old.size())
+			return true;
+		
+		for (String title: old) {
+			if (!updates.contains(title))
+				return true;
+		}
+		return false;
+	}
+
+
+	private void updateStudInfoAssessment() {	//TODO: cd
+		for (StudentInfo studentInfo: studentInfoList)
+			studentInfo.updateComponents(getComponentTitles());
+	}
+
+
 	/**
 	 * this method returns the remaining spaces available
 	 * @return
