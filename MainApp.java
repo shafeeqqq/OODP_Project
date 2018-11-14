@@ -132,7 +132,7 @@ public class MainApp {
 			}
 			catch (Exception e) {
 				System.out.println("You have entered a wrong input!");
-				System.out.println("Please enter 1,2 or 3: ");
+				System.out.println("Please enter 1, 2 or 3: ");
 				sc.reset();
 				sc.next();
 			}			

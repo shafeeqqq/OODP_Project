@@ -31,6 +31,7 @@ public class Course {
 		initialiseTutorialGroups();
 		this.maxEnrollment = initialiseMaxEnrollment();
 		this.facultyName = facultyName;
+		printDetails();
 	}
 	
 	
@@ -195,6 +196,18 @@ public class Course {
 		System.out.println(studentInfoList.toString());
 		int count = studentInfoList.size();
 		return (maxEnrollment - count);
+	}
+	
+	
+	public String getVacancyMsg() {
+		String msg = "";
+		msg += this.courseCode + "\t" + this.courseName + "\n" ;
+		
+		msg += "Overall: " + (maxEnrollment - studentInfoList.size()) +" ["+ this.maxEnrollment + "]\n";
+		for (String key: tutorialGroups.keySet()) {
+			msg += key + ": " + getTutorialGroupVacancy(key)  + " [" + tutorialGroups.get(key) +"]\n";
+		}
+		return msg;
 	}
 	
 	
@@ -507,6 +520,7 @@ public class Course {
 		
 		return deleted;
 	}
+
 	
 
 }

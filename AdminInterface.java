@@ -95,7 +95,6 @@ public class AdminInterface {
 						+ "~~~~~~~~~~~~~~~~~~\n"); 
 
 	}
-
 	/**
 	 * this method gets the string input for a faculty name and calls the university
 	 * method to add the faculty name 
@@ -121,8 +120,6 @@ public class AdminInterface {
 		university.addCourseToFaculty(facultyName, courseCode, courseName, 
 				staffID, lessonType, assessment, university.getCurrentSemester());
 	}
-
-
 
 
 	private void addFacultyStaff() {
@@ -178,14 +175,13 @@ public class AdminInterface {
 
 	private void checkCourseVacancy() {
 		Semester sem = university.getCurrentSemester();	// TODO other semester? 
-
+ 
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 
-		int vacancy = university.getCourseVacancy(facultyName, sem,  processString(courseCode));
-		System.out.println(courseCode);
-		System.out.println("Vacancy: " + vacancy);
+		String msg = university.getCourseVacancyMsg(facultyName, sem,  processString(courseCode));
 
+		System.out.println(msg);
 	}
 
 
@@ -196,7 +192,6 @@ public class AdminInterface {
 		char type = getStringInput("Print student list by lecture group(L) or tutorial group(T)?").charAt(0);
 
 		university.printStudentListByGroup(facultyName, sem,  processString(courseCode), type);
-
 	}
 
 
