@@ -127,14 +127,15 @@ public class Faculty {	//need interface w university to add student and course
 	}
 	
 	
-	/**
-	 * This method adds a staff object to the list of staff object by intializing one with the given parameters
-	 * @param staffName
-	 * @param staffID
-	 */
-	public void addStaff(String staffName, String staffID) {
-		FacultyStaff newStaff = new FacultyStaff(staffName, staffID, this.facultyName);
+	public void addStaff(String staffName, String staffID, Semester sem) {
+		FacultyStaff newStaff = new FacultyStaff(staffName, staffID, sem, this.facultyName);
 		staffList.add(newStaff);
+	}
+	
+	public void addStaff(String staffName, String staffID, String coordinatorOf, HashMap<Semester, ArrayList<String>> workLoadBySemester) {
+		FacultyStaff newStaff = new FacultyStaff(staffName, staffID,coordinatorOf, this.facultyName, workLoadBySemester);
+		staffList.add(newStaff);
+		
 	}
 	
 	

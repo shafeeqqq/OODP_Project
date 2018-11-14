@@ -160,24 +160,45 @@ public class FileIO {
 	public void readFacultyStaff(String filename) throws IOException {
 		// read String from text file
 		ArrayList<String> facultyStaffList = readFromFile(filename);
-
-		for (int i = 0 ; i < facultyStaffList.size() ; i++) {
+		for (int i = 0; i < facultyStaffList.size(); i++) {
 			String line = facultyStaffList.get(i);
-			String[] strArr = line.split("\\|");
-			String staffName = strArr[0];// first token
-			String staffID = strArr[1];// second token
-			String facultyName = strArr[2];
-			/*for(int j=2; j < strArr.length ;j=j+3) {                         //to add in if we need workloadbysemester
-					//year,number
-					int year = Integer.parseInt(strArr[j]);
-					int number = Integer.parseInt(strArr[j+1]);
-					String coursecode= strArr[j+2];
-					String[] str = coursecode.split("\\,");
-					ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(str));
-				}*/
-			university.addStaffToFaculty(facultyName, staffName, staffID);
-
+			String[] strArr = line.split("\\/");
+			String[] staffInfo = strArr[0].split("\\|");
+			String[] semestralData = strArr[1].split("-");
+			String staffName = staffInfo[0];
+			String staffID = staffInfo[1];
+			String facultyName = staffInfo[2];
+			String coordinatorOf = staffInfo[3];
+			HashMap<Semester,ArrayList<String>> workLoadBySemester = new HashMap<>();
+			//HashMap<Semester, ArrayList<String>> workLoadBySemester = new HashMap<>();
+			for(String currentData : semestralData) {
+				String[] currentSem = currentData.split("\\|");
+				int year = Integer.parseInt(currentSem[0]);
+				int number = Integer.parseInt(currentSem[1]);
+				Semester sem = university.getSemester(new Semester(year,number));
+				ArrayList<String> currentSemData = new ArrayList<>();
+				for (int y = 2;y<currentSem.length;y++) 
+					currentSemData.add(currentSem[y]);
+				workLoadBySemester.put(sem, currentSemData);
+			}
+			university.addStaffToFaculty(facultyName, staffName, staffID, coordinatorOf,workLoadBySemester);
 		}
+		
+//		for (int i = 0 ; i < facultyStaffList.size() ; i++) {
+//			String line = facultyStaffList.get(i);
+//			String[] strArr = line.split("\\|");
+//			String facultyName = strArr[2];
+//			for(int j=2; j < strArr.length ;j=j+3) {                         //to add in if we need workloadbysemester
+//					//year,number
+//					int year = Integer.parseInt(strArr[j]);
+//					int number = Integer.parseInt(strArr[j+1]);
+//					String coursecode= strArr[j+2];
+//					String[] str = coursecode.split("\\,");
+//					ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(str));
+//				}
+//			university.addStaffToFaculty(facultyName, staffName, staffID);
+//
+//		}
 	}
 	/**
 	 * this method saves the current students in the database back to the file to be read later
@@ -270,6 +291,20 @@ public class FileIO {
 			staf += staff.getStaffID();
 			staf += "|";
 			staf += staff.getFacultyName();
+			staf += "/";
+			HashMap<Semester, ArrayList<String>> workLoadBySemester = staff.getWorkLoadBySemester();
+			for(Semester sem : workLoadBySemester.keySet()) {
+				staf += sem.getYear();
+				staf += "|";
+				staf += sem.getNumber();
+				staf += "|";
+				for(String course: workLoadBySemester.get(sem)) {
+					staf += course.trim();
+					staf += ",";
+				}
+				staf += "|";		
+			}
+			staf = staf.substring(0, staf.length()-2)+ "|";
 			result.add(staf) ;
 		}
 		writeToFile(string,result);
@@ -328,8 +363,6 @@ public class FileIO {
 					result.add(course);	
 					course = "";
 				}
-
-
 			}
 		}
 		writeToFile(string,result);	

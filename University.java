@@ -49,14 +49,15 @@ public class University {
 	
 	public void addStaffToFaculty(String facultyName, String staffName) {
 		Faculty faculty = getFacultyByName(facultyName);
-		faculty.addStaff(staffName, generateStaffID());
+		faculty.addStaff(staffName, generateStaffID(), getCurrentSemester());
 	}
 	
 	
-	public void addStaffToFaculty(String facultyName, String staffName, String staffID) {
+	public void addStaffToFaculty(String facultyName, String staffName, String staffID, String coordinatorOf,
+			HashMap<Semester, ArrayList<String>> workLoadBySemester) {
 		Faculty faculty = getFacultyByName(facultyName);
 		staffIDList.add(staffID);
-		faculty.addStaff(staffName, staffID);
+		faculty.addStaff(staffName, staffID, coordinatorOf, workLoadBySemester);
 	}
 	
 	public void addStudentToFaculty(String facultyName, String studentName, Semester semester) {
