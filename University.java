@@ -63,6 +63,7 @@ public class University {
 	public void addStudentToFaculty(String facultyName, String studentName, Semester semester) {
 		Faculty faculty = getFacultyByName(facultyName);
 		faculty.addStudent(studentName, generateMatricNo(), semester);
+		printArray(getAllStudentNameList());
 	}
 	
 	
@@ -101,7 +102,10 @@ public class University {
 		else 
 			num = getLast(0) + 1;	// type=0 for student
 		
+		
 		String newMatricNo = "S" + num;
+		System.out.println("dfd " + newMatricNo + " " + num);
+		System.out.println(matricNoList.toString());
 		
 		if (!matricNoList.contains(newMatricNo)) {
 			matricNoList.add(newMatricNo);
@@ -140,12 +144,18 @@ public class University {
 		int lastIndex = 0;
 		String ID = "";
 		if (type == 0) {
-			lastIndex = matricNoList.size()-1;
-			ID = matricNoList.get(lastIndex);	
+			ID = matricNoList.get(0);
+			for (String item: matricNoList) {
+				if (item.compareTo(ID) > 0)
+					ID = item;
+			}
 		} 
 		else if (type ==1) {
-			lastIndex = staffIDList.size()-1;
-			ID = staffIDList.get(lastIndex);			
+			ID = staffIDList.get(0);
+			for (String item: staffIDList) {
+				if (item.compareTo(ID) > 0)
+					ID = item;
+			}		
 		}
 
 		num = Integer.parseInt(ID.substring(1, ID.length()));	//cannot limit 
@@ -309,18 +319,17 @@ public class University {
 	}
 
 
-	public String getTranscript(Student student) {
+	public String getTranscript(HashMap<Semester, ArrayList<String>> candidature, String studentName, String matricNo, String facultyName) {
 		String result = 
-				"Name: " + student.getStudentName() + "\n"
-				+ "Matriculation No: "+ student.getMatricNo() + "\n"
-				+ "Faculty: "+ student.getFacultyName() + "\n";
-		
-		HashMap<Semester, ArrayList<String>> candidature = student.getCandidature();
+				"Name: " + studentName + "\n"
+				+ "Matriculation No: "+ matricNo + "\n"
+				+ "Faculty: "+ facultyName + "\n";
+	
 		
 		for (Semester semester: candidature.keySet()) {
 			result += semester.toString()+ "\n";
 			for (String courseCode : candidature.get(semester)) {
-				result += courseCode + ": \n" + getTranscriptMsg(semester, courseCode, student.getMatricNo()) + "\n"; 
+				result += courseCode + ": \n" + getTranscriptMsg(semester, courseCode, matricNo) + "\n"; 
 			} 
 		}
 		return result;
@@ -335,5 +344,19 @@ public class University {
 		}
 		return "Error getting marks";
 	}
+	
+	public ArrayList<String> getAllStudentNameList() {
+		ArrayList<String>  result = new ArrayList<>();
+		for (Faculty faculty: facultyList) {
+			result.addAll(faculty.getAllStudentNameList());
+		}
+		return result;
+	}
+	
+	private void printArray(ArrayList<String> list) {
+		for (int i=0; i<list.size(); i++) 
+			System.out.println(i+1 + ". " + list.get(i));
+	}
+
 
 }

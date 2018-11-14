@@ -1,9 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Random;
-//error at dereg course
-//update the print menu for stud interface
 
 public class StudentInterface {
 
@@ -61,10 +57,10 @@ public class StudentInterface {
 	 * this method controls the registration and unregistration of the courses of the student from the run()
 	 */
 	private void courseRegControl() {
-		ArrayList<String> courseNameList = new ArrayList<>();
+
 		printCourseRegMenu();
 		int menuChoice = getChoice();
-		int courseChoice = -1;
+
 
 		switch (menuChoice) {
 		case 1:
@@ -248,7 +244,8 @@ public class StudentInterface {
 	 * this method prints the transcript of the current logged in student
 	 */
 	private void getTranscript() {
-		String transcript = university.getTranscript(currentStudent);
+		String transcript = university.getTranscript(currentStudent.getCandidature(),
+				currentStudent.getStudentName(), matricNo, currentFaculty.getFacultyName());
 		System.out.print(transcript);
 	}
 
