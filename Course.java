@@ -216,7 +216,10 @@ public class Course {
 		return coordinator;
 	}
 	
-	
+	/**
+	 * This method changes all the assessment criteria to the input of the users
+	 * @param assessment
+	 */
 	public void setAssessment(ArrayList<Component> assessment) { 
 		boolean scratch = isAssessmentScratch(assessment, getComponentTitles());
 		this.assessment.clear();
@@ -229,7 +232,12 @@ public class Course {
 		System.out.println(getAssessmentString());
 	}
 	
-
+	/**
+	 * if the updated assessment has the same title as before, returns false, else returns true
+	 * @param newer
+	 * @param old
+	 * @return
+	 */
 	private boolean isAssessmentScratch(ArrayList<Component> newer, ArrayList<String> old) { // TODO:cd
 		
 		ArrayList<String> updates = new ArrayList<>();
@@ -246,7 +254,10 @@ public class Course {
 		return false;
 	}
 
-
+	/**
+	 * if it is a complete change of assessment, this method is called and changes all the
+	 * components inside studentinfo list
+	 */
 	private void updateStudInfoAssessment() {	//TODO: cd
 		for (StudentInfo studentInfo: studentInfoList)
 			studentInfo.updateComponents(getComponentTitles());
@@ -258,12 +269,15 @@ public class Course {
 	 * @return
 	 */
 	public int getVacancy() {
-
 		int count = studentInfoList.size();
 		return (maxEnrollment - count);
 	}
 	
-	
+	/**
+	 * This method returns a string that includes the courseCode, courseName
+	 * overall and each tutorial group vacancy
+	 * @return
+	 */
 	public String getVacancyMsg() {
 		String msg = "";
 		msg += this.courseCode + "\t" + this.courseName + "\n" ;
@@ -292,25 +306,31 @@ public class Course {
 		this.lessonType = lessonType;
 	}
 	
-
+	/**
+	 * This method return the assessment of the current course
+	 * @return
+	 */
 	public ArrayList<Component> getAssessment() {
 		return assessment;
 	}
 
-
-
+	/**
+	 * @return assessmentTitles as an array list of strings
+	 */
 	public ArrayList<String> getAssessmentTitles() {
 		if (assessment == null) return null;
 
 		ArrayList<String> result = new ArrayList<>();
 		for (Component item: assessment)
 			result.add(item.getTitle());
-		
 		return result;
 	}
-
-
-
+	
+	/**
+	 * This method searches for the student info object by matric number
+	 * @param matricNo
+	 * @return StudentInfo object with the passed matricNo
+	 */
 	public StudentInfo getStudentInfoOfStudent(String matricNo) {
 		StudentInfo result=null;
 		for (StudentInfo item: studentInfoList) {
@@ -320,6 +340,10 @@ public class Course {
 		return result;
 	}
 	
+	/**
+	 * This method returns all components titles as an arraylist of string
+	 * @return all component tiltes as arraylist of string
+	 */
 	public ArrayList<String> getComponentTitles() {
 		ArrayList<String> result = new ArrayList<>();
 		
@@ -328,7 +352,10 @@ public class Course {
 
 		return result;	
 	}
-	
+	/**
+	 * This method returns all matricNo as arrayList of strings
+	 * @return all matricNo as arraylist of strings
+	 */
 	public ArrayList<String> getMatricNoList() {
 		ArrayList<String> result = new ArrayList<>();
 		
@@ -338,8 +365,11 @@ public class Course {
 		return result;	
 	}
 
-
-
+	/**
+	 * This method updates the mark for the students
+	 * @param matricNo
+	 * @param updatedMarks
+	 */
 	public void updateMarks(String matricNo, HashMap<String, Double> updatedMarks) {
 		StudentInfo si = getStudentInfoOfStudent(matricNo);
 		System.out.println(updatedMarks.toString());
@@ -347,7 +377,10 @@ public class Course {
 		
 	}
 	
-	
+	/**
+	 * This method return a hashmap of student list arranged by tutorial group
+	 * @return arraylist of student mapped to their tutorial group
+	 */
 	public HashMap<String, ArrayList<String>> getStudentListByGroup() {
 		HashMap<String, ArrayList<String>> result = new HashMap<>();
 		for (StudentInfo item: studentInfoList) {
@@ -362,17 +395,21 @@ public class Course {
 		return result;
 	}
 
-
+	/**
+	 * This method returns all student lists as array of student matricNo
+	 * @return all student matricNo
+	 */
 	public ArrayList<String> getAllStudentList() {
 		ArrayList<String> result = new ArrayList<>();
 		for (StudentInfo item: studentInfoList) {
 			result.add(item.getMatricNo());
 		}
-		
 		return result;
 	}
 
-
+	/**
+	 * This method calculates all the course statistics and prints it
+	 */
 	public void printCourseStats() {
 		System.out.println("Calculating...");
 		int courseworkWeightage = getCourseworkWeightage();
@@ -418,7 +455,11 @@ public class Course {
 			System.out.println("Not all students' marks are set!");
 		
 	}
-
+	/**
+	 * This method returns an arraylist of all the grades of all the students
+	 * @param marksListByComponent
+	 * @return
+	 */
 	private ArrayList<Character> initialiseOverallMarksList(HashMap<String, ArrayList<Double>> marksListByComponent) {
 		ArrayList<Character> overall = new ArrayList<>();
 		
@@ -434,7 +475,12 @@ public class Course {
 		return overall;
 	}
 
-
+	/**
+	 * This method returns an arraylist of all the grades of all the coursework of all students
+	 * @param marksListByComponent
+	 * @param courseworkWeightage
+	 * @return
+	 */
 	private ArrayList<Character> initialiseCourseworkMarksList(
 			HashMap<String, ArrayList<Double>> marksListByComponent, int courseworkWeightage) {
 		
@@ -456,7 +502,11 @@ public class Course {
 	}
 
 
-
+	/**
+	 * This method returns an arraylist of all the exam grades
+	 * @param marksListByComponent
+	 * @return
+	 */
 	private ArrayList<Character> initialiseExamMarksList(HashMap<String, ArrayList<Double>> marksListByComponent) {
 		ArrayList<Character> examMarksList = new ArrayList<>();
 
@@ -470,7 +520,11 @@ public class Course {
 	}
 
 
-
+	/**
+	 * This method checks whether a hashmap is empty
+	 * @param hashmap
+	 * @return true if corect, false if wrong
+	 */
 	private boolean checkIsEmpty(HashMap<String, ArrayList<Double>> hashmap) {
 		for (String key: hashmap.keySet()) {
 			if (hashmap.get(key).isEmpty())
@@ -479,7 +533,11 @@ public class Course {
 		return false;
 	}
 
-
+	/**
+	 * This method prints the percentages for each grade
+	 * @param array
+	 * @param msg
+	 */
 	private void printComponentStats(ArrayList<Character> array, String msg) {
 		DecimalFormat df = new DecimalFormat("#.0");
 		System.out.println(msg);
@@ -498,7 +556,10 @@ public class Course {
 		System.out.println("");
 	}
 
-
+	/**
+	 * This method returns the weightage of the course work after minusing the exam components
+	 * @return
+	 */
 	private int getCourseworkWeightage() {
 		int weightage = 0;
 		for (Component item: assessment) {
@@ -508,7 +569,11 @@ public class Course {
 		return weightage;
 	}
 
-
+	/**
+	 * This method returns the component object by title
+	 * @param title
+	 * @return component object by title
+	 */
 	private Component getComponentByTitle(String title) {
 		for (Component component: assessment) {
 			if (component.getTitle().equalsIgnoreCase(title))
@@ -517,7 +582,12 @@ public class Course {
 		return null;
 	}
 
-
+	/**
+	 * This method converts a double into a respective grade 
+	 * @param mark
+	 * @param maxMarks
+	 * @return grade in character
+	 */
 	private char getGrade(Double mark, int maxMarks) {
 		char grade;
 		
@@ -533,13 +603,21 @@ public class Course {
 		return grade;
 	}
 
-
+	/**
+	 * This method adds a new student to the studentInfoList
+	 * @param matricNo
+	 * @param tutorialGroup
+	 */
 	public void addStudent(String matricNo, String tutorialGroup) {
 		StudentInfo newStudent = new StudentInfo(matricNo, tutorialGroup, getAssessmentTitles());
 		studentInfoList.add(newStudent);
 		
 	}
-	
+	/**
+	 * THis method returns the strings that will be printed for transcript
+	 * @param matricNo
+	 * @return transcript as a string
+	 */
 	public String getTranscriptMsg(String matricNo) {
 		String error = "You are not registered for this course.";
 		StudentInfo studentInfo = getStudentInfoOfStudent(matricNo);
@@ -572,7 +650,11 @@ public class Course {
 		return error;
 	}
 
-
+	/**
+	 * This method removes the student from the course
+	 * @param matricNo
+	 * @return true if successful, false if not
+	 */
 	public boolean unregisterStudent(String matricNo) {
 		StudentInfo studentInfo = getStudentInfoOfStudent(matricNo);
 		boolean deleted = false;
@@ -584,7 +666,4 @@ public class Course {
 		
 		return deleted;
 	}
-
-	
-
 }
