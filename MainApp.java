@@ -2,8 +2,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * 
- * @author shaf
+ * TODO
  * check vacancy for tutorial/lab group?
  * tutorial group == lab group ??
  * add student to course with 0 vacancy in tut/lab
