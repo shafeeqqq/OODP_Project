@@ -175,7 +175,6 @@ public class FileIO {
 					String[] str = coursecode.split("\\,");
 					ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(str));
 				}*/
-
 			university.addStaffToFaculty(facultyName, staffName, staffID);
 
 		}
