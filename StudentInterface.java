@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Random;
-
+//error at dereg course
+//update the print menu for stud interface
 
 public class StudentInterface {
 
