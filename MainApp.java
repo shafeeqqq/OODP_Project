@@ -7,7 +7,7 @@ import java.util.Scanner;
  * tutorial group == lab group ??
  * add student to course with 0 vacancy in tut/lab 
  * vacancy message 3/10
- * 
+ * set marks marks range validation
  */
 
 //display all listing of students after addition of 1 student
