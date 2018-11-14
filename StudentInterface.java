@@ -4,11 +4,25 @@ import java.util.Scanner;
 public class StudentInterface {
 
 	Scanner sc = new Scanner(System.in);
-
+	/**
+	 * This stores the faculty that the student is currently in
+	 */
 	private Faculty currentFaculty;
+	/**
+	 * This stores the current instance of university
+	 */
 	private University university;
+	/**
+	 * This stores the current logged in student
+	 */
 	private Student currentStudent;
+	/**
+	 * This stores the current logged in student's matric no
+	 */
 	private String matricNo;
+	/**
+	 * This stores the current semester
+	 */
 	Semester currentSemester;
 
 	/**
@@ -77,7 +91,9 @@ public class StudentInterface {
 		}
 	}
 
-
+	/**
+	 * This method registers a student from a different faculty
+	 */
 	private void registerCourseDiffFaculty() {
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName);
@@ -97,7 +113,9 @@ public class StudentInterface {
 			System.out.println("There is no more vacancy in the course.\n");
 	}
 
-
+	/**
+	 * This method register the student to the same faculty as his own
+	 */
 	private void registerCourseSameFaculty() {
 		String courseCode = chooseCourse(currentFaculty.getFacultyName());
 		String tutorialGroup = "N.A";
@@ -115,7 +133,12 @@ public class StudentInterface {
 			System.out.println("There is no more vacancy in the course.\n");
 	}
 
-
+	/**
+	 * This method lets the student choose which tutorial group he wants to go in
+	 * @param facultyName
+	 * @param courseCode
+	 * @return the stutorial group as a string
+	 */
 	private String chooseTutorialGroup(String facultyName, String courseCode) {
 		String tutGroup = "";
 		Faculty faculty = university.getFacultyByName(facultyName);
@@ -132,13 +155,21 @@ public class StudentInterface {
 		return tutGroup;
 	}
 
-
+	/**
+	 * This method processes the string by cutting of the extra spaces
+	 * @param string
+	 * @return string after removing spaces
+	 */
 	private String processStringSpace(String string) {
 		int index = string.indexOf(' ');
 		return string.substring(0, index);
 	}
 
-
+	/**
+	 * This method gets the courseCode that the student wants
+	 * @param facultyName
+	 * @return courseCode
+	 */
 	private String chooseCourse(String facultyName) {
 		Faculty faculty = university.getFacultyByName(facultyName);
 		ArrayList<String> courseNameList = faculty.getCourseNameList(currentSemester, true);
@@ -149,13 +180,18 @@ public class StudentInterface {
 		return courseCode;
 	}
 
-
+	/**
+	 * This method remove tabs from a string
+	 */
 	private String processString(String string) {
 		int index = string.indexOf('\t');
 		return string.substring(0, index);
 
 	}
-	
+	/**
+	 * This method lets the student choose from a list of faculty
+	 * @return the facultyName
+	 */
 	private String chooseFaculty() {
 		ArrayList<String> facultyNameList = university.getFacultyNameList();
 
@@ -173,8 +209,6 @@ public class StudentInterface {
 						+ "Please enter a number from the list: ");
 			}
 		} while(error);
-
-
 		return facultyName;
 	}
 
@@ -251,7 +285,7 @@ public class StudentInterface {
 
 	/**
 	 * this method get the user input
-	 * @return
+	 * @return choice of user
 	 */
 	private int getChoice() {
 		System.out.println("Enter choice: ");
