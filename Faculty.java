@@ -166,7 +166,7 @@ public class Faculty {	//need interface w university to add student and course
 			result += semester.toString()+ "\n";
 			for (String courseCode : candidature.get(semester)) {
 				result += courseCode + ": \n" + getGradeString(semester, courseCode, student.getMatricNo()) + "\n";
-			}
+			} 
 		}
 		return result;
 	}	
