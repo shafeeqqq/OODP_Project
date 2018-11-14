@@ -98,7 +98,13 @@ public class Faculty {	//need interface w university to add student and course
 			printFeedback(course, tutorialGroup);
 		} 
 	}
-	
+	/**
+	 * This method registers the student for a course from a diffrenct faculty from his own
+	 * @param sem
+	 * @param courseCode
+	 * @param student
+	 * @param tutorialGroup
+	 */
 	public void registerForCourseDiffFaculty(Semester sem, String courseCode, Student student, String tutorialGroup) {
 		Course course = getCourse(sem, courseCode);	
 		
@@ -110,6 +116,11 @@ public class Faculty {	//need interface w university to add student and course
 	}
 	
 	// TODO: add in class diagram
+	/**
+	 * This method print the description of the tutorial and lab groups of a course
+	 * @param course
+	 * @param tutorialGroup
+	 */
 	private void printFeedback(Course course, String tutorialGroup) {
 		System.out.println("Registration Successful!\n");
 		System.out.println(course.getCourseCode() + "\t"+ course.getCourseName());
@@ -134,18 +145,29 @@ public class Faculty {	//need interface w university to add student and course
 	
 	/**
 	 * This method return the faculty name
-	 * @return
+	 * @return facultyName
 	 */
 	public String getFacultyName() {
 		return facultyName;
 	}
 	
-	
+	/**
+	 * This method adds the staff to the current faculty during run-time
+	 * @param staffName
+	 * @param staffID
+	 * @param sem
+	 */
 	public void addStaff(String staffName, String staffID, Semester sem) {
 		FacultyStaff newStaff = new FacultyStaff(staffName, staffID, sem, this.facultyName);
 		staffList.add(newStaff);
 	}
-	
+	/**
+	 * This method adds the staff to the current faculty during loading from text file
+	 * @param staffName
+	 * @param staffID
+	 * @param coordinatorOf
+	 * @param workLoadBySemester
+	 */
 	public void addStaff(String staffName, String staffID, String coordinatorOf, HashMap<Semester, ArrayList<String>> workLoadBySemester) {
 		FacultyStaff newStaff = new FacultyStaff(staffName, staffID,coordinatorOf, this.facultyName, workLoadBySemester);
 		staffList.add(newStaff);
@@ -168,7 +190,12 @@ public class Faculty {	//need interface w university to add student and course
 		return null;
 	}
 	
-	
+	/**
+	 * This method returns all course names as an array list of string
+	 * @param sem
+	 * @param vacancy
+	 * @return all coursenames as an array list
+	 */
 	public ArrayList<String> getCourseNameList(Semester sem, boolean vacancy) {
 		ArrayList<String> result = new ArrayList<>();
 		for(Course course: courseListBySem.get(sem)) {
@@ -180,7 +207,11 @@ public class Faculty {	//need interface w university to add student and course
 		return result;
 	}
 
-	
+	/**
+	 * This method gets the student name by matricNo
+	 * @param matricNo
+	 * @return studentName
+	 */
 	public String getStudentNameByMatricNo(String matricNo) {
 		String name = null;
 		for (Student student: studentList) {
@@ -190,7 +221,11 @@ public class Faculty {	//need interface w university to add student and course
 		return name;
 	}
 	
-	
+	/**
+	 * This method returns the student object by matricNo
+	 * @param matricNo
+	 * @return
+	 */
 	public Student getStudentObj(String matricNo) {
 		for (Student student: studentList) {
 			if (student.getMatricNo().equals(matricNo))
@@ -199,7 +234,12 @@ public class Faculty {	//need interface w university to add student and course
 		return null;
 	}
 	
-	
+	/**
+	 * this method prints the student list by tutorial group
+	 * @param semester
+	 * @param courseCode
+	 * @param type
+	 */
 	public void printStudentListByGroup(Semester semester, String courseCode, char type) {
 		Course course = getCourse(semester, courseCode);
 		int i=1;
@@ -233,44 +273,80 @@ public class Faculty {	//need interface w university to add student and course
 		}
 	}
 	
-
+	/**
+	 * This method calls the printCourseStat method from course to print the course stats
+	 * @param sem
+	 * @param courseCode
+	 */
 	public void printCourseStats(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
 		course.printCourseStats();
 		
 	}
 
-
+	/**
+	 * This method returns courseAssessment as arraylist of components objects
+	 * @param sem
+	 * @param courseCode
+	 * @return courseAssessment 
+	 */
 	public ArrayList<Component> getCourseAssessment(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
 		return course.getAssessment();
 	}
 
-
+	/**
+	 * This method let you change the courseAssessment by calling that method from course object
+	 * @param sem
+	 * @param courseCode
+	 * @param assessment
+	 */
 	public void updateCourseAssessment(Semester sem, String courseCode, ArrayList<Component> assessment) {
 		Course course = getCourse(sem, courseCode);
 		course.setAssessment(assessment);
 	}
 
-
+	/**
+	 * This method returns componentTitles as arraylist of strings
+	 * @param sem
+	 * @param courseCode
+	 * @return all component titles
+	 */
 	public ArrayList<String> getComponentTitles(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
 		return course.getComponentTitles();
 	}
 
-
+	/**
+	 * This method changes the marks by calling the method from course object and
+	 * passing all parameters to it
+	 * @param sem
+	 * @param courseCode
+	 * @param matricNo
+	 * @param updatedMarks
+	 */
 	public void updateMarks(Semester sem, String courseCode, String matricNo, HashMap<String, Double> updatedMarks) {
 		Course course = getCourse(sem, courseCode);
 		course.updateMarks(matricNo, updatedMarks);
 	}
 
-
+	/**
+	 * This method calls the course get matricNo method
+	 * @param sem
+	 * @param courseCode
+	 * @return all matric numbers as arraylist that is registered to this course
+	 */
 	public ArrayList<String> getMatricNoList(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
 		return course.getMatricNoList();
 	}
 	
-	
+	/**
+	 * This method checks whether a course exist within a semester or not
+	 * @param sem
+	 * @param courseCode
+	 * @return true if correct, false if wrong
+	 */
 	private boolean courseExists(Semester sem, String courseCode) {
 		if (courseListBySem.get(sem).isEmpty()) return false;
 		for (Course course: courseListBySem.get(sem)) {
@@ -280,25 +356,43 @@ public class Faculty {	//need interface w university to add student and course
 		return false;
 	}
 
-
+	/**
+	 * This method returns all available tut group for registering
+	 * @param sem
+	 * @param courseCode
+	 * @return all available tutorial group as array list of string
+	 */
 	public ArrayList<String> getAvailTutGroups(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
 		return course.getAvailTutGroups();
 	}
 
-
+	/**
+	 * This method calls the course vacancy method to calculate
+	 * @param sem
+	 * @param courseCode
+	 * @return
+	 */
 	public int getCourseVacancy(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
 		return course.getVacancy();
 	}
 	
-
+	/**
+	 * This method calls the course vacancy method to print
+	 * @param sem
+	 * @param courseCode
+	 * @return course vacancy
+	 */
 	public String getCourseVacancyMsg(Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
 		return course.getVacancyMsg();
 	}
 	
-
+	/**
+	 * This method returns all available staff to be coordinator
+	 * @return all staff who are not already coordinator
+	 */
 	public ArrayList<String> getAvailableStaff() {
 		ArrayList<String> result = new ArrayList<>();
 		for (FacultyStaff currentStaff : staffList) {
@@ -309,7 +403,16 @@ public class Faculty {	//need interface w university to add student and course
 		return result;
 	}
 	
-
+	/**
+	 * This method adds course to the current faculty
+	 * @param courseCode
+	 * @param courseName
+	 * @param coordinator
+	 * @param lessonType
+	 * @param assessment
+	 * @param sem
+	 * @param studentInfoList
+	 */
 	public void addCourse(String courseCode, String courseName, String coordinator, LessonType lessonType,
 			ArrayList<Component> assessment, Semester sem, ArrayList<StudentInfo> studentInfoList) {
 		for (FacultyStaff now : staffList) {
@@ -331,15 +434,24 @@ public class Faculty {	//need interface w university to add student and course
 		System.out.println("~~~\n");
 		
 	}
-
+	/**
+	 * 
+	 * @return studentList as an arrayList
+	 */
 	public ArrayList<Student> getAllStudents() {
 		return studentList;
 	}
-
+	/**
+	 * 
+	 * @return staffList as arrayList
+	 */
 	public ArrayList<FacultyStaff> getAllStaffs() {
 		return staffList;
 	}
-
+	/**
+	 * This method returns all courses
+	 * @return al courses as arraylist of course
+	 */
 	public ArrayList<Course> getAllCourses() {
 		ArrayList<Course> result = new ArrayList<>();
 		for(Semester sem : courseListBySem.keySet()) {
@@ -347,11 +459,19 @@ public class Faculty {	//need interface w university to add student and course
 		}
 		return result;
 	}
-	
+	/**
+	 * This method returns the entire courseList by sem as a hashmap
+	 * @return map of arraylist of courses mapped to the semester
+	 */
 	public HashMap<Semester, ArrayList<Course>> getCourseListBySem() {
 		return courseListBySem;
 	}
-
+	/**
+	 * This method returns courseName by semester and courseCode
+	 * @param sem
+	 * @param courseCode
+	 * @return courseName
+	 */
 	public String getCourseName(Semester sem, String courseCode) {
 		String result = "Course not found";
 		for (Course course: courseListBySem.get(sem)) {
@@ -360,7 +480,12 @@ public class Faculty {	//need interface w university to add student and course
 		}
 		return result; 
 	}
-
+	/**
+	 * This method unregister a student from the course
+	 * @param matricNo
+	 * @param sem
+	 * @param courseCode
+	 */
 	public void unregisterCourse(String matricNo, Semester sem, String courseCode) {
 		Course course = getCourse(sem, courseCode);
 		boolean updatedCourse = course.unregisterStudent(matricNo);
@@ -371,24 +496,46 @@ public class Faculty {	//need interface w university to add student and course
 		else
 			System.out.println("Error: Unsuccessful");
 	}
-	
+	/**
+	 * This method unregister students from a course by calling the method from students
+	 * passing parameters to that method
+	 * @param matricNo
+	 * @param sem
+	 * @param courseCode
+	 * @return true if successful, false if failed
+	 */
 	private boolean unregisterCourseStudent(String matricNo, Semester sem, String courseCode) {
 		Student student = getStudentObj(matricNo);
 		return student.unregisterCourse(sem, courseCode);
 	}
-
+	/**
+	 * This method checks whether a course exist within one sem
+	 * @param sem
+	 * @param courseCode
+	 * @return true if correct, false if wrong
+	 */
 	public boolean containsCourse(Semester sem, String courseCode) {
 		if (getCourse(sem, courseCode) == null)
 			return false;
 		return true;
 	}
-
+	/**
+	 * This method returns the transcipt by calling the method from course  and
+	 * passing matricNo to it
+	 * @param sem
+	 * @param courseCode
+	 * @param matricNo
+	 * @return
+	 */
 	public String getTranscriptMsg(Semester sem, String courseCode, String matricNo) {
 		Course course = getCourse(sem, courseCode);
 		return course.getTranscriptMsg(matricNo);
 	}
 
-	
+	/**
+	 * This method returns all student name as an arraylist of strings
+	 * @return all student names
+	 */
 	public ArrayList<String> getAllStudentNameList() {
 		ArrayList<String> result = new ArrayList<>();
 		String msg = "";
@@ -398,7 +545,11 @@ public class Faculty {	//need interface w university to add student and course
 		}
 		return result;
 	}
-
+	/**
+	 * This method returns all courseName list by semester
+	 * @param sem
+	 * @return semestral courseName
+	 */
 	public ArrayList<String> getAllCourseNameList(Semester sem) {
 		ArrayList<String> result = new ArrayList<>();
 		String msg = "";
@@ -408,7 +559,11 @@ public class Faculty {	//need interface w university to add student and course
 		}
 		return result;
 	}
-
+	/**
+	 * This method returns staffName from staffID
+	 * @param staffID
+	 * @return staffName
+	 */
 	private String getStaffName(String staffID) {
 		for (FacultyStaff staff: staffList) {
 			if (staff.getStaffID().equals(staffID))
