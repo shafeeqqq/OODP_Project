@@ -197,8 +197,13 @@ public class University {
 		return faculty.getCourseVacancy(sem, courseCode);
 	}
 	
+	
+	public String getCourseVacancyMsg(String facultyName, Semester sem, String courseCode) {
+		Faculty faculty = getFacultyByName(facultyName);
+		return faculty.getCourseVacancyMsg(sem, courseCode);
+	}
 
-
+	
 	public void printCourseStats(String facultyName, Semester sem, String courseCode) {
 		Faculty faculty = getFacultyByName(facultyName);
 		faculty.printCourseStats(sem, courseCode);
@@ -301,4 +306,5 @@ public class University {
 		}
 		return result;	
 	}
+
 }

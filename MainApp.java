@@ -7,8 +7,7 @@ import java.util.Scanner;
  * tutorial group == lab group ??
  * add student to course with 0 vacancy in tut/lab 
  * vacancy message 3/10
- * set marks marks range validation
- * set marks individually? or everyth at once
+ * 
  */
 
 //display all listing of students after addition of 1 student
@@ -133,7 +132,7 @@ public class MainApp {
 			}
 			catch (Exception e) {
 				System.out.println("You have entered a wrong input!");
-				System.out.println("Please enter 1,2 or 3: ");
+				System.out.println("Please enter 1, 2 or 3: ");
 				sc.reset();
 				sc.next();
 			}			

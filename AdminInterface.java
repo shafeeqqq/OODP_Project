@@ -122,8 +122,6 @@ public class AdminInterface {
 	}
 
 
-
-
 	private void addFacultyStaff() {
 		String staffName = getStringInput("Enter Staff Name:");
 		String facultyName = chooseFaculty();
@@ -181,10 +179,9 @@ public class AdminInterface {
 		String facultyName = chooseFaculty();	
 		String courseCode = chooseCourse(facultyName, sem);
 
-		int vacancy = university.getCourseVacancy(facultyName, sem,  processString(courseCode));
-		System.out.println(courseCode);
-		System.out.println("Vacancy: " + vacancy);
+		String msg = university.getCourseVacancyMsg(facultyName, sem,  processString(courseCode));
 
+		System.out.println(msg);
 	}
 
 
@@ -195,7 +192,6 @@ public class AdminInterface {
 		char type = getStringInput("Print student list by lecture group(L) or tutorial group(T)?").charAt(0);
 
 		university.printStudentListByGroup(facultyName, sem,  processString(courseCode), type);
-
 	}
 
 

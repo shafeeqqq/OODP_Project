@@ -290,6 +290,11 @@ public class Faculty {	//need interface w university to add student and course
 		return course.getVacancy();
 	}
 	
+
+	public String getCourseVacancyMsg(Semester sem, String courseCode) {
+		Course course = getCourse(sem, courseCode);
+		return course.getVacancyMsg();
+	}
 	
 
 	public ArrayList<String> getAvailableStaff() {
@@ -369,5 +374,6 @@ public class Faculty {	//need interface w university to add student and course
 		Student student = getStudentObj(matricNo);
 		return student.unregisterCourse(sem, courseCode);
 	}
+
 	
 }
