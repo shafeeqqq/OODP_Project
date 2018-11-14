@@ -3,15 +3,41 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Course {
-	
+	/**
+	 * CourseCode of this course, it uniquely identify the course object
+	 */
 	private String courseCode;
+	/**
+	 * The name of the faculty that this course belongs to
+	 */
 	private String facultyName;
+	/**
+	 * The name of the the course
+	 */
 	private String courseName;
+	/**
+	 * The name of the coordinator of the course
+	 */
 	private String coordinator;
+	/**
+	 * The number of maximum students that can enroll in the course
+	 */
 	private int maxEnrollment;
+	/**
+	 * This arraylist stores an arraylist of studentinfo objects which contains marks of each student
+	 */
 	private ArrayList<StudentInfo> studentInfoList  = new ArrayList<>();
+	/**
+	 * This hashmap maps the max intger capacity to the name of the tutorial group
+	 */
 	private HashMap<String, Integer> tutorialGroups = new HashMap<>();
+	/**
+	 * This arraylist contains all the components of the assessment of the course
+	 */
 	private ArrayList<Component> assessment  = new ArrayList<>();
+	/**
+	 * This lessontype object stores the number of tutorial groups, labs groups with enum
+	 */
 	private LessonType lessonType;
 	
 	/**
