@@ -341,7 +341,7 @@ public class Faculty {	//need interface w university to add student and course
 			if (course.getCourseCode().equalsIgnoreCase(courseCode))
 				return course.getCourseName();
 		}
-		return result;
+		return result; 
 	}
 
 	public void unregisterCourse(String matricNo, Semester sem, String courseCode) {
