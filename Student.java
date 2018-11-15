@@ -159,10 +159,8 @@ public class Student {
 	 */
 	public boolean unregisterCourse(Semester sem, String courseCode) {
 		boolean deleted=false;
-		for (String course: candidature.get(sem)) {
-			if (courseCode.equalsIgnoreCase(course))
-				deleted = candidature.get(sem).remove(courseCode);
-		}		
+		if (candidature.get(sem).contains(courseCode))
+			deleted = candidature.get(sem).remove(courseCode);
 		return deleted;
 	}
 }

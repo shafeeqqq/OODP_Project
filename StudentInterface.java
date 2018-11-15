@@ -270,7 +270,7 @@ public class StudentInterface {
 	private void printMenu() {
 		System.out.print(
 				"### STUDENT MENU ###\n"
-						+ " 1. Course registration/deregistration\n"
+						+ " 1. Course registration/unregistration\n"
 						+ " 2. Print Transcript\n"
 						+ " 3. Quit\n"); 
 
