@@ -43,11 +43,11 @@ public class Course {
 	/**
 	 * this method construct a course object with the given parameters, anything else is initially 0 or NULL
 	 * This method is used in the run-time of the application
-	 * @param Code
-	 * @param Name
-	 * @param coordinator_staff
-	 * @param group
-	 * @param Type
+	 * @param facultyName	the name of the faculty the course belongs to 
+	 * @param courseCode	the course code of the course to be created
+	 * @param coordinator	the staff id of the faculty staff coordinating the course
+	 * @param Type 			the enum value of the lesson type
+	 * @param assessment	arraylist of all the components and weightages
 	 */
 	public Course(String facultyName, String courseCode, String courseName, String coordinator, LessonType Type, ArrayList<Component> assessment) {
 		this.courseCode = courseCode;
@@ -64,13 +64,12 @@ public class Course {
 	/**
 	 * This method construct a course object with the given parameters
 	 * This method is used in the reading of data from the text file
-	 * @param facultyName
-	 * @param courseCode
-	 * @param courseName
-	 * @param coordinator
-	 * @param lessonType
-	 * @param assessment
-	 * @param studentInfoList
+	 * @param facultyName		the name of the faculty the course belongs to 
+	 * @param courseCode		the course code of the course to be created
+	 * @param coordinator		the staff id of the faculty staff coordinating the course
+	 * @param Type 				the enum value of the lesson type
+	 * @param assessment		arraylist of all the components and weightages
+	 * @param studentInfoList	arraylist of students with their marks
 	 */
 	Course(String facultyName, String courseCode, String courseName, String coordinator,
 			LessonType lessonType, ArrayList<Component> assessment, ArrayList<StudentInfo> studentInfoList) {
@@ -103,6 +102,9 @@ public class Course {
 		return num;
 	}
 
+	/**
+	 * creates tutorial groups for the course according to its lesson type
+	 */
 	private void initialiseTutorialGroups() {
 		int tutorialCount = lessonType.getTutorialCount();
 		
@@ -115,7 +117,10 @@ public class Course {
 		}
 	}
 	
-	
+	/**
+	 * method to print details of the course
+	 * (course code, course name, coordinator, lesson type, max enrollment and assessment components)
+	 */
 	public void printDetails() {
 		System.out.print(
 				"Course Code: " + courseCode + "\n"
@@ -131,10 +136,19 @@ public class Course {
 		else if (!tutorialGroups.isEmpty())
 			System.out.println("Tutorial Groups: " + tutorialGroups.toString());
 	}
+	
+	/**
+	 * get method to retrieve name of faculty
+	 * @return name of faculty
+	 */
 	public String getFacultyName() {
 		return facultyName;
 	}
 	
+	/**
+	 * get method to retrieve components in assessment
+	 * @return string containing names of all componenets
+	 */
 	public String getAssessmentString() {
 		String result = "";
 		for (Component item: assessment)
@@ -142,7 +156,10 @@ public class Course {
 		return result;
 	}
 	
-	
+	/**
+	 * method to view tutorial groups that are not yet full and their vacancies
+	 * @return arraylist with the tutorial group and its vacancy
+	 */
 	public ArrayList<String> getAvailTutGroups() {
 		ArrayList<String> result = new ArrayList<>();
 		if (tutorialGroups == null)
@@ -158,7 +175,11 @@ public class Course {
 		return result;
 	}
 	
-	
+	/**
+	 * method to find the numerical value of the vacancies in a particular tutorial group
+	 * @param tutGroup 	number of tutorial group we are checking vacancy for
+	 * @return			number of vacancies in the tutorial group
+	 */
 	private int getTutorialGroupVacancy(String tutGroup) {
 		int count = 0;
 		for (StudentInfo item: studentInfoList) {
@@ -168,7 +189,10 @@ public class Course {
 		return tutorialGroups.get(tutGroup) - count;
 	}
 
-	
+	/**
+	 * prints the marks of the various components belonging to a particular student
+	 * @param matricNo	matric number of the student we are checking the marks for
+	 */
 	public void printStudentInfoOfStudent(String matricNo) {
 		for (StudentInfo item: studentInfoList)
 			if (item.getMatricNo().equals(matricNo)) {
@@ -187,6 +211,7 @@ public class Course {
 	
 	
 	/**
+	 * get method to retrieve name of the course
 	 * @return courseName
 	 */
 	public String getCourseName() {
@@ -195,6 +220,7 @@ public class Course {
 	
 	
 	/**
+	 * get method to retrieve the max enrollment of the course
 	 * @return maxEnrollment
 	 */
 	public int getMaxEnrollment() {
@@ -202,7 +228,10 @@ public class Course {
 	}
 	
 
-	
+	/**
+	 * get method to retrieve  the information of all students in the course
+	 * @return arraylist of the student matric numbers and their scores
+	 */
 	public ArrayList<StudentInfo> getStudentInfoList() {
 		return studentInfoList;
 	}
@@ -210,7 +239,7 @@ public class Course {
 	
 	/**
 	 * this method returns the coordinator
-	 * @return
+	 * @return	string of the coordinator's name
 	 */
 	public String getCoordinator() {
 		return coordinator;
@@ -218,7 +247,7 @@ public class Course {
 	
 	/**
 	 * This method changes all the assessment criteria to the input of the users
-	 * @param assessment
+	 * @param assessment	arraylist of the component names and the respective weightages
 	 */
 	public void setAssessment(ArrayList<Component> assessment) { 
 		boolean scratch = isAssessmentScratch(assessment, getComponentTitles());
@@ -234,11 +263,12 @@ public class Course {
 	
 	/**
 	 * if the updated assessment has the same title as before, returns false, else returns true
-	 * @param newer
-	 * @param old
-	 * @return
+	 * @param newer		arraylist of the components we are changing to
+	 * @param old		arraylist of the components we are replacing
+	 * @return			boolean 
 	 */
-	private boolean isAssessmentScratch(ArrayList<Component> newer, ArrayList<String> old) { // TODO:cd
+	private boolean isAssessmentScratch(ArrayList<Component> newer, ArrayList<String> old) { 
+		// TODO:cd
 		
 		ArrayList<String> updates = new ArrayList<>();
 		
@@ -258,15 +288,16 @@ public class Course {
 	 * if it is a complete change of assessment, this method is called and changes all the
 	 * components inside studentinfo list
 	 */
-	private void updateStudInfoAssessment() {	//TODO: cd
+	private void updateStudInfoAssessment() {	
+		//TODO: cd
 		for (StudentInfo studentInfo: studentInfoList)
 			studentInfo.updateComponents(getComponentTitles());
 	}
 
 
 	/**
-	 * this method returns the remaining spaces available
-	 * @return
+	 * this method returns the remaining spaces available for the whole course
+	 * @return int of the number of vacancies
 	 */
 	public int getVacancy() {
 		int count = studentInfoList.size();
@@ -276,7 +307,7 @@ public class Course {
 	/**
 	 * This method returns a string that includes the courseCode, courseName
 	 * overall and each tutorial group vacancy
-	 * @return
+	 * @return	string
 	 */
 	public String getVacancyMsg() {
 		String msg = "";
@@ -291,6 +322,7 @@ public class Course {
 	
 	
 	/**
+	 * method to get the lesson type of the course
 	 * @return lessonType
 	 */
 	public LessonType getLessonType() {
@@ -300,7 +332,7 @@ public class Course {
 	
 	/**
 	 * this method set the type of lesson
-	 * @param lessonType
+	 * @param lessonType	TYPE_A/B/C the course corresponds to
 	 */
 	public void setLessonType(LessonType lessonType) {
 		this.lessonType = lessonType;
@@ -308,13 +340,14 @@ public class Course {
 	
 	/**
 	 * This method return the assessment of the current course
-	 * @return
+	 * @return	arraylist of all the components in the assessment
 	 */
 	public ArrayList<Component> getAssessment() {
 		return assessment;
 	}
 
 	/**
+	 * method to get the titles of all the assessment componenets
 	 * @return assessmentTitles as an array list of strings
 	 */
 	public ArrayList<String> getAssessmentTitles() {
@@ -328,8 +361,8 @@ public class Course {
 	
 	/**
 	 * This method searches for the student info object by matric number
-	 * @param matricNo
-	 * @return StudentInfo object with the passed matricNo
+	 * @param matricNo		matric number of the student we are searching for
+	 * @return 				StudentInfo object with the passed matricNo
 	 */
 	public StudentInfo getStudentInfoOfStudent(String matricNo) {
 		StudentInfo result=null;
@@ -367,8 +400,8 @@ public class Course {
 
 	/**
 	 * This method updates the mark for the students
-	 * @param matricNo
-	 * @param updatedMarks
+	 * @param matricNo		matric number of the student we are updating the marks for
+	 * @param updatedMarks	hashmap of the component and its new marks
 	 */
 	public void updateMarks(String matricNo, HashMap<String, Double> updatedMarks) {
 		StudentInfo si = getStudentInfoOfStudent(matricNo);
@@ -458,7 +491,7 @@ public class Course {
 	/**
 	 * This method returns an arraylist of all the grades of all the students
 	 * @param marksListByComponent
-	 * @return
+	 * @return	arraylist of grades
 	 */
 	private ArrayList<Character> initialiseOverallMarksList(HashMap<String, ArrayList<Double>> marksListByComponent) {
 		ArrayList<Character> overall = new ArrayList<>();
@@ -477,9 +510,9 @@ public class Course {
 
 	/**
 	 * This method returns an arraylist of all the grades of all the coursework of all students
-	 * @param marksListByComponent
-	 * @param courseworkWeightage
-	 * @return
+	 * @param marksListByComponent	marks arranged by components
+	 * @param courseworkWeightage	weightage of the components
+	 * @return arraylist of grades
 	 */
 	private ArrayList<Character> initialiseCourseworkMarksList(
 			HashMap<String, ArrayList<Double>> marksListByComponent, int courseworkWeightage) {
@@ -505,7 +538,7 @@ public class Course {
 	/**
 	 * This method returns an arraylist of all the exam grades
 	 * @param marksListByComponent
-	 * @return
+	 * @return	arraylist
 	 */
 	private ArrayList<Character> initialiseExamMarksList(HashMap<String, ArrayList<Double>> marksListByComponent) {
 		ArrayList<Character> examMarksList = new ArrayList<>();
@@ -522,7 +555,7 @@ public class Course {
 
 	/**
 	 * This method checks whether a hashmap is empty
-	 * @param hashmap
+	 * @param hashmap	of components and grades
 	 * @return true if corect, false if wrong
 	 */
 	private boolean checkIsEmpty(HashMap<String, ArrayList<Double>> hashmap) {
@@ -535,8 +568,8 @@ public class Course {
 
 	/**
 	 * This method prints the percentages for each grade
-	 * @param array
-	 * @param msg
+	 * @param array	arraylist of grades
+	 * @param msg	
 	 */
 	private void printComponentStats(ArrayList<Character> array, String msg) {
 		DecimalFormat df = new DecimalFormat("#.0");
@@ -558,7 +591,7 @@ public class Course {
 
 	/**
 	 * This method returns the weightage of the course work after minusing the exam components
-	 * @return
+	 * @return weightage percentage
 	 */
 	private int getCourseworkWeightage() {
 		int weightage = 0;
@@ -584,9 +617,9 @@ public class Course {
 
 	/**
 	 * This method converts a double into a respective grade 
-	 * @param mark
-	 * @param maxMarks
-	 * @return grade in character
+	 * @param mark					raw marks
+	 * @param maxMarks				total marks of component
+	 * @return grade in character	A/B/C/F
 	 */
 	private char getGrade(Double mark, int maxMarks) {
 		char grade;
@@ -605,8 +638,8 @@ public class Course {
 
 	/**
 	 * This method adds a new student to the studentInfoList
-	 * @param matricNo
-	 * @param tutorialGroup
+	 * @param matricNo			matric number of student to be added
+	 * @param tutorialGroup		tutorial group to add to
 	 */
 	public void addStudent(String matricNo, String tutorialGroup) {
 		StudentInfo newStudent = new StudentInfo(matricNo, tutorialGroup, getAssessmentTitles());
@@ -615,8 +648,8 @@ public class Course {
 	}
 	/**
 	 * THis method returns the strings that will be printed for transcript
-	 * @param matricNo
-	 * @return transcript as a string
+	 * @param matricNo					matric no of student we are getting transcript for
+	 * @return transcript as a string	information of transcript in a string
 	 */
 	public String getTranscriptMsg(String matricNo) {
 		String error = "You are not registered for this course.";
@@ -652,7 +685,7 @@ public class Course {
 
 	/**
 	 * This method removes the student from the course
-	 * @param matricNo
+	 * @param matricNo		matric no of student to be removed
 	 * @return true if successful, false if not
 	 */
 	public boolean unregisterStudent(String matricNo) {

@@ -45,7 +45,7 @@ public class University {
 	/**
 	 * This method calls the faculty constructor and create a faculty object then put it in the list
 	 * If the facultyname is already taken then print error message
-	 * @param facultyName
+	 * @param facultyName name of faculty to be added
 	 */
 	public void addFaculty(String facultyName) {
 		Faculty newFaculty = new Faculty(facultyName, getCurrentSemester());
@@ -70,8 +70,8 @@ public class University {
 	/**
 	 * This method calls the faculty add staff method and pass the parameters to that method
 	 * This method is used during runtime
-	 * @param facultyName
-	 * @param staffName
+	 * @param facultyName 	faculty we are adding staff to
+	 * @param staffName		name of staff we are adding
 	 */
 	public void addStaffToFaculty(String facultyName, String staffName) {
 		Faculty faculty = getFacultyByName(facultyName);
@@ -81,11 +81,11 @@ public class University {
 	/**
 	 * This method calls the faculty add staff method and pass the parameters to that method
 	 * This method is used during loading of pre-existing staffs.
-	 * @param facultyName
-	 * @param staffName
-	 * @param staffID
-	 * @param coordinatorOf
-	 * @param workLoadBySemester
+	 * @param facultyName			name of faculty we are adding to
+	 * @param staffName				name of staff we are adding
+	 * @param staffID				id of staff we are adding
+	 * @param coordinatorOf			course staff is coordinator of
+	 * @param workLoadBySemester	list of semester and courses staff is part of that semester
 	 */
 	public void addStaffToFaculty(String facultyName, String staffName, String staffID, String coordinatorOf,
 			HashMap<Semester, ArrayList<String>> workLoadBySemester) {
@@ -96,9 +96,9 @@ public class University {
 	/**
 	 * This method calls the faculty add student method and pass the parameters to that method
 	 * This method is used during run-time
-	 * @param facultyName
-	 * @param studentName
-	 * @param semester
+	 * @param facultyName	name of faculty we are adding student to
+	 * @param studentName	name of student we are adding
+	 * @param semester		semester we are adding student during
 	 */
 	public void addStudentToFaculty(String facultyName, String studentName, Semester semester) {
 		Faculty faculty = getFacultyByName(facultyName);
@@ -110,10 +110,10 @@ public class University {
 	/**
 	 * This method calls the faculty add student method and pass the parameters to that method
 	 * This method is used during loading of pre-existing students
-	 * @param facultyName
-	 * @param studentName
-	 * @param matricNo
-	 * @param candidature
+	 * @param facultyName		name of faculty	
+	 * @param studentName		name of student
+	 * @param matricNo			matric no of student
+	 * @param candidature		
 	 */
 	public void addStudentToFaculty(String facultyName, String studentName, String matricNo, HashMap<Semester, ArrayList<String>> candidature) {
 		Faculty faculty = getFacultyByName(facultyName);
@@ -125,13 +125,13 @@ public class University {
 	/**
 	 * This method calls the faculty add course method and pass the parameters to that method
 	 * It prints all courses after
-	 * @param facultyName
-	 * @param courseCode
-	 * @param courseName
-	 * @param coordinator
-	 * @param lessonType
-	 * @param assessment
-	 * @param semester
+	 * @param facultyName		name of faculty course belongs to
+	 * @param courseCode		desireed course code for course
+	 * @param courseName		name of course
+	 * @param coordinator		coordinator of the course
+	 * @param lessonType		A/B/C
+	 * @param assessment		list of components of assessment
+	 * @param semester			semester course is being added in
 	 */
 	public void addCourseToFaculty(String facultyName, String courseCode, String courseName,
 			String coordinator, LessonType lessonType, ArrayList<Component> assessment, Semester semester) {
@@ -145,7 +145,7 @@ public class University {
 	/**
 	 * This method return a faculty object that has the parameter as its name
 	 * Returns null if it does not exist
-	 * @param facultyName
+	 * @param facultyName		
 	 * @return faculty object
 	 */
 	public Faculty getFacultyByName(String facultyName) {
@@ -208,7 +208,7 @@ public class University {
 	
 	/**
 	 * This method returns the largest digit in the matric/staffID list so the next ID can be generated
-	 * @param type
+	 * @param type		0 for student matric, 1 for staff id
 	 * @return largest ID added
 	 */
 	private int getLast(int type) {
@@ -237,7 +237,7 @@ public class University {
 	
 	/**
 	 * This method uses the matricNo to find the faculty of the student
-	 * @param matricNo
+	 * @param matricNo		matric no of student
 	 * @return faculty object that the student is under
 	 */
 	public Faculty getFacultyOfStudent(String matricNo) {
@@ -286,9 +286,9 @@ public class University {
 	
 	/**
 	 * This method calls the faculty print student list by group and passed to it the parameters
-	 * @param facultyName
-	 * @param semester
-	 * @param courseCode
+	 * @param facultyName		name of faculty students are in
+	 * @param semester			semester course is in
+	 * @param courseCode		course code of course
 	 * @param type
 	 */
 	public void printStudentListByGroup(String facultyName, Semester semester, String courseCode, char type) {
@@ -298,8 +298,8 @@ public class University {
 	
 	/**
 	 * This method gets the course vacancy by calling it from the faculty object
-	 * @param facultyName
-	 * @param sem
+	 * @param facultyName		name of faculty course is in
+	 * @param sem				semester of course
 	 * @param courseCode
 	 * @return course vacancy as a integer
 	 */
@@ -346,9 +346,9 @@ public class University {
 
 	/**
 	 * This method calls the update course assessment method from faculty and passed to it the parameters
-	 * @param facultyName
-	 * @param sem
-	 * @param courseCode
+	 * @param facultyName		name of faculty
+	 * @param sem				sem course is in
+	 * @param courseCode		course code
 	 * @param assessment
 	 */
 	public void updateCourseAssessment(String facultyName, Semester sem, String courseCode, ArrayList<Component> assessment) {
@@ -359,7 +359,7 @@ public class University {
 
 	/**
 	 * This method calls the getComponentTitltes from faculty
-	 * @param facultyName
+	 * @param facultyName		name of faculty
 	 * @param sem
 	 * @param courseCode
 	 * @return Components titles as an arrayList of strings
@@ -425,7 +425,7 @@ public class University {
 	 * This method get the semester object when creating a new course so that no duplicate semester objects are
 	 * created
 	 * @param sem
-	 * @return
+	 * @return	Semester object created/existing
 	 */
 	public Semester getSemester(Semester sem) {
 		for (Semester item: semesterList) {
@@ -438,14 +438,14 @@ public class University {
 
 	/**
 	 * This method calls the addcourse method from faculty and passes all the parameters to it
-	 * @param facultyName
-	 * @param courseCode
-	 * @param courseName
-	 * @param coordinator
-	 * @param lessonType
-	 * @param assessment
-	 * @param sem
-	 * @param studentInfoList
+	 * @param facultyName		faculty course belongs to
+	 * @param courseCode		code of course
+	 * @param courseName		name of course
+	 * @param coordinator		staff id of person in chage of course
+	 * @param lessonType		A/B/C
+	 * @param assessment		list of component names
+	 * @param sem				semester course is in		
+	 * @param studentInfoList	list of students
 	 */
 	public void addCourseToFaculty(String facultyName, String courseCode, String courseName, String coordinator,
 			LessonType lessonType, ArrayList<Component> assessment, Semester sem,
@@ -491,10 +491,10 @@ public class University {
 
 	/**
 	 * This method construct a string to be printed as transcript
-	 * @param candidature
+	 * @param candidature	hashmap of semester and courses taken in semester by student
 	 * @param studentName
 	 * @param matricNo
-	 * @param facultyName
+	 * @param facultyName	name of faculty student belongs to
 	 * @return transcript as a string
 	 */
 	public String getTranscript(HashMap<Semester, ArrayList<String>> candidature, String studentName, String matricNo, String facultyName) {
@@ -524,7 +524,7 @@ public class University {
 		for (Faculty faculty: facultyList) {
 			if (faculty.containsCourse(sem, courseCode)) {
 				return faculty.getTranscriptMsg(sem, courseCode, matricNo);
-			}
+				}
 		}
 		return "Error getting marks";
 	}
@@ -541,7 +541,7 @@ public class University {
 	}
 	/**
 	 * This method prints the array of strings out
-	 * @param list
+	 * @param list	list to be printed
 	 */
 	private void printArray(ArrayList<String> list) {
 		for (int i=0; i<list.size(); i++) 
@@ -558,7 +558,4 @@ public class University {
 		}
 		return result;
 	}
-	
-
-
 }

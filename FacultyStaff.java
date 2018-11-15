@@ -27,7 +27,10 @@ public class FacultyStaff {
 	private String facultyName;
 	
 	/**This method construct a FacultyStaff object
-	 * @param id, names
+	 * @param staffName				name of staff
+	 * @param staffID				id of fac staff
+	 * @param facultyName			name of faculty staff is part of
+	 * @param sem					sem fac staff is added
 	 * Instantiate staffID and staffName
 	 */
 	public FacultyStaff(String staffName, String staffID, Semester sem, String facultyName) {
@@ -39,7 +42,14 @@ public class FacultyStaff {
 		printDetails();
 	}
 	
-	
+	/**
+	 * another constructors for facultystaff
+	 * @param staffName				name of staff
+	 * @param staffID				id of fac staff
+	 * @param coordinatorOf			course the staff is a coordinator of, null if NA
+	 * @param facultyName			name of faculty staff is part of
+	 * @param workLoadBySemester	arraylist of semester and courses part of
+	 */
 	public FacultyStaff(String staffName, String staffID, String coordinatorOf, String facultyName,
 			HashMap<Semester, ArrayList<String>> workLoadBySemester) {
 		this.staffName = staffName;
@@ -72,8 +82,8 @@ public class FacultyStaff {
 	}
 	
 	
-	/**This method sets the coordinator status for current staff for the course with code passed as parameter
-	 * 
+	/**
+	 * This method sets the coordinator status for current staff for the course with code passed as parameter
 	 * @param courseCode 	String of the course code which the FacultyStaff is the coordinator of
 	 */
 	public void setCoordinator(String courseCode) { //need interface with faculty to change attribute in course
@@ -90,6 +100,7 @@ public class FacultyStaff {
 	
 	
 	/**
+	 * get method for staff ID
 	 * @return staffID
 	 */
 	public String getStaffID(){
@@ -97,19 +108,24 @@ public class FacultyStaff {
 	}
 	
 	/**
+	 * get method for staff name
 	 * @return staffName
 	 */
 	public String getStaffName() {
 		return staffName;
 	}
 	/**
-	 * 
+	 * get method for faculty staff is part of
 	 * @return facultyName
 	 */
 	public String getFacultyName() {
 		return facultyName;
 	}
-
+	
+	/**
+	 * get method for staff's workload by semester
+	 * @return Hashmap with semester as key and list of courses as key values
+	 */
 	public HashMap<Semester, ArrayList<String>> getWorkLoadBySemester() {
 		return workLoadBySemester;
 	}

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class StudentInterface {
@@ -27,9 +28,9 @@ public class StudentInterface {
 
 	/**
 	 * this method construct a student interface object for the main function
-	 * @param currentFaculty
-	 * @param matricNo
-	 * @param university
+	 * @param currentFaculty	faculty the student using the interface is part of
+	 * @param matricNo			matric no of the student using the interface
+	 * @param university		university the student is part of
 	 */
 	public StudentInterface(Faculty currentFaculty, String matricNo, University university) {
 		this.university = university;
@@ -135,9 +136,10 @@ public class StudentInterface {
 
 	/**
 	 * This method lets the student choose which tutorial group he wants to go in
-	 * @param facultyName
-	 * @param courseCode
+	 * @param facultyName		faculty the course is in	
+	 * @param courseCode		course code the student wants to register
 	 * @return the tutorial group as a string
+	 * @throws IndexOutOfBoundsException
 	 */
 	private String chooseTutorialGroup(String facultyName, String courseCode) {
 		String tutGroup = "";
@@ -166,7 +168,7 @@ public class StudentInterface {
 
 	/**
 	 * This method processes the string by cutting of the extra spaces
-	 * @param string
+	 * @param string	string to be processed
 	 * @return string after removing spaces
 	 */
 	private String processStringSpace(String string) {
@@ -176,7 +178,7 @@ public class StudentInterface {
 
 	/**
 	 * This method gets the courseCode that the student wants
-	 * @param facultyName
+	 * @param facultyName	faculty chosen by the student
 	 * @return courseCode
 	 */
 	private String chooseCourse(String facultyName) {
@@ -191,6 +193,7 @@ public class StudentInterface {
 
 	/**
 	 * This method remove tabs from a string
+	 * @return string without tabs
 	 */
 	private String processString(String string) {
 		int index = string.indexOf('\t');
@@ -200,6 +203,7 @@ public class StudentInterface {
 	/**
 	 * This method lets the student choose from a list of faculty
 	 * @return the facultyName
+	 * @throws IndexOutOfBoundsException
 	 */
 	private String chooseFaculty() {
 		ArrayList<String> facultyNameList = university.getFacultyNameList();
@@ -236,9 +240,12 @@ public class StudentInterface {
 		currentFaculty.unregisterCourse(matricNo, currentSemester, courseCode);
 	}
 
-
+	/**
+	 * method to display list of courses
+	 * @param list
+	 */
 	private void displayCourses(ArrayList<String> list) {
-		System.out.println("eneter");
+		System.out.println("enter");
 		for (int i=0; i<list.size(); i++) {
 			String courseName = currentFaculty.getCourseName(currentSemester, list.get(i));
 			System.out.println((i+1) + ". " + list.get(i) + "\t"+ courseName);
@@ -248,7 +255,7 @@ public class StudentInterface {
 
 	/**
 	 * this method prints all the available course of the student
-	 * @param list
+	 * @param list	list of courses student is in
 	 */
 	private void printArray(ArrayList<String> list) {
 		for (int i=0; i<list.size(); i++) 
@@ -286,8 +293,10 @@ public class StudentInterface {
 	 * this method prints the transcript of the current logged in student
 	 */
 	private void getTranscript() {
-		String transcript = university.getTranscript(currentStudent.getCandidature(),
-				currentStudent.getStudentName(), matricNo, currentFaculty.getFacultyName());
+		HashMap<Semester, ArrayList<String>> candidature = currentStudent.getCandidature();
+		String studentName = currentStudent.getStudentName();
+		String facultyName = currentStudent.getFacultyName();
+		String transcript = university.getTranscript(candidature, studentName, matricNo, facultyName);
 		System.out.print(transcript);
 	}
 
@@ -295,6 +304,7 @@ public class StudentInterface {
 	/**
 	 * this method get the user input
 	 * @return choice of user
+	 * @throws InputMismatchException
 	 */
 	private int getChoice() {
 		System.out.println("Enter choice: ");

@@ -1,13 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-/**
- * TODO
- * add student to course with 0 vacancy in tut/lab 
- * set marks marks range validation
- */
-
-//display all listing of students after addition of 1 student
 public class MainApp {
 	/**
 	 * the main interfaces through university to other classes
@@ -67,7 +60,7 @@ public class MainApp {
 
 	
 	/**
-	 * this method saves all the data to the respective files
+	 * this method saves all the data(students, courses, fac staff) to the respective files
 	 * @throws IOException
 	 */
 	private static void Saves() throws IOException {
@@ -78,8 +71,8 @@ public class MainApp {
 	
 	
 	/**
-	 * this method launches 2 interface, admin if mode is 1 and student if mode is 2
-	 * @param mode
+	 * this method launches 2 interfaces, admin if mode is 1 and student if mode is 2
+	 * @param mode 		choice to select admin or student
 	 */
 	private static void launchInterface(String mode) {
 		if (mode.equals("student")) {
@@ -106,7 +99,7 @@ public class MainApp {
 	/**
 	 * this method gets the input of the user to be used as matricNo to be used to instantiate
 	 * student object
-	 * @return matricNo
+	 * @return matricNo matric no of user selected(student)
 	 */
 	private static String getMatricNo() {
 		System.out.println("Enter matric No: ");
@@ -117,7 +110,7 @@ public class MainApp {
 	
 	/**
 	 * this method gets an integer input from user
-	 * @return a integer
+	 * @return an integer
 	 */
 	private static int getChoice() {
 		System.out.println("Enter choice: ");

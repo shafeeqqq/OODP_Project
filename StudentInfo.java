@@ -17,9 +17,9 @@ public class StudentInfo {
 	
 	/**
 	 * This constructor is used to create studentinfo object in run-time
-	 * @param matricNo
-	 * @param tutorialGroup
-	 * @param components
+	 * @param matricNo			matric no of student
+	 * @param tutorialGroup		tut grp student is in
+	 * @param components		list of components in course student is taking
 	 */
 	StudentInfo(String matricNo, String tutorialGroup, ArrayList<String> components) {
 		this.matricNo = matricNo;
@@ -29,9 +29,9 @@ public class StudentInfo {
 
 	/**
 	 * This method is used to create studentinfo object during loading
-	 * @param currentMatric
-	 * @param currentTutorialGroup
-	 * @param marks
+	 * @param currentMatric			matric no of student currently being read
+	 * @param currentTutorialGroup	tutorial group student is in
+	 * @param marks					list of marks to add to student
 	 */
 	StudentInfo(String currentMatric, String currentTutorialGroup, HashMap<String, Double> marks) {
 		this.matricNo = currentMatric;
@@ -40,7 +40,7 @@ public class StudentInfo {
 	}
 	/**
 	 * This method updates the different components
-	 * @param components
+	 * @param components list of components in the course student is taking
 	 */
 	public void updateComponents(ArrayList<String> components) {
 		marks.clear();
@@ -50,7 +50,7 @@ public class StudentInfo {
 	}
 
 	/**
-	 * 
+	 * get method to retrieve matric number
 	 * @return matricNo of the student
 	 */
 	public String getMatricNo() {
@@ -58,7 +58,7 @@ public class StudentInfo {
 	}
 	
 	/**
-	 * 
+	 * get all the marks the student has in the course
 	 * @param title
 	 * @return marks by title
 	 */
@@ -68,7 +68,7 @@ public class StudentInfo {
 
 	
 	/**
-	 * 
+	 * get tutorial group student is in
 	 * @return tutorial group number
 	 */
 	public String getTutorialGroup() {
@@ -85,7 +85,7 @@ public class StudentInfo {
 	}
 	
 	/**
-	 *
+	 *get list of all marks
 	 * @return a hashmap of all the marks mapped to the title of the component
 	 */
 	public HashMap<String, Double> getMarks() {
@@ -115,6 +115,7 @@ public class StudentInfo {
 	@Override
 	/**
 	 * overides the equals method in object superclass to compare studentinfo objects
+	 * @param obj 	student object we are comparing
 	 * @return true if equal, false if not
 	 */
 	public boolean equals(Object obj) {

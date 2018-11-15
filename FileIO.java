@@ -32,8 +32,10 @@ public class FileIO {
 	FileIO (University university) {
 		this.university = university;
 	}
+	
 	/**
-	 * this method adds data to the university 
+	 * this method is called at the start of the program and adds data to the university
+	 * @throws FileNotFoundException 
 	 */
 	public void populateData() {
 		try {
@@ -49,7 +51,7 @@ public class FileIO {
 	/**
 	 * this method reads courses from the file by splitting the line into different component
 	 * by the delimiters to construct courses object 
-	 * @param filename
+	 * @param filename 		name of course file
 	 * @throws IOException
 	 */
 	private void readCourses (String filename) throws IOException {
@@ -122,7 +124,7 @@ public class FileIO {
 	/**
 	 * this method reads students from the file by splitting the line into different component
 	 * by the delimiters to construct students object 
-	 * @param filename
+	 * @param filename		name of student file
 	 * @throws IOException
 	 */
 	private void readStudents(String filename) throws IOException {
@@ -158,7 +160,7 @@ public class FileIO {
 	/**
 	 * this method reads facultyStaff from the file by splitting the line into different component
 	 * by the delimiters to construct FacultyStaff object 
-	 * @param filename
+	 * @param filename		name of facultystaff file
 	 * @throws IOException
 	 */
 	public void readFacultyStaff(String filename) throws IOException {
@@ -192,8 +194,8 @@ public class FileIO {
 	}
 	/**
 	 * this method saves the current students in the database back to the file to be read later
-	 * @param filename
-	 * @param al
+	 * @param filename		name of file we are saving to
+	 * @param al			arraylist of all the students in the university
 	 * @throws IOException
 	 */
 	public void saveStudents(String filename, ArrayList<Student> al) throws IOException {
@@ -226,8 +228,8 @@ public class FileIO {
 
 	/**
 	 * this method write to the fileName given the arraylist of data
-	 * @param fileName
-	 * @param data
+	 * @param fileName		filename we want to save to
+	 * @param data			arraylist of relevant data (student/course/facstaff)
 	 * @throws IOException
 	 */
 	public static void writeToFile(String fileName, ArrayList<String> data) throws IOException  {
@@ -245,7 +247,7 @@ public class FileIO {
 	/**
 	 * this method reads from the file everything into arraylist of string
 	 * each element of arraylist read one line from the file until a newline character is read in. 
-	 * @param fileName
+	 * @param fileName	file name we are reading from
 	 * @return everything written in the file into arraylist of string
 	 * @throws IOException
 	 */
@@ -266,8 +268,8 @@ public class FileIO {
 
 	/**
 	 * this method saves facultyStaff from the file to be read later 
-	 * @param string
-	 * @param allStaffs
+	 * @param string		name of file we are saving to
+	 * @param allStaffs		arraylist of all fac staff in the university
 	 * @throws IOException
 	 */
 	public void saveStaffs(String string, ArrayList<FacultyStaff> allStaffs) throws IOException {
@@ -305,8 +307,8 @@ public class FileIO {
 	}
 	/**
 	 * this method saves course into the file to be read later
-	 * @param string
-	 * @param allFaculty
+	 * @param string		name of course file we are saving to
+	 * @param allFaculty	list of all courses in the university to save
 	 * @throws IOException
 	 */
 	public void saveCourses(String string, ArrayList<Faculty> allFaculty) throws IOException {

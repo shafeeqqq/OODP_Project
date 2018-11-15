@@ -6,14 +6,14 @@ public class Semester {
 	 * The year of the semester 
 	 */
 	private int year;
+	
 	/**
 	 * The number of the semester  (either 1/2)
-	 * 
 	 */
 	private int number;
+	
 	/**
 	 * Constructor for semester object, takes the semester number and the year of semester
-	 * 
 	 * @param year		The year of this Semester
 	 * @param number	Number of the Semester (either 1/2)
 	 */
@@ -23,7 +23,6 @@ public class Semester {
 	}
 	/**
 	 * get method to retrieve the year of the Semester object
-	 * 
 	 * @return	an int specifying the first part of the Academic Year
 	 */
 	public int getYear() {
@@ -31,7 +30,6 @@ public class Semester {
 	}
 	/**
 	 * Get method to retrieve the semester number of the Semester object
-	 * 
 	 * @return	an int (either 1/2) specifying the semester number
 	 */
 	public int getNumber() {
@@ -39,8 +37,7 @@ public class Semester {
 	}
 
 	/**
-	 * Method which outputs the Semester information in a string. For example, 2018 Semester 1
-	 * 
+	 * Method which outputs the Semester information in a string. For example, 2018 Semester 
 	 * @return	String containing the information specified above
 	 */
 	public String toString() {
@@ -52,7 +49,6 @@ public class Semester {
 	/**
 	 * This method compares 2 semesters by taking another semester as its parameter and compares it 
 	 * to the current semester and returns a boolean 
-	 * 
 	 * @param obj 	Takes in another semester object
 	 * @return 		Returns true if the 2 semester have the same year and semester, false otherwise 
 	 */

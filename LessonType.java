@@ -30,7 +30,6 @@ public enum LessonType {
 	
 	/**
 	 * constructor for the LessonType enum
-	 * 
 	 * @param lectureCount		int number of lecture groups
 	 * @param tutorialCount		int number of tutorial groups
 	 * @param labCount			int number of lab groups

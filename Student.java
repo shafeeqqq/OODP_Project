@@ -22,7 +22,6 @@ public class Student {
 	
 	/**
 	 * constructor for the student class
-	 * 
 	 * @param name			name of the student to be instantiated
 	 * @param matricNo		matric number of the student to be instantiated
 	 * @param semester		Initialises the current semester so that courses can be added
@@ -38,7 +37,6 @@ public class Student {
 	
 	/**
 	 * alternate constructor to create the student object, taking in an existing hashmap of semesters and courses
-	 * 
 	 * @param name			name of the student to be instantiated
 	 * @param matricNo		matric number of the student
 	 * @param facultyName	name of the faculty the student is part of
@@ -54,7 +52,6 @@ public class Student {
 	
 	/**
 	 * get method to retrieve matric number of student
-	 * 
 	 * @return	matric number of the student represented as a string
 	 */
 	public String getMatricNo() {
@@ -63,7 +60,6 @@ public class Student {
 	
 	/**
 	 * get method to retrieve name of student
-	 * 
 	 * @return the first name of the student as a string
 	 */
 	public String getStudentName() {
@@ -72,7 +68,6 @@ public class Student {
 	
 	/**
 	 * get method to access the hashmap of the semester keys and string array of course codes
-	 * 
 	 * @return the hashmap object
 	 */
 	public HashMap<Semester, ArrayList<String>> getCandidature() {
@@ -92,7 +87,6 @@ public class Student {
 	
 	/**
 	 * method to return the candidate key-value pairs as a string
-	 * 
 	 * @return String of all the semesters and courses taken in a string
 	 */
 	private String getCandidatureString() {
@@ -107,7 +101,6 @@ public class Student {
 
 	/**
 	 * this method allows us to add a list of courses taken by the student to a particular sem
-	 * 
 	 * @param sem			semester object of the semester that the course is taken in
 	 * @param stringArr		string array where each string is a course code
 	 */
@@ -117,7 +110,6 @@ public class Student {
 	
 	/**
 	 * this method allows us to add a single course taken by the student to the hashmap
-	 * 
 	 * @param sem			semester object of the semester that the course is taken in
 	 * @param courseCode	string of the course code to be added 
 	 */
@@ -127,7 +119,6 @@ public class Student {
 	
 	/**
 	 * this method checks if the student is already registered for a particular course
-	 * 
 	 * @param courseCode		course code of the course to be checked if it is added
 	 * @param sem				semester of the course it is taken in
 	 * @return					true if the course is already taken by the student, false otherwise
@@ -140,7 +131,6 @@ public class Student {
 	
 	/**
 	 * method to retrieve the faculty name the student is in
-	 * 
 	 * @return		string of the name of the faculty
 	 */
 	public String getFacultyName() {
@@ -150,7 +140,6 @@ public class Student {
 	
 	/**
 	 * this method returns a list of courses registered by the student in the semester
-	 * 
 	 * @param sem	which semester to check for the courses registered by the student
 	 * @return		array of string of the course codes
 	 */
@@ -164,7 +153,6 @@ public class Student {
 	
 	/**
 	 * method to unregister the student from a course
-	 * 
 	 * @param sem			semester the course is taken in
 	 * @param courseCode	course code of the course to be unregistered
 	 * @return				returns true if the course is successfully unregistered, false otherwise
