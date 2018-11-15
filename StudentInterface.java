@@ -149,11 +149,10 @@ public class StudentInterface {
 		else {
 			System.out.println("### AVAILABLE TUTORIAL GROUPS ###");
 			printArray(tutGroupList);
-			int choice = getChoice() - 1 ;
 			boolean error = true;
 			do {
 				try {
-					tutGroup = processStringSpace(tutGroupList.get(choice));
+					tutGroup = processStringSpace(tutGroupList.get(getChoice()-1));
 					error = false;
 				}
 				catch(IndexOutOfBoundsException IndexOutOfBounds) {
