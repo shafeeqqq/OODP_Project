@@ -137,7 +137,7 @@ public class StudentInterface {
 	 * This method lets the student choose which tutorial group he wants to go in
 	 * @param facultyName
 	 * @param courseCode
-	 * @return the stutorial group as a string
+	 * @return the tutorial group as a string
 	 */
 	private String chooseTutorialGroup(String facultyName, String courseCode) {
 		String tutGroup = "";
@@ -150,7 +150,17 @@ public class StudentInterface {
 			System.out.println("### AVAILABLE TUTORIAL GROUPS ###");
 			printArray(tutGroupList);
 			int choice = getChoice() - 1 ;
-			tutGroup = processStringSpace(tutGroupList.get(choice));
+			boolean error = true;
+			do {
+				try {
+					tutGroup = processStringSpace(tutGroupList.get(choice));
+					error = false;
+				}
+				catch(IndexOutOfBoundsException IndexOutOfBounds) {
+					System.out.println("Invalid input. \n"
+							+ "Please enter a number from the list: ");
+				}
+			} while(error);
 		}
 		return tutGroup;
 	}

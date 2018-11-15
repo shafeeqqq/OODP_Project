@@ -186,6 +186,8 @@ public class AdminInterface {
 	 * updated course assessment. It asks the users if
 	 * they would like to re-enter the assessment from scratch
 	 * or simply edit the weightage for the existing components
+	 * @param assessment	Arraylist of the components and weightages to be passed into the other functions
+	 * @return 				arraylist of the components and weightages
 	 */
 	private ArrayList<Component> executeEditCourseAssessment(ArrayList<Component> assessment) {
 		printAssessment(assessment); // TODO: make it string
@@ -266,6 +268,7 @@ public class AdminInterface {
 	 * It also does input validation to prevent invalid data
 	 * from being saved. It then calls the updateMarks method
 	 * in university to update the marks stored in course.
+	 * @throws InputMismatchException
 	 */
 	private void setMarks() {
 
@@ -350,6 +353,7 @@ public class AdminInterface {
 	 * This method gets an integer input from the user
 	 * for the component and returns the value after 
 	 * subtracting one
+	 * @return a number of the option chosen
 	 */
 	private int chooseOption() {
 		System.out.println("Choose component you want to edit: ");
@@ -362,6 +366,9 @@ public class AdminInterface {
 	 * This method displays a list of available staff for the users
 	 * to choose coordinator for the course. It is a supporting method
 	 * for the addCourse method.
+	 * @param facultyName 	name of the faculty where the course is from so that we can access the course object
+	 * @return 				ID of the staff chosen as coordinator
+	 * @throws 				IndexOutOfBoundsException
 	 */
 	private String chooseCoordinator(String facultyName) {
 		ArrayList<String> staffNameList = university.getAvailableStaff(facultyName);
@@ -387,6 +394,7 @@ public class AdminInterface {
 	 * This method gets user input for assessment components
 	 * and the corresponding weightage. It is a supporting method
 	 * for the addCourse and editCourseWeightage methods
+	 * @return an arraylist of the components and the respective weightages
 	 */
 	private ArrayList<Component> getAssessmentInput() {
 		ArrayList<Component> assessment = new ArrayList<>();
@@ -420,6 +428,8 @@ public class AdminInterface {
 	/**
 	 * This method gets user input for weightage for existing
 	 * assessment components. It is a supporting method editCourseWeightage method
+	 * @param assessment		arraylist of the components of the course and the weightages to be changed
+	 * @return 					arraylist with the component and weightage with the updated values
 	 */
 	private ArrayList<Component> updateAssessment(ArrayList<Component> assessment) {
 		ArrayList<Component> updated = new ArrayList<>();
@@ -447,6 +457,7 @@ public class AdminInterface {
 	 * This method displays the list of faculty and returns the facultyName of the
 	 * chosen faculty. It is a supporting method for the addCourse method among others
 	 * which require choosing faculty
+	 * @return name of the faculty chosen
 	 */
 	private String chooseFaculty() {
 		ArrayList<String> facultyNameList = university.getFacultyNameList();
@@ -475,6 +486,9 @@ public class AdminInterface {
 	 * This method displays the list of courses by faculty and semester and
 	 * returns the course code of the chosen course. It is a supporting method
 	 * for the editCourseWeigthage method among others which require choosing course
+	 * @param facultyName	name of the faculty the course is from
+	 * @param sem			semester object of the semester to which the course is added
+	 * @return 				course code of the course chosen
 	 */
 	private String chooseCourse(String facultyName, Semester sem) {
 		ArrayList<String> courseNameList = university.getCourseListByFaculty(facultyName, sem);
@@ -501,6 +515,7 @@ public class AdminInterface {
 	 * This method displays the lesson types along with the details
 	 * returns the chosen lessonType. It is a supporting method
 	 * for the addCourse method
+	 * @return 	the enum type of the lesson type chosen
 	 */
 	private LessonType chooseLessonType() {
 		System.out.println("Choose Lesson Type:");
@@ -527,7 +542,9 @@ public class AdminInterface {
 	}
 
 	/**
-	 * This method provides 2 
+	 * This method provides 2 methods to enter the matric number
+	 * @param list 		an arraylist of the matric numbers of all the students for the user to choose from
+	 * @return 			the matric number of the selected student
 	 */
 	private String getMatricNoInput(ArrayList<String> list) {
 		printMethod();
@@ -551,6 +568,8 @@ public class AdminInterface {
 	/**
 	 * The purpose of this method is to check if the entered component weightage 
 	 * adds up to 100%. Returns the sum of the component weightage
+	 * @param	assessment 		array list of all the components and their weightages
+	 * @return					totaly sum of the weightages
 	 */
 	private int addsUp(ArrayList<Component> assessment) {
 		if (assessment.isEmpty())
@@ -568,6 +587,8 @@ public class AdminInterface {
 	/**
 	 * This method gets and returns the course code from a string
 	 * containing course code and course name
+	 * @param string 	string of the course name and course code
+	 * @return 			string of the course code only
 	 */
 	private String processString(String string) {
 		int index = string.indexOf('\t');
@@ -578,6 +599,7 @@ public class AdminInterface {
 	/**
 	 * The method prints a list of string sequentially with a number
 	 * for the user to choose the corresponding item easily
+	 * @param list		arraylist of the strings to printed
 	 */
 	private void printArray(ArrayList<String> list) {
 		for (int i=0; i<list.size(); i++) 
@@ -588,6 +610,7 @@ public class AdminInterface {
 	/**
 	 * This method formats and prints a list of components so that it 
 	 * is readable
+	 * @param assessment	arraylist of all the names of the comopnents to be printed
 	 */
 	private void printAssessment(ArrayList<Component> assessment) {
 		System.out.print("### COURSE ASSESSMENT COMPONENTS ###\n"); 
@@ -624,6 +647,8 @@ public class AdminInterface {
 	/**
 	 * This method gets and returns the integer input and does input validation.
 	 * This is primarily used for choosing an item from a displayed list of items 
+	 * @return number of the choice
+	 * @throws InputMismatchException
 	 */
 	private int getChoice() {
 		System.out.println("Enter choice: ");
@@ -649,6 +674,8 @@ public class AdminInterface {
 	/**
 	 * This method prints the message and returns the string input. This is
 	 * mainly used for getting string input such as faculty name, student name etc.
+	 * @param msg	string to be printed
+	 * @return 		string
 	 */
 	private String getStringInput(String msg) {
 		System.out.println(msg); 
@@ -659,6 +686,8 @@ public class AdminInterface {
 	/**
 	 * This method gets and returns the integer input and does input validation. This
 	 * is primarily used for getting integer input such as assessment weightage etc.
+	 * @return value of choice
+	 * @throws InputMismatchException
 	 */
 	private int getIntegerInput() {
 		boolean error = true;
